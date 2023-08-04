@@ -1,0 +1,14 @@
+name: basiqvoyager
+recipe: lamp
+config:
+  php: '7.4'
+  webroot: .
+  database: 'mysql:5.7'
+  xdebug: false
+services:
+  appserver:
+    type: php:7.4
+    webroot: .
+  database:
+    type: mysql:5.7
+
