@@ -1,3 +1,27 @@
+# Navigation
+
+- [Setting Up A Local Development Environment-Phase 2.Md](./setting_up_a_local_development_environment-phase_2.md)
+- [Readme.Md](./README.md)
+- [Basiq Familiarisation-Phase 1.Md](./basiq_familiarisation-phase_1.md)
+- [Basic-Blog.Md](./basic-blog.md)
+- [Basiq Api Integration For A Simple Web Application-Phase-3=Blog.Md](./Basiq_API_Integration_for_a_Simple_Web_Application-Phase-3=blog.md)
+- [Basiq Api Integration For A Simple Web Application-Phase-3.Md](./Basiq_API_Integration_for_a_Simple_Web_Application-Phase-3.md)
+
+# Table of Contents
+
+- Project Report: Basiq API Integration for a Simple Web Application - Phase 2
+  - Project Overview
+    - Phase 1 - Basiq API Integration for a Simple Web Application
+    - Phase 2 - Setting Up the Local Development Environment Setup
+  - Executive Summary
+  - Challenge Description 
+  - Initial plan: 
+  - Actions Taken 
+  - Pending actions
+  - Loose ends
+  - Recommended Next Steps 
+  - Conclusion 
+
 # Project Report: Basiq API Integration for a Simple Web Application - Phase 2
 
 
