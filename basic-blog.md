@@ -238,8 +238,40 @@ Here are some vitals:
 
 However, after resolving this issue, I encountered a warning about an unsupported Docker version and a "Not Found" error when trying to access my site. I'm currently working on resolving these issues.
 
+After successfully setting up Docker and Lando on my Manjaro Linux system, I moved on to the next step of my journey: writing a simple 'Hello World' PHP script and resolving some issues with Lando.
+
+### Writing a 'Hello World' PHP Script
+
+The first task was to create a PHP script that echoes "Hello World!" into `./web/index.php`. This is a simple task, but it's an important step in setting up any new PHP project. Here's how I did it:
+
+```bash
+mkdir web
+cat <<EOF > ./web/index.php
+<?php
+echo "Hello World!";
+?>
+EOF
+```
+
+The `mkdir web` command creates a new directory named `web`. The `cat <<EOF > ./web/index.php` command uses the `cat` command with heredoc syntax (`<<EOF`) to create a new file named `index.php` in the `web` directory. The `EOF` markers indicate the start and end of the content to be written to the file. The `>` operator redirects this content into `./web/index.php`, effectively creating the file with the specified content.
+
+After running these commands, I had a file named `index.php` in my `web` directory with the following content:
+
+```php
+<?php
+echo "Hello World!";
+?>
+```
+
+I verified this by running `cat ./web/index.php` in my terminal. The output was the content of the PHP script.
+
+### Resolving Lando Issues
+
+After writing the PHP script, I encountered a warning about an unsupported Docker version and a "Not Found" error when trying to access my site. I'm currently working on resolving these issues.
+
+
 ## Conclusion
 
-I now have a better understanding of the Basiq platform and how to use its dashboard and API. I've successfully installed Docker and Lando on my Manjaro Linux system, which are both necessary steps for the upcoming web server setup. 
+I now have a better understanding of the Basiq platform and how to use its dashboard and API. I've successfully installed Docker and Lando on my Manjaro Linux system, which are both necessary steps for the upcoming web server setup. I successfully wrote a 'Hello World' PHP script and started to address some issues with Lando.
 
 I hope this blog post provides a comprehensive guide for PHP developers who are looking to integrate the Basiq API into their web applications. Stay tuned for more updates as I continue to navigate this journey.
