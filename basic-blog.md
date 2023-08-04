@@ -293,22 +293,39 @@ The output of these commands indicated that both Lando and Docker were successfu
 (1/1) removing docker
 ```
 
-## Installing a Compatible Docker Version
+## Docker Version Compatibility Issue
 
-With Docker and Lando uninstalled, the next step was to install a Docker version that is compatible with Lando. However, I encountered an issue: the package manager in Manjaro (pacman) does not directly support installing specific versions of a package. Pacman will always install the latest version of a package that is available in the repositories.
+While setting up Lando, we encountered a Docker version compatibility issue. The version of Docker installed on the system was newer than the one supported by Lando. Lando v3.18.0 supports Docker version 20.10.7, but the system had Docker version 24.0.2 installed. 
 
-To work around this, I considered two options:
+### Attempted Solutions
 
-1. Use the Arch Linux Archive (ALA) to download and install a specific Docker version.
-2. Use Docker's official convenience script to install the latest stable version of Docker.
+We attempted to downgrade Docker to a compatible version using the package manager, but this proved to be a challenge. Here are the steps we took:
 
-I decided to go with the second option, as it seemed simpler and less likely to cause dependency issues. The command to run Docker's convenience script is:
+1. **Checked Docker version**: We ran `docker --version` to confirm the installed Docker version. The output was `Docker version 24.0.2, build cb74dfcd85`.
 
-```bash
-curl -fsSL https://get.docker.com | sh
-```
+2. **Attempted to downgrade Docker**: We tried to downgrade Docker to version 20.10.7 using the command `sudo pacman -S docker=20.10.7`. However, this command was invalid as pacman does not support version constraints in this format.
 
-This command downloads the script from `https://get.docker.com` and pipes it to `sh`, which runs the script. The script installs the latest stable version of Docker.
+3. **Searched for a solution**: We searched for a way to install Docker 20.10.7 on Manjaro or Arch. The recommended solution was to use the `downgrade` utility, which allows you to downgrade a package to a previous version.
+
+4. **Attempted to use the downgrade utility**: We ran `sudo downgrade docker` to try and downgrade Docker. However, this did not provide a list of versions to choose from, as we expected. Instead, it reinstalled the current version of Docker.
+
+5. **Set environment variable for downgrading**: We set the `DOWNGRADE_FROM_ALA` environment variable to 1 to allow downgrading from the Arch Linux Archive (ALA). However, running `sudo downgrade docker` again still did not provide a list of versions to choose from.
+
+### Current Status
+
+At this point, we decided to test if Lando would work with the newer Docker version, despite the compatibility warning. If Lando works as expected, we can continue using the current setup. If not, we will need to find another solution for the Docker version compatibility issue.
+
+We also considered forking and patching Lando to support the new Docker version. This would involve making changes to the Lando codebase, testing the changes, and submitting a pull request to the Lando repository. However, this would be a significant undertaking and would require a good understanding of the Lando codebase.
+
+We might need to revist installing docker from a tag.gz file if necessary. 
+
+### Next Steps
+
+For now, we are going to test if Lando works with the newer Docker version. If it does, we will continue with the current setup. If not, we will consider this issue as a separate project and come back to it later.
+
+In the meantime, we can also consider manually installing Docker, which would allow us to control the Docker version independently of the package manager. However, this would require more effort and is not our preferred solution.
+
+We will update this blog post with our findings once we have tested Lando with the newer Docker version.
 
 ## Conclusion
 
