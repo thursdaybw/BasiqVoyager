@@ -301,14 +301,9 @@ Close off phase 2 and start on Phase 3 - Writing real code / Accessing the API.
    - Decision: Docker is installed correctly, proceed to next step.
 
 4. Download Lando
-   - Command: `curl -OL https://github.com/lando/lando/releases/download/v3.1.8-0/lando-x64-v3.1.8-0.pacman`
-   - Output: `lando v3.1.8-0 downloaded`
+   - Command: `curl -OL https://github.com/lando/lando/releases/download/v3.18.0/lando-x64-v3.18.0.pacman `
+   - Output: `lando vv3.18.0 downloaded`
    - Decision: Proceed with Lando installation.
-
-5. Create `lando.yml` file
-   - Command: `mkdir web; cat <<EOF > web/index.php <?php echo 'Hello, World!'; EOF`
-   - Output: No output, commands executed successfully.
-   - Decision: Proceed with Lando setup.
 
 6. Start Lando
    - Command: `lando start`
@@ -323,7 +318,7 @@ Close off phase 2 and start on Phase 3 - Writing real code / Accessing the API.
 8. Start Lando again
    - Command: `lando start`
    - Output: `Warning about unsupported Docker version and "Not Found" error when trying to access site`
-   - Decision: Resolve Docker version compatibility issue.
+   - Decision: Attemtp Resolve Docker version compatibility issue.
 
 9. Uninstall Docker and Lando
    - Command: `sudo pacman -R lando; sudo pacman -R docker`
@@ -342,30 +337,53 @@ Close off phase 2 and start on Phase 3 - Writing real code / Accessing the API.
 
 12. Set `DOWNGRADE_FROM_ALA` environment variable to 1
     - Command: `export DOWNGRADE_FROM_ALA=1; sudo downgrade docker`
-    - Output: `still did not provide list of versions to choose from`
-    - Decision: Test if Lando works with newer Docker version.
+    - Output: `variable was set`
+    - Decision: Attempt to donwgrade docker.
 
-13. Uninstall `downgrade` utility
+13. Install Docker
+   - Command: `sudo downgrade docker`
+   - Output: `still did not provide list of versions to choose from, but asked to set ignorePkg to true, I said yes. Docker is still at version 24, weird. There is information about the Arch repository not having downgrades blocked on stable releases`
+   - Decision: Proceed to uninstall downgrade and docker
+
+14. Uninstall `downgrade` utility
    - Command: `sudo pacman -R downgrade`
    - Output: `downgrade uninstalled`
 
-14. Uninstall Docker
+15. Uninstall Docker
    - Command: `sudo pacman -R docker`
    - Output: `Docker uninstalled`
 
-15. Set `IgnorePkg` value in Pacman config
-   - Command: `echo "IgnorePkg = docker" | sudo tee -a /etc/pacman.conf`
-   - Output: `IgnorePkg = docker`
+16. Install docker from repo
+   - Command: `sudo pacman -S docker`
+   - Output: `User input request to proced when ignorePkg=true`
+   - Decision: Bail out, remove the ignorePgk=docker from pacman config.
 
-16. Uninstall Docker again
-   - Command: `sudo pacman -R docker`
-   - Output: `Docker uninstalled`
+17. Use vim to delete the ignorePkg from pacman config
+   - File: `/etc/pacman.conf`
+   - Output: `User input request to proced when ignorePkg=docker`
+   - Decision: Bail out, remove teh ignorePgk=docker
 
-17. Start Lando
+18. Install docker from repo
+   - Command: `sudo pacman -S docker`
+   - Output: `Installed successfully`
+   - Decision: Move on to setting up docker
+
+19. Start Docker service and enable it to start on boot
+   - Command: `sudo systemctl start docker; sudo systemctl enable docker`
+   - Output: No output, commands executed successfully.
+   - Decision: Proceed with Docker setup.
+
+20. Verify Docker installation
+   - Command: `docker version; docker run hello-world`
+   - Output: Success
+   - Decision: Docker is installed correctly, proceed to checking website response.
+
+21. Start Lando
    - Command: `lando start`
-   - Output: `Lando started`
+   - Output: `Warning about unsupported Docker version`
+   - Decision: Ignore it, move on to testing the website.
 
-18. Test if Lando works with the newer Docker version
+22. Test if Lando works with the newer Docker version
    - Command: `curl -i http://basiq.lndo.site/`
    - Output: 
      ```
