@@ -319,6 +319,143 @@ We also considered forking and patching Lando to support the new Docker version.
 
 We might need to revist installing docker from a tag.gz file if necessary. 
 
+Editors note: Here's a bunch of stuff I tried, from ==== to ==== can you please rewrite that in keeping with the existing theme and format and tone of the current blog, just this bit, I will copy paste it back int.
+
+====
+
+`~/workspace/prompts-n-stuff    main  sudo vi /etc/pacman.conf `
+
+Removed `IgnorePkg = docker` by hand.
+saved.
+
+I have gone ahead and removed downgrade:
+```
+    ~/workspace/prompts-n-stuff    main  sudo pacman -R downgrade                                                                                                                                                        ✔  33s  
+checking dependencies...
+
+Packages (1) downgrade-11.3.0-1
+
+Total Removed Size:  0.07 MiB
+
+:: Do you want to remove these packages? [Y/n] y
+:: Processing package changes...
+(1/1) removing downgrade                                                                                                                      [#######################################################################################] 100%
+:: Running post-transaction hooks...
+(1/2) Arming ConditionNeedsUpdate...
+(2/2) Refreshing PackageKit...
+```
+And the not sure what version of docker we were left with.. the version looks recent.
+Maybe downgrade downgraded to the current version (I Have not looked at the point numbers).
+
+Install docker:
+```
+    ~/workspace/prompts-n-stuff    main  sudo pacman -S docker                                                                                                                                                                   ✔ 
+resolving dependencies...
+looking for conflicting packages...
+
+Packages (1) docker-1:24.0.2-1
+
+Total Installed Size:  107.27 MiB
+
+:: Proceed with installation? [Y/n] y
+(1/1) checking keys in keyring                                                                                                                [#######################################################################################] 100%
+(1/1) checking package integrity                                                                                                              [#######################################################################################] 100%
+(1/1) loading package files                                                                                                                   [#######################################################################################] 100%
+(1/1) checking for file conflicts                                                                                                             [#######################################################################################] 100%
+(1/1) checking available disk space                                                                                                           [#######################################################################################] 100%
+:: Processing package changes...
+(1/1) installing docker                                                                                                                       [#######################################################################################] 100%
+Optional dependencies for docker
+    btrfs-progs: btrfs backend support [installed]
+    pigz: parallel gzip compressor support
+    docker-scan: vulnerability scanner
+    docker-buildx: extended build capabilities
+:: Running post-transaction hooks...
+(1/5) Creating system user accounts...
+(2/5) Reloading system manager configuration...
+(3/5) Reloading device manager configuration...
+(4/5) Arming ConditionNeedsUpdate...
+(5/5) Refreshing PackageKit...
+```
+
+Install docker:
+```
+    ~/Downloads  sudo pacman -U lando-x64-v3.18.0.pacman                                                                                                                                                                          1 ✘ 
+loading packages...
+resolving dependencies...
+looking for conflicting packages...
+
+Packages (1) lando-3.18.0-1
+
+Total Installed Size:  174.59 MiB
+
+:: Proceed with installation? [Y/n] y
+(1/1) checking keys in keyring                                                                                                                [#######################################################################################] 100%
+(1/1) checking package integrity                                                                                                              [#######################################################################################] 100%
+(1/1) loading package files                                                                                                                   [#######################################################################################] 100%
+(1/1) checking for file conflicts                                                                                                             [#######################################################################################] 100%
+(1/1) checking available disk space                                                                                                           [#######################################################################################] 100%
+:: Processing package changes...
+(1/1) installing lando                                                                                                                        [#######################################################################################] 100%
++ LANDO_ROOT=/usr/share/lando
++ PATH=/home/bevan/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/local/bin
++ TERM=xterm
++ chmod 755 -R /usr/share/lando
++ mkdir -p /usr/local/bin
++ ln -sf /usr/share/lando/bin/lando /usr/local/bin/lando
+++ awk -F: '$1 == "sudo" {print $4}' /etc/group
++ SUDOERS=
++ MAX_MAP_COUNT=262144
++ MMC_PARAMETER_PATH=/proc/sys/vm/max_map_count
++ '[' -f /proc/sys/vm/max_map_count ']'
+++ sysctl -n vm.max_map_count
++ '[' 262144 -lt 262144 ']'
+:: Running post-transaction hooks...
+(1/3) Arming ConditionNeedsUpdate...
+(2/3) Refreshing PackageKit...
+(3/3) Updating the desktop file MIME type cache...
+```
+
+Awesome, lando starts with out expected warning:
+```
+    ~/workspace/basiq  lando start                                                                                                                                                                                                  ✔ 
+Let's get this party started! Starting app basiq...
+landoproxyhyperion5000gandalfedition_proxy_1 is up-to-date
+
+  _      __              _           __
+ | | /| / /__ ________  (_)__  ___ _/ /
+ | |/ |/ / _ `/ __/ _ \/ / _ \/ _ `/_/ 
+ |__/|__/\_,_/_/ /_//_/_/_//_/\_, (_)  
+                             /___/     
+
+Your app is starting up but we have already detected some things you may wish to investigate.
+These only may be a problem.
+
+
+ ■ Using an unsupported version of DOCKER ENGINE
+   You have version 24.0.2 but Lando wants something in the 18.09.3 - 20.10.99 range.
+   If you have purposefully installed an unsupported version and know what you are doing
+   you can probably ignore this warning. If not we recommend you use a supported version
+   as this ensures we can provide the best support and stability.
+   https://docs.docker.com/engine/install/
+
+
+Here are some vitals:
+
+ NAME      basiq                       
+ LOCATION  /home/bevan/workspace/basiq 
+ SERVICES  appserver, database         
+ URLS                                  
+  ✔ APPSERVER URLS
+    ✔ https://localhost:32773 [200]
+    ✔ http://localhost:32774 [200]
+    ✔ http://basiq.lndo.site/ [200]
+    ✔ https://basiq.lndo.site/ [200]
+```
+
+How do I use curl to output just the response body ?
+
+
 ### Next Steps
 
 For now, we are going to test if Lando works with the newer Docker version. If it does, we will continue with the current setup. If not, we will consider this issue as a separate project and come back to it later.
@@ -330,5 +467,7 @@ We will update this blog post with our findings once we have tested Lando with t
 ## Conclusion
 
 Today's journey involved uninstalling Docker and Lando and preparing to install a compatible Docker version. I learned that the package manager in Manjaro does not support installing specific versions of a package, we next need to determine a way to install the reqruied version.
+
+====
 
 Stay tuned for more updates as I continue to navigate this journey.
