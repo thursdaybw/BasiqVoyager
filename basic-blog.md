@@ -267,14 +267,11 @@ I verified this by running `cat ./web/index.php` in my terminal. The output was 
 
 ### Resolving Lando Issues
 
-After writing the PHP script, I encountered a warning about an unsupported Docker version and a "Not Found" error when trying to access my site. I'm currently working on resolving these issues.
-
+You may recall that when I first started lando with `lando start` that I encountered a warning about an unsupported Docker version and a "Not Found" error when trying to access my site. I'm currently working on resolving these issues.
 
 ## Review
 
 I now have a better understanding of the Basiq platform and how to use its dashboard and API. I've successfully installed Docker and Lando on my Manjaro Linux system, which are both necessary steps for the upcoming web server setup. I successfully wrote a 'Hello World' PHP script and started to address some issues with Lando.
-
-I hope this blog post provides a comprehensive guide for PHP developers who are looking to integrate the Basiq API into their web applications. Stay tuned for more updates as I continue to navigate this journey.
 
 ## Uninstalling Docker and Lando
 
@@ -315,8 +312,6 @@ This command downloads the script from `https://get.docker.com` and pipes it to 
 
 ## Conclusion
 
-Today's journey involved uninstalling Docker and Lando and preparing to install a compatible Docker version. I learned that the package manager in Manjaro does not support installing specific versions of a package, which led me to discover Docker's convenience script for installing the latest stable version of Docker.
-
-I also appreciated the interjections and suggestions from my AI assistant, which helped me think through the process and make informed decisions. For example, the assistant reminded me to back up any important data before uninstalling Docker, and provided valuable information about potential issues I might encounter during the Docker downgrade process.
+Today's journey involved uninstalling Docker and Lando and preparing to install a compatible Docker version. I learned that the package manager in Manjaro does not support installing specific versions of a package, we next need to determine a way to install the reqruied version.
 
 Stay tuned for more updates as I continue to navigate this journey.
