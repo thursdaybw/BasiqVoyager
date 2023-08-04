@@ -283,6 +283,8 @@ Close off phase 2 and start on Phase 3 - Writing real code / Accessing the API.
 
 ## Commands Used and Their Outputs
 
+## Commands Used and Their Outputs
+
 1. Update package list and install Docker
    - Command: `sudo pacman -Syu; sudo pacman -S docker`
    - Output: `Synchronizing package databases... core is up to date extra is up to date community is up to date Starting full system upgrade... resolving dependencies... looking for conflicting packages... Packages (2) containerd-1.4.3-1  docker-1:20.10.2-1 Total Download Size:    90.74 MiB Total Installed Size:  383.56 MiB :: Proceed with installation? [Y/n] y`
@@ -306,9 +308,7 @@ Close off phase 2 and start on Phase 3 - Writing real code / Accessing the API.
 5. Create `lando.yml` file
    - Command: `mkdir web; cat <<EOF > web/index.php <?php echo 'Hello, World!'; EOF`
    - Output: No output, commands executed successfully.
-   - Decision: Proceed with Lando
-
- setup.
+   - Decision: Proceed with Lando setup.
 
 6. Start Lando
    - Command: `lando start`
@@ -330,35 +330,51 @@ Close off phase 2 and start on Phase 3 - Writing real code / Accessing the API.
    - Output: `Lando and Docker uninstalled`
    - Decision: Prepare to install compatible Docker version.
 
-10. Check Docker version
-    - Command: `docker version`
-    - Output: `Docker version 24.0.2, build cb74dfcd85`
-    - Decision: Downgrade Docker to compatible version.
-
-11. Attempt to downgrade Docker
+10. Attempt to downgrade Docker
     - Command: `sudo pacman -S docker=20.10.7`
     - Output: `invalid command, Pacman does not support version constraints in this format`
     - Decision: Search for a solution to install Docker 20.10.7 on Manjaro or Arch.
 
-12. Attempt to use `downgrade` utility
+11. Attempt to use `downgrade` utility
     - Command: `sudo downgrade docker`
     - Output: `reinstalled current version of Docker, did not provide list of versions to choose from`
     - Decision: Set `DOWNGRADE_FROM_ALA` environment variable to 1.
 
-13. Set `DOWNGRADE_FROM_ALA` environment variable to 1
+12. Set `DOWNGRADE_FROM_ALA` environment variable to 1
     - Command: `export DOWNGRADE_FROM_ALA=1; sudo downgrade docker`
     - Output: `still did not provide list of versions to choose from`
     - Decision: Test if Lando works with newer Docker version.
 
-14. Test if Lando works with newer Docker version
-    - Command: `lando start`
-    - Output: Pending
-    - Decision: Pending
+13. Uninstall `downgrade` utility
+   - Command: `sudo pacman -R downgrade`
+   - Output: `downgrade uninstalled`
 
-14. Test if Lando works with newer Docker version
-    - Command: `lando start`
-    - Output: Pending
-    - Decision: Pending
+14. Uninstall Docker
+   - Command: `sudo pacman -R docker`
+   - Output: `Docker uninstalled`
+
+15. Set `IgnorePkg` value in Pacman config
+   - Command: `echo "IgnorePkg = docker" | sudo tee -a /etc/pacman.conf`
+   - Output: `IgnorePkg = docker`
+
+16. Uninstall Docker again
+   - Command: `sudo pacman -R docker`
+   - Output: `Docker uninstalled`
+
+17. Start Lando
+   - Command: `lando start`
+   - Output: `Lando started`
+
+18. Test if Lando works with the newer Docker version
+   - Command: `curl -i http://basiq.lndo.site/`
+   - Output: 
+     ```
+     HTTP/1.1 200 OK
+     Content-Length: 12
+     Content-Type: text/html; charset=UTF-8
+     Date: Fri, 04 Aug 2023 11:24:33 GMT
+     Server: Apache/2.4.56 (Debian)
+     X-Powered-By:
 
 ## Next Steps
 
