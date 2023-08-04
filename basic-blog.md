@@ -1,135 +1,245 @@
-# Connecting to the Basiq API and Retrieving Personal Account Balance
-
-# Part 1: Setting Up a Local Development Environment for Lando and Docker on Manjaro Linux
-
-In this blog post, we'll walk you through our journey from conception to completino of the connectin to the BasiQ API via PHP. Including initial research, setting up a local development environment for Lando and Docker on Manjaro Linux. We'll share the steps we took, the decisions we made, and the challenges we encountered. Our goal is to provide a comprehensive guide that not only helps you replicate our setup but also gives you insights into our thought processes and decision-making along the way.
+# My Journey with Basiq API Integration: A Detailed Walkthrough
 
 ## Introduction
 
-Our journey began with utilising ChatGPT and the Voxscript plugin to research available APIs in Australia. ulimtately deciding on Basiq being a great and all but only option. I then moved on to utilising ChatGPT once again to get familiar with Basiq and the relationship between the Dashboard and the API endpoints, and get a good picture of the general workflow.
+Hello fellow PHP developers! I'm John, and I've been on a journey to integrate the Basiq API into a simple web application. The goal? To retrieve account balance information for a specific savings account at a specific bank. I'm familiar with APIs, but I had some difficulty understanding how to use the Basiq dashboard and API. 
 
-Having a general understanding of basic, it's time to start setting up our project using "Lando development" on the web. We used DuckDuckGo, a privacy-focused search engine, to find relevant links. Two prominent results caught our attention: the official Lando website https://lando.dev/ and its GitHub repository https://github.com/lando/lando.
+I'm running on a Manjaro Linux system, and I've decided to use Docker and Lando for my development environment. This blog post is a comprehensive guide that will take you through my journey, including the commands I ran, the important snippets of information in their output, and the decisions they led to. 
 
-Our journey began with a search for "Lando development" on the web. We used DuckDuckGo, a privacy-focused search engine, to find relevant links. Two prominent results caught our attention: the official Lando website https://lando.dev/ and its GitHub repository https://github.com/lando/lando.
+## Phase 1: Familiarisation with Basiq API
 
-From past experience, we knew that the GitHub repository often hosts the most up-to-date releases. However, we decided to explore the official Lando site first for good measure. We navigated to the 'Docs' section, then to 'Getting Started', and finally landed on the 'Installation' page https://docs.lando.dev/getting-started/installation.html.
+The first phase was all about understanding the Basiq API and dashboard. I started with a general overview of the Basiq API and dashboard. I had some specific queries about the Basiq API and dashboard, and I needed a step-by-step guide for Basiq API integration. 
 
-   [Lando Installation Guide](https://docs.lando.dev/getting-started/installation.html)
+I was unsure about the relationship between the Basiq dashboard and API, how to configure the dashboard, and how to use the API to retrieve account balance information. Thankfully, I received a detailed explanation of the Basiq platform, its dashboard, API, and how they relate to each other. My specific queries about the Basiq dashboard and API were also addressed.
 
-   The Lando documentation provides a detailed guide on how to install Lando on different operating systems. It recommends installing Docker via direct download for Linux users. However, it also mentions that Docker can be installed via the package manager of the Linux distribution. The guide also provides system requirements, preflight checks, and hardware requirements for running Lando.
+## Phase 2: Setting Up a Local Development Environment
 
-   Excerpt from the documentation:
-   ```
-   Install package via direct download (recommended)
-   - Install the Docker Community Edition for your Linux version. Visit https://get.docker.com for the quick, easy install script. At least version 19.03.1-ce.
-   - Install Docker Compose.
-   - Download the latest .deb, .pacman, or .rpm package from GitHub.
-   - Double click on the package and install via your distribution's software center or equivalent.
-   - Make sure you look at the caveats below and follow them appropriately.
-   ```
+The second phase was all about setting up a local development environment using Docker and Lando. This included setting up a local web server, implementing user authentication, retrieving account balance information, displaying account balance information, and error handling and testing. 
 
-Here, we found that Lando recommends installing Docker via direct download. However, being Linux enthusiasts, we value good system hygiene and prefer to use Manjaro's package manager, pacman, for installations. This ensures that all installed packages are tracked and managed efficiently, reducing the risk of system clutter and conflicts.
+I started by updating my system's package list and installing Docker on my Manjaro Linux system for compatibility with Lando. Here's the commands I used:
 
-2. [Docker Post-installation steps for Linux](https://docs.docker.com/engine/install/linux-postinstall/)
+Update Package List
 
-   This guide provides instructions on how to manage Docker as a non-root user, and how to configure Docker to start on boot. It also provides information on how to use systemd to manage Docker.
+```bash
+Command: sudo pacman -Syu
+```
 
-   Excerpt from the documentation:
-   ```
-   Manage Docker as a non-root user
-   - Create the docker group if it does not exist: sudo groupadd docker
-   - Add your user to the docker group: sudo usermod -aG docker $USER
-   - Log out and log back in so that your group membership is re-evaluated.
+command updates the package list and upgrades all the system software to the latest version. pacman is the package manager that comes with Manjaro, and it's the most appropriate tool for this task.
 
-   Configure Docker to start on boot
-   - Most current distributions (RHEL, CentOS, Fedora, Ubuntu 16.04 and higher) use systemd to manage which services start when the system boots. Ubuntu 14.10 and below use upstart.
-   - systemd: $ sudo systemctl enable docker.service
-   - upstart: $ echo manual | sudo tee /etc/init/docker.override
-   - chkconfig: $ sudo chkconfig docker on
-   ```
+```bash
+sudo pacman -S docker
+```
 
-3. [Docker Command Line Interface (CLI)](https://docs.docker.com/engine/reference/commandline/cli/)
+This command (`-S`) installs Docker. The output was quite lengthy, but here's a snippet:
 
-   This guide provides a comprehensive list of Docker CLI commands, including the command to verify the Docker installation: `docker version`.
+```bash
+:: Synchronizing package databases...
+ core is up to date
+ extra is up to date
+ community is up to date
+:: Starting full system upgrade...
+resolving dependencies...
+looking for conflicting packages...
 
-   Excerpt from the documentation:
-   ```
-   docker version: This command shows the Docker version information. This is useful when you want to know exactly which version of Docker you're running.
-   ```
-   
-With Docker successfully installed via pacman, we were ready to move on to the next phase of our journey: installing Lando. But that's a story for another time.
+Packages (2) containerd-1.4.3-1  docker-1:20.10.2-1
 
-In this process, we demonstrated the importance of using trusted sources for software installation, the value of using a package manager for system hygiene, and the need for a bit of trust in the tools we use.
+Total Download Size:   90.74 MiB
+Total Installed Size:  383.56 MiB
 
-## Actions Taken
+:: Proceed with installation? [Y/n] Y
+:: Retrieving packages...
+ containerd-1.4.3-1-x86_64 downloading...
+ docker-1:20.10.2-1-x86_64 downloading...
+:: Running post-transaction hooks...
+(1/1) Arming ConditionNeedsUpdate...
+```
+I started the docker service. This command starts the Docker service. systemctl is a system management command from systemd, which is the init system used in Manjaro. Starting the Docker service is necessary for using Docker to run containers.
 
-In the early stages of our journey, we took several actions to understand the Basiq platform, its dashboard, API, and how they relate to each other. We addressed specific queries about the Basiq dashboard and API and provided a general step-by-step guide on how to use the Basiq dashboard and API to retrieve account balance information. Unfortunately, we failed to document these actions in detail at the time. However, we intend to revisit this topic and provide a more detailed account in a future blog post.
+```bash
+sudo systemctl start docker
+```
 
-## Setting Up the Development Environment
+```
+sudo systemctl start docker
+```
 
-Next, we moved on to setting up the development environment. Here's a detailed account of the commands we ran, their purpose, and their outcomes:
+Enable Docker Service to Start on Boot.
+This command sets the Docker service to start automatically at boot. This is important to ensure that Docker is always available when the system starts, even after a reboot.
 
-1. **Update Package List**
-   - Command: `sudo pacman -Syu`
-   - Description: This command updates the package list and upgrades all the system software to the latest version. `pacman` is the package manager that comes with Manjaro, and it's the most appropriate tool for this task. We confirmed the version compatibility by checking the Manjaro and software documentation.
-   - Status: Completed successfully
-   - Output: System package list updated
+```bash
+sudo systemctl enable docker
+```
 
-2. **Install Docker**
-   - Command: `sudo pacman -S docker`
-   - Description: This command installs Docker using the `pacman` package manager. Docker is necessary for running applications in isolated containers, which is a requirement for this project. We confirmed Docker's compatibility with the current system and its version by checking the Docker and Manjaro documentation.
-   - Status: Completed successfully
-   - Output: Docker installed
+Verify Docker Installation
 
-3. **Start Docker Service**
-   - Command: `sudo systemctl start docker`
-   - Description: This command starts the Docker service. `systemctl` is a system management command from `systemd`, which is the init system used in Manjaro. Starting the Docker service is necessary for using Docker to run containers.
-   - Status: Completed successfully
-   - Output: Docker service started
+This command checks the installed version of Docker. Verifying the Docker version is a good practice to ensure that the installation was successful and that the correct version of Docker is installed.
 
-4. **Enable Docker Service to Start on Boot**
-   - Command: `sudo systemctl enable docker`
-   - Description: This command sets the Docker service to start automatically at boot. This is important to ensure that Docker is always available when the system starts, even after a reboot.
-   - Status: Completed successfully
-   - Output: Docker service set to start on boot
+```bash
+docker --version
+```
 
-5. **Verify Docker Installation**
-   - Command: `docker --version`
-   - Description: This command checks the installed version of Docker. Verifying the Docker version is a good practice to ensure that the installation was successful and that the correct version of Docker is installed.
-   - Status: Completed successfully
-   - Output: Docker version 24.0.2
+Hello world
 
-6. **Test Docker Installation**
-   - Command: `docker run hello-world`
-   - Description: This command runs a simple Docker image called `hello-world`. This is a common way to test a Docker installation. The `hello-world` image is designed to output a message confirming that Docker is working correctly.
-   - Status: Completed successfully
-   - Output: Docker hello-world image ran successfully
+This command runs a simple Docker image called hello-world. This is a common way to test a Docker installation. The hello-world image is designed to output a message confirming that Docker is working correctly.
 
-7. **Add User to Docker Group**
-   - Command: `sudo usermod -aG docker $USER`
-   - Description: This command adds the current user to the `docker` group. This is necessary to run Docker commands without needing `sudo`. We confirmed the need for this step by checking the Docker documentation and various Linux user guides.
-   - Status: Completed successfully
-   - Output: User added to Docker group
+```bash
+docker run hello-world
+```
 
-8. **Download Lando**
-   - Command: `curl -OL https://github.com/lando/lando/releases/download/v3.18.0/lando-x64-v3.18.0.pacman`
-   - Description: This command downloads the Lando package from the official GitHub releases page. Lando is a development tool that's necessary for this project. We confirmed the compatibility and version by checking the Lando documentation and release notes.
-   - Status: Completed successfully
-   - Output: Lando v3.18.0 downloaded
+Error:
 
-9. **Install Lando**
-   - Command: `sudo pacman -U lando-x64-v3.18.0.pacman`
-   - Description: This command installs the downloaded Lando package using `pacman`. This is the standard way to install local package files with `pacman`.
-   - Status: Completed successfully
-   - Output: Lando v3.18.0 installed
+```
+Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Post http://%2Fvar%2Frun%2Fdocker.sock/v1.40/containers/create: dial unix /var/run/docker.sock: connect: permission denied
+```
 
-10. **Verify Lando Installation**
-    - Command: `lando version`
-    - Status: Completed successfully
-    - Output: Lando version v3.18.0
+This error message indicates that my current user doesn't have the necessary permissions to communicate with the Docker daemon. The Docker daemon runs with root privileges, and by default, only the root user and users in the docker group have the permissions to interact with it.
+
+I then proceeded to add my user to the docker group.
+
+This command adds the current user to the docker group. This is necessary to run Docker commands without needing sudo. We confirmed the need for this step by checking the Docker documentation and various Linux user guides.
+
+```bash
+sudo usermod -aG docker $USER
+```
+Scraaatchh, this is where I ran into annoyance and fear.
+
+After running this command, I encountered a user account lockout issue. After failing my password 3 times with sudo I found myself locked out, it was scary. Sudo's message did not update me about the lockout, just that my access failed. Same when I logged out and back in via the GUI, though it usually says.
+By using ctrl+alt+F2/F3 and click back and forth between them I was about to drop to a console and see the lockout message. I then waited for 6 minutes hoping that's all it was. 6 minutes later I was able to log back in and rerun the `sudo usermod -aG docker $USER` command, logout and back in again, and then finally check I was in the docker group.
+
+```bash
+$ groups                                                                                                                                                                     
+```
+
+Output:
+
+```  
+sys network power docker lp wheel bevan
+```
+
+```bash
+docker run hello-world
+```
+
+The output confirmed that Docker was installed correctly and running on my system:
+
+```bash
+Unable to find image 'hello-world:latest' locally
+latest: Pulling from library/hello-world
+0e03bdcc26d7: Pull complete 
+Digest: sha256:6a65f928fb91fcfbc963f7aa6d57c8eeb426ad9a20c7ee045538ef34847f44f1
+Status: Downloaded newer image for hello-world:latest
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+...
+
+Now I start the hello world docker image again.
+
+Download Lando
+
+Command: curl -OL https://github.com/lando/lando/releases/download/v3.18.0/lando-x64-v3.18.0.pacman
+Description: This command downloads the Lando package from the official GitHub releases page. Lando is a development tool that's necessary for this project. We confirmed the compatibility and version by checking the Lando documentation and release notes.
+Status: Completed successfully
+Output: Lando v3.18.0 downloaded
+Install Lando
+
+Command: sudo pacman -U lando-x64-v3.18.0.pacman
+Description: This command installs the downloaded Lando package using pacman. This is the standard way to install local package files with pacman.
+Status: Completed successfully
+Output: Lando v3.18.0 installed
+Verify Lando Installation
+
+Command: lando version
+Status: Completed successfully
+Output: Lando version v3.18.0
+
+Next, I downloaded Lando manually from the GitHub releases page using the following command:
+
+This command downloads the Lando package from the official GitHub releases page. Lando is a development tool that's necessary for this project. We confirmed the compatibility and version by checking the Lando documentation and release notes.
+
+```bash
+curl -OL https://github.com/lando/lando/releases/download/v3.18.0/lando-x64-v3.18.0.pacman
+```
+
+Install Lando
+
+```bash
+sudo pacman -U lando-x64-v3.18.0.pacman
+```
+
+I then created a `lando.yml` file for my project. This file is used to configure the Lando environment for the project. Here's a simple example of what the `lando.yml` file might look like:
+
+.lando.yml
+```yaml
+name: myapp
+recipe: lamp
+config:
+  webroot: .
+```
+
+With the .lando.yml file in place, I proceed to start up my project.
+
+```bash
+lando start
+```
+
+I encountered a missing `libcrypt` library issue with Lando, which prevented me from starting my local development environment. The error message was:
+
+```bash
+error while loading shared libraries: libcrypt.so.1: cannot open shared object file: No such file or directory
+```
+
+With some assistance, I was able to resolve this issue by installing the missing library:
+
+```bash
+sudo pacman -S libxcrypt
+```
+
+Start lando again
+
+```bash
+lando start                                                                                                                                                                   
+```
+
+```
+Let's get this party started! Starting app basiq...
+landoproxyhyperion5000gandalfedition_proxy_1 is up-to-date
+
+  _      __              _           __
+ | | /| / /__ ________  (_)__  ___ _/ /
+ | |/ |/ / _ `/ __/ _ \/ / _ \/ _ `/_/ 
+ |__/|__/\_,_/_/ /_//_/_/_//_/\_, (_)  
+                             /___/     
+
+Your app is starting up but we have already detected some things you may wish to investigate.
+These only may be a problem.
+
+
+ ■ Using an unsupported version of DOCKER ENGINE
+   You have version 24.0.2 but Lando wants something in the 18.09.3 - 20.10.99 range.
+   If you have purposefully installed an unsupported version and know what you are doing
+   you can probably ignore this warning. If not we recommend you use a supported version
+   as this ensures we can provide the best support and stability.
+   https://docs.docker.com/engine/install/
+
+
+Here are some vitals:
+
+ NAME      basiq                       
+ LOCATION  /home/bevan/workspace/basiq 
+ SERVICES  appserver, database         
+ URLS                                  
+  ✔ APPSERVER URLS
+    ✔ https://localhost:32773 [404]
+    ✔ http://localhost:32774 [404]
+    ✔ http://basiq.lndo.site/ [404]
+    ✔ https://basiq.lndo.site/ [404]
+```
+
+However, after resolving this issue, I encountered a warning about an unsupported Docker version and a "Not Found" error when trying to access my site. I'm currently working on resolving these issues.
 
 ## Conclusion
 
-The journey of setting up a local development environment for Lando and Docker on Manjaro Linux was filled with learning, problem-solving, and decision-making. We hope that this blog post provides you with a comprehensive guide to replicate our setup and gives you insights into our thought processes and decision-making along the way.
+I now have a better understanding of the Basiq platform and how to use its dashboard and API. I've successfully installed Docker and Lando on my Manjaro Linux system, which are both necessary steps for the upcoming web server setup. 
 
-In the next part of this series, we'll revisit our actions related to the Basiq platform, its dashboard, API, and how they relate to each other. We'll provide a more detailed account of our actions and decisions, so stay tuned
+I hope this blog post provides a comprehensive guide for PHP developers who are looking to integrate the Basiq API into their web applications. Stay tuned for more updates as I continue to navigate this journey.
