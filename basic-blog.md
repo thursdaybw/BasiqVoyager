@@ -21,7 +21,7 @@ I started by updating my system's package list and installing Docker on my Manja
 Update Package List
 
 ```bash
-Command: sudo pacman -Syu
+sudo pacman -Syu
 ```
 
 command updates the package list and upgrades all the system software to the latest version. pacman is the package manager that comes with Manjaro, and it's the most appropriate tool for this task.
