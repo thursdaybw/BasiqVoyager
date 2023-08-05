@@ -33,10 +33,10 @@ The project is divided into several phases:
 - Status: Completed
 - [Status Update](web/docs/Phase_5_-_Establishing_and_Debugging_Basiq_API_Connection_in_PHP-status.md)
 
-### [Phase 6 - Creating a user in your application via the PHP API](web/docs/Phase_6_-_Implementing_Basiq_API_into_the_Web_Application-blog.md)
+### [Phase 6 - Creating a user in your application via the PHP API](web/docs/Phase_6_-_Creating_a_user_in_your_application_via_the_PHP_API-blog.md)
 
 - Status: In Progress
-- [Status Update](web/docs/Phase_6_-_Implementing_Basiq_API_into_the_Web_Application-blog.md)
+- [Status Update](web/docs/Phase_6_-_Creating_a_user_in_your_application_via_the_PHP_API-status.md)
 
 
 This includes setting up a local web server, implementing user authentication, retrieving account balance information, displaying account balance information, and error handling and testing.
