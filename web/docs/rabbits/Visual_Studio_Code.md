@@ -6,6 +6,15 @@ As part of our ongoing project, we've identified the need for a robust IDE to fa
 
 As part of the preparation for installing Visual Studio Code on the Manjaro system, we performed a system update using the pacman package manager. This document outlines the steps taken and the results of this update.
 
+## User's system information
+
+Desktop Environment: KDE Plasma version is 5.27.6.
+Shell: Bash (although it seems like you might also be using Zsh, as indicated by the prompt)
+Manjaro Version: 6.1.41-1-MANJARO
+Hardware Information:
+Type: Desktop
+Installed Packages: Visual Studio Code (code 1.79.2-1) is installed
+
 ## Plan: 
 
 1. **Update System Packages**
