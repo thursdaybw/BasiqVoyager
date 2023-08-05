@@ -1,4 +1,4 @@
-# Phase 3 - Setting up the Development Environment
+# Setting up the Development Environment
 
 ## Executive Summary
 
