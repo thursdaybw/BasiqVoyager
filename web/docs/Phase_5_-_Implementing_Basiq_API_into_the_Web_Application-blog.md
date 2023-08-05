@@ -84,3 +84,25 @@ echo 'Error detail: ' . $errorDetail;
 This code decodes the JSON response and extracts the `detail` field from the first item in the `data` array, which contains the error message. In our case, the error message was "Invalid authorization header".
 
 Despite our best efforts, the issue remains unresolved. We're considering several possibilities, including issues with the API key activation, permissions, or type. We're also considering reaching out to Basiq support for further assistance. This experience underscores the importance of a methodical approach to debugging and the value of detailed logging and error reporting.
+
+## Debugging the Basiq API Connection - Resolution
+
+After a series of debugging steps and hypotheses, we found the root cause of the issue. It turned out that the API key was already base64 encoded and we were inadvertently encoding it again in our PHP script. 
+
+The line of code that was causing the issue was:
+
+```php
+'Authorization: Basic ' . base64_encode($apiKey . ':'),
+```
+
+We were base64 encoding the API key again before sending it in the Authorization header. However, since the API key was already base64 encoded, this additional encoding was causing the server to reject our request with an "Invalid authorization header" error.
+
+The solution was to use the API key directly in the Authorization header, without encoding it again:
+
+```php
+'Authorization: Basic ' . $apiKey,
+```
+
+After making this change, the PHP script was able to successfully connect to the Basiq API and we received a valid access token in response.
+
+This experience has underscored the importance of understanding the data we're working with. In this case, knowing that the API key was already base64 encoded would have saved us from the confusion. However, it's all part of the learning process and we're glad to have resolved the issue. We'll continue to share our experiences and learnings as we progress with the integration of the Basiq API into our web application.
