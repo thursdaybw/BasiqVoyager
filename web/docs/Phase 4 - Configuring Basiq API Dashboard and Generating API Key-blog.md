@@ -1,4 +1,4 @@
-# Navigating the Basiq API - A Journey of Discovery
+# Blog: BasiqVoyager - Configuring Basiq API Dashboard and Generating API Key
 
 ## Introduction
 
