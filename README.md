@@ -35,7 +35,7 @@ The project is divided into several phases:
 
 ### [Phase 6 - Creating a user in your application via the PHP API](web/docs/Phase_6_-_Creating_a_user_in_your_application_via_the_PHP_API-blog.md)
 
-- Status: In Progress
+- Status: Completed
 - [Status Update](web/docs/Phase_6_-_Creating_a_user_in_your_application_via_the_PHP_API-status.md)
 
 
