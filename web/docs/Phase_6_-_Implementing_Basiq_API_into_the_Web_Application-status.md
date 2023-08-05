@@ -1,7 +1,4 @@
-<<<<<<< Updated upstream
-# Status: BasiqVoyager - Phase 6 - Implementing Basiq API into the Web Application
-=======
-# Assignment name: Phase 6 - Creating a user in your application via the PHP API
+# Status: BasiqVoyager - Phase 6 - Creating a user in your application via the PHP API
 
 ## Executive Summary 
 
@@ -67,4 +64,3 @@ Absolutely, here's a more detailed breakdown:
 
 1. **Continue with the next phase of the project** 
    - Task: Continue with the next phase of the project, which may involve further API integration or feature development.
->>>>>>> Stashed changes
