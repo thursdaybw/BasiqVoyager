@@ -8,12 +8,12 @@ As part of the preparation for installing Visual Studio Code on the Manjaro syst
 
 ## User's system information
 
-Desktop Environment: KDE Plasma version is 5.27.6.
-Shell: Bash (although it seems like you might also be using Zsh, as indicated by the prompt)
-Manjaro Version: 6.1.41-1-MANJARO
-Hardware Information:
-Type: Desktop
-Installed Packages: Visual Studio Code (code 1.79.2-1) is installed
+- Desktop Environment: KDE Plasma version is 5.27.6.
+- Shell: Bash (although it seems like you might also be using Zsh, as indicated by the prompt)
+- Manjaro Version: 6.1.41-1-MANJARO
+- Hardware Information:
+- Type: Desktop
+- Installed Packages: Visual Studio Code (code 1.79.2-1) is installed
 
 ## Plan: 
 
