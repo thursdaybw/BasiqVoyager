@@ -28,7 +28,7 @@ The project is divided into several phases:
 - Status: Completed
 - [Status Update](web/docs/Phase_4_-_Configuring_Basiq_API_Dashboard_and_Generating_API_Key-status.md)
 
-### [Phase 5 - Establishing_and_Debugging_Basiq_API_Connection_in_PHP](web/docs/Phase_5_-_Establishing_and_Debugging_Basiq_API_Connection_in_PHP-blog.md)
+### [Phase 5 - Establishing and Debugging Basiq API Connection in PHP](web/docs/Phase_5_-_Establishing_and_Debugging_Basiq_API_Connection_in_PHP-blog.md)
 
 - Status: Completed
 - [Status Update](web/docs/Phase_5_-_Establishing_and_Debugging_Basiq_API_Connection_in_PHP-status.md)
