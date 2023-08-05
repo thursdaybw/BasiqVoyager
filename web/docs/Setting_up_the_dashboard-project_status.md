@@ -17,20 +17,9 @@ To start using the Basiq API, you'll need to register your application and confi
 4. **Select available institutions**
    - Status: Completed
 
-## Actions Taken 
-
-- Registered the application on the Basiq dashboard
-- Generated an API key for the application
-- Set up the consent policy for the application
-- Selected the available institutions for the application
-
 ## Loose ends
 
 - None at this stage
-
-## Pending actions  / Next steps.
-
-- Start making authenticated requests to the Basiq API
 
 ## Recommended Next Steps 
 
