@@ -1,18 +1,4 @@
-# Project Report: Basiq API Integration for a Simple Web Application
-
-## Project Overview
-
-The project aims to integrate the Basiq API into a simple web application to retrieve account balance information for a specific savings account at a specific bank. The user is a PHP developer who is familiar with APIs but had difficulty understanding how to use the Basiq dashboard and API. The project is divided into two main phases:
-
-### Phase 1 - Basiq API Integration for a Simple Web Application
-
-This phase focused on understanding the Basiq API and Dashboard, providing a general overview of the Basiq API and Dashboard, addressing specific queries about the Basiq API and Dashboard, and providing a step-by-step guide for Basiq API integration. This phase also included setting up the necessary development environment with Docker and Lando.
-
-### Phase 2 - Setting Up the Local Development Environment Setup
-
-This phase focuses on the actual implementation of the Basiq API into the user's web application. This includes setting up a local web server, implementing user authentication, retrieving account balance information, displaying account balance information, and error handling and testing.
-
-We have completed Phase 1 and are currently in Phase 2 of the project.
+# Phase 3 - Setting up the Development Environment
 
 ## Executive Summary
 
