@@ -1,133 +1,121 @@
-# Blog: BasiqVoyager - Consent & Connect via the Consent UI
+# Phase 7 - BasiqVoyager - Consent & Connect via the Consent UI
 
-In the ongoing development of BasiqVoyager, we've reached a pivotal phase: the integration of the Basiq Consent UI. With our API key already secured, we're well-prepared for this next step. Here's a detailed breakdown of the process:
+In today's adventure with the Basiq API, we embarked on the mission to generate a user token for initiating the consent process. PHP, being our trusty tool, was at the forefront of this journey.
 
-## Preparing the Groundwork: The Callback URL
+## The Initial Approach
 
-First and foremost, determine a callback URL for your application. This URL will serve as the landing point post the user's consent process with Basiq. It's essential to ensure that this endpoint is equipped to handle the token provided by Basiq.
+We started with a straightforward PHP script that aimed to generate a user token by making a POST request to the Basiq API. The initial code looked something like this:
 
-Since we are using the lando development environment, we can use the root of `http://basiqvoyager.lndo.site/` as the callback URL.
-This callback URL has been saved in the Redirect URL field on the [Customise UI](https://dashboard.basiq.io/customise-ui) of the dashboard for this appication.
-
-## Initiating the Consent UI
-
-- Utilize the reference CURL command to create a PHP script that interacts with Basiq's API. Remember to include your API key for authentication.
-
-```bash
-curl --location --request POST 'https://au-api.basiq.io/token' \
---header 'Authorization: Basic [YOUR-API-KEY]' \
---header 'Content-Type: application/x-www-form-urlencoded' \
---header 'basiq-version: 3.0' \
---data-urlencode 'scope=CLIENT_ACCESS' \
---data-urlencode 'userId=1234567-1234-1234-1234-123456781234'
+```php
+// Initial code block...
 ```
 
-- Upon successful communication, Basiq will provide a URL for the Consent UI. This URL can be used to redirect users for the consent process.
+## Challenge 1: Invalid Request Body
 
-## User Interaction Process
+Our first attempt was met with an error indicating an "Invalid request body". The verbose logs from cURL provided insights into the request and response, but the error message was a bit vague.
 
-- Users will be directed to the Consent UI, where they'll select their bank and input their credentials.
-- Upon successful consent, Basiq will redirect them back to your specified callback URL, providing a token in the process.
+### Resolution:
 
-## Handling the Token
+After diving into the Basiq documentation, we realized that the `scope` and `userid` parameters were crucial. We initially set the `scope` to `SERVER_ACCESS`, thinking our PHP script, being server-side, would fit this category. However, this led us to our next challenge.
 
-- Capture the token at the callback endpoint.
-- This token is essential as it grants access to the user's financial data.
+## Challenge 2: Invalid Scope Specified
 
-## Data Retrieval
+Despite our best efforts, we were met with another error, this time indicating an "Invalid scope specified". The error pointed towards the `scope` parameter in the request body.
 
-- Use the token to interact with Basiq's API and retrieve relevant financial data, such as the account balance.
+### Resolution:
 
-## Storing and Displaying Data
+A deeper dive into the Basiq documentation revealed that for generating a user token, the `scope` should be set to `CLIENT_ACCESS`. This was a bit counterintuitive since our PHP script was server-side, but it made sense in the context of Basiq's API expectations. The API expects the token generation request to come from a browser, hence the name "CLIENT_ACCESS".
 
-- Depending on your application's architecture, you might opt to store this data for subsequent use or present it to the user immediately.
+## The Final Code
 
-It's imperative to prioritize the security and privacy of user data. Handle tokens with utmost care and consider implementing secure methods for their storage and transmission.
+After making the necessary adjustments, our final code looked like this:
 
-With the foundational knowledge of PHP, this integration process should be straightforward. However, should you encounter any challenges or have further questions, please don't hesitate to reach out.
-
----
-
-### Let's outline the two PHP scripts:
-
-1. **get_user_token.php**:
-   - This script will have user data hardcoded, similar to `create_user.php`.
-   - It will interact with Basiq's API to initiate the consent process and retrieve the user's access token and the redirect URL.
-   - Both the token and the redirect URL will be stored in `user_token.txt` in a key-value format.
-
-2. **index.php**:
-   - This script will serve as the callback URL.
-   - It will be hosted at `http://basiqvoyager.lndo.site/`.
-   - Upon successful user consent via Basiq's Consent UI, Basiq will redirect to this URL, passing along the token.
-   - The script can then capture this token and perform any subsequent actions, such as storing it or using it to fetch financial data.
-
-Here's a detailed structure for both:
-
-**get_user_token.php**:
 ```php
 <?php
+
+// Include the config file for API key and other configurations
+require_once('config.php');
 
 // Data to be sent as part of the request
 $data = [
-    'email' => 'fred.jackson+BasiqVoyagerDevel@gmail.com',
-    'mobile' => '+61400111222',
+    /** 
+     * CLIENT_ACCESS is required for user token generation.
+     * 
+     * BasiqAPI expects a token generation request to come from
+     * a browser, hence the name "CLIENT_ACCESS", but for our
+     * purposes we are performing the client action ahead of time,
+     * client side.
+     */
+    'scope' => 'CLIENT_ACCESS', // or 'SERVER_ACCESS' depending on your use case
+    'userid' => 'f16d0fed-ee64-4830-adb9-af153b32f78e'  // Replace with the correct userid value
 ];
 
-// Interact with Basiq's API to initiate the consent process
-// ... (API interaction code)
+$apiKey = BASIQ_API_KEY;
 
-// Retrieve the user's access token and the redirect URL
-// ... (token and redirect URL retrieval code)
+// Set up the cURL request to Basiq's API
+$ch = curl_init();
 
-// Store the token and redirect URL in user_token.txt
-$fileContent = "token={$token}\nredirect_url={$redirectUrl}";
-file_put_contents('user_token.txt', $fileContent);
+curl_setopt($ch, CURLOPT_URL, 'https://au-api.basiq.io/token');
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    'Authorization: Basic ' . $apiKey,
+    'Content-Type: application/x-www-form-urlencoded',
+    'basiq-version: 3.0'
+]);
 
-?>
-```
+// Enable verbose mode
+curl_setopt($ch, CURLOPT_VERBOSE, true);
+$verbose = fopen('php://temp', 'w+');
+curl_setopt($ch, CURLOPT_STDERR, $verbose);
 
-**index.php**:
-```php
-<?php
+$response = curl_exec($ch);
 
-$userConsentIsGiven = false;
-
-// Check if the token is present in the URL or POST data
-if (isset($_GET['token']) || isset($_POST['token'])) {
-    $userConsentIsGiven = true;
+if (curl_errno($ch)) {
+    echo 'Error:' . curl_error($ch);
+    exit;
 }
 
-// Read from user_token.txt
-$fileContent = file_get_contents('user_token.txt');
-$lines = explode("\n", $fileContent);
-
-$data = [];
-foreach ($lines as $line) {
-    list($key, $value) = explode("=", $line);
-    $data[$key] = $value;
+// If verbose mode is enabled, print the verbose output
+if ($verbose) {
+    rewind($verbose);
+    $verboseLog = stream_get_contents($verbose);
+    echo "Verbose information:\n<pre>", htmlspecialchars($verboseLog), "</pre>\n";
 }
 
-// Use $data['token'] and $data['redirect_url'] as needed
+curl_close($ch);
 
-if (!$userConsentIsGiven) {
-?>
+// Decode the response
+$responseData = json_decode($response, true);
 
-<!-- The form to trigger the user's consent process -->
-<form action="https://consent.basiq.io/home" method="get">
-    <input type="hidden" name="token" value="<?php echo $data['token']; ?>">
-    <input type="submit" value="Connect to Bank">
-</form>
+// Print the response
+echo "<pre>";
+print_r($responseData);
+echo "</pre>";
 
-<?php } else { ?>
+// Check if the token and redirect URL are present in the response
+if (isset($responseData['token']) && isset($responseData['redirect_url'])) {
+    $token = $responseData['token'];
+    $redirectUrl = $responseData['redirect_url'];
 
-<?php
-// Optionally retrieve user account data to display.
-?>
+    // Store the token and redirect URL in user_token.txt
+    $fileContent = "token={$token}\nredirect_url={$redirectUrl}";
+    file_put_contents('user_token.txt', $fileContent);
+} else {
+    echo "Failed to retrieve token or redirect URL.";
+    exit;
+}
 
-<h3>Success!</h3>
-
-<? } ?>
-
+?>]
 ```
 
-With these scripts, you have a clear roadmap for integrating the Basiq Consent UI, capturing the token and redirect URL, and determining if the user has given their consent. Remember to handle the `user_token.txt` file securely, especially since it contains sensitive information. If you have any further questions or need additional details, feel free to ask. Rock on!
+## Conclusion
+
+Today's journey with the Basiq API was filled with challenges and learning opportunities. We faced errors, dove deep into documentation, and came out victorious with a working solution. The key takeaways from this experience are:
+
+1. Always refer to the official documentation when in doubt.
+2. Understand the context in which the API expects requests. In our case, even though our script was server-side, the Basiq API expected a client-side context for token generation.
+3. Verbose logs are invaluable. They provide insights into the request and response flow, helping diagnose issues.
+
+We hope this post helps others who might face similar challenges with the Basiq API or any other API integration. Remember, every error is a stepping stone to a solution. Happy coding!
