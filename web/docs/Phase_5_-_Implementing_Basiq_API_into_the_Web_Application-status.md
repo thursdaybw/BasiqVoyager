@@ -6,6 +6,10 @@ Based on the review of the project history and blogs, here's the summary:
 
 The BasiqVoyager project aims to integrate the Basiq API into a web application. The project has gone through several phases, including researching available banking API services and tools, understanding the Basiq API and Dashboard, setting up the development environment, and configuring the Basiq API Dashboard and generating the API key. The project is currently in Phase 5, which involves implementing the Basiq API into the web application.
 
+## Delayed by Rabbits
+
+We're at the starting line of getting Visual Studio Code up and running on the Manjaro system. We've got a two-step plan: first, we're going to update the system packages, then we'll dive into the installation. As of now, we're still at the 'on your marks' stage, with the actions yet to kick off. We've got a loose end to tie up - we need to confirm the repository URL and grab the 'rabbits' file. Once we've got that sorted, we're all set to get the ball rollin
+
 ## Plan: 
 
 1. **Phase 1 - Research available banking API services and tools**
