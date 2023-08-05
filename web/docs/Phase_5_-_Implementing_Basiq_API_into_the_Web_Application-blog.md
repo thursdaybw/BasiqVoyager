@@ -39,3 +39,48 @@ curl --location --request POST 'https://au-api.basiq.io/users' \
 ```
 
 We need to turn this into PHP code. I have tried this and am having some issues.
+
+
+## Debugging the Basiq API Connection: A Deeper Dive
+
+As we delved deeper into the issue of connecting to the Basiq API, we enhanced our PHP script to provide more detailed information about the cURL request being made. This was achieved by enabling verbose output for debugging purposes. Here's the relevant code snippet:
+
+```php
+// Enable verbose output for debugging
+curl_setopt($ch, CURLOPT_VERBOSE, true);
+$verbose = fopen('php://temp', 'w+');
+curl_setopt($ch, CURLOPT_STDERR, $verbose);
+```
+
+This code tells cURL to output detailed information about the request, which is then captured in a temporary stream. After the cURL request is executed, we rewind the stream and output its contents:
+
+```php
+// Output verbose data for debugging
+rewind($verbose);
+$verboseLog = stream_get_contents($verbose);
+echo "Verbose information:\n", htmlspecialchars($verboseLog), "\n";
+```
+
+This verbose output confirmed that our Authorization header was being sent correctly. Here's the relevant section of the verbose output:
+
+```php
+> POST /token HTTP/2
+Host: au-api.basiq.io
+accept: */*
+authorization: Basic TnpsbVpEZG1NREl0WlRWaU9DMDBNVEV5TFRobU1UQXRPRGN6WVRkaU9EZGlOV1F5T2pNeE9EWTFaV0pqTFdFd056UXRORFV4TlMwNU56QTJMVEV4TVRRd09XVmpZVFZtTlE9PTo=
+content-type: application/x-www-form-urlencoded
+basiq-version: 2.0
+content-length: 19
+```
+
+Despite this, the server was still returning a `400 Bad Request` response. The error message was contained within the JSON response from the server. We can extract this error message with the following PHP code:
+
+```php
+$responseData = json_decode($response, true);
+$errorDetail = $responseData['data'][0]['detail'] ?? null;
+echo 'Error detail: ' . $errorDetail;
+```
+
+This code decodes the JSON response and extracts the `detail` field from the first item in the `data` array, which contains the error message. In our case, the error message was "Invalid authorization header".
+
+Despite our best efforts, the issue remains unresolved. We're considering several possibilities, including issues with the API key activation, permissions, or type. We're also considering reaching out to Basiq support for further assistance. This experience underscores the importance of a methodical approach to debugging and the value of detailed logging and error reporting.
