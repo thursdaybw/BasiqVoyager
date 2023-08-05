@@ -33,7 +33,7 @@ The project is divided into several phases:
 - Status: Completed
 - [Status Update](web/docs/Phase_5_-_Establishing_and_Debugging_Basiq_API_Connection_in_PHP-status.md)
 
-### [Phase 6 - Implementing Basiq API into the Web Application](web/docs/Phase_6_-_Implementing_Basiq_API_into_the_Web_Application-blog.md)
+### [Phase 6 - Creating a user in your application via the PHP API](web/docs/Phase_6_-_Implementing_Basiq_API_into_the_Web_Application-blog.md)
 
 - Status: In Progress
 - [Status Update](web/docs/Phase_6_-_Implementing_Basiq_API_into_the_Web_Application-blog.md)
