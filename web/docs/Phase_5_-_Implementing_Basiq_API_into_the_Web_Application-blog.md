@@ -1,6 +1,4 @@
-I was about to get into the quick start and writing code, I could do it in vim, but I really want an IDE sooner than later.
-I have PHPStorm on my laptop and am very familier with it, but because I am also engaged in learnign react I am thinking of moving to Visual Studio Code.
-Plus it's opensource which suits my sensibilities versus priority PHPStorm, even though Visual Studio Code was created my Micor$oft.
+So, we're at this point where we need a solid IDE to make our development process smoother. We could've gone with PHPStorm, it's familiar territory. But, considering the React learning curve and the open-source charm, Visual Studio Code seems like the way to go. Yes, it's a Microsoft product, but let's not hold that against it. We've got a plan in place - update the system packages and then install Visual Studio Code. We're yet to get started, but we'll keep you posted on the journey.
 - Sat 05 Aug 2023 20:12:30 AEST
 
 
