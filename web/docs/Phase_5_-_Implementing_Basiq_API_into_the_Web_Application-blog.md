@@ -1,3 +1,11 @@
+I was about to get into the quick start and writing code, I could do it in vim, but I really want an IDE sooner than later.
+I have PHPStorm on my laptop and am very familier with it, but because I am also engaged in learnign react I am thinking of moving to Visual Studio Code.
+Plus it's opensource which suits my sensibilities versus priority PHPStorm, even though Visual Studio Code was created my MicorSoft.
+- Sat 05 Aug 2023 20:12:30 AEST
+
+
+====
+
 Sure, here's a summary of the guide from the Basiq API Quickstart Part 1:
 
 1. **Register your application**: You need to register your application via the Basiq dashboard and configure your application before creating a new API key. You can create as many API keys as you want which allows you to use keys across different applications and environments. It's important to keep your API keys secret and not share them in publicly accessible areas.
