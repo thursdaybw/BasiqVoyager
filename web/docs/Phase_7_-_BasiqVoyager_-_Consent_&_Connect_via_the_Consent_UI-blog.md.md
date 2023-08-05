@@ -6,10 +6,22 @@ In the ongoing development of BasiqVoyager, we've reached a pivotal phase: the i
 
 First and foremost, determine a callback URL for your application. This URL will serve as the landing point post the user's consent process with Basiq. It's essential to ensure that this endpoint is equipped to handle the token provided by Basiq.
 
+Since we are using the lando development environment, we can use the root of `http://basiqvoyager.lndo.site/` as the callback URL.
+This callback URL has been saved in the Redirect URL field on the [Customise UI](https://dashboard.basiq.io/customise-ui) of the dashboard for this appication.
+
 ## Initiating the Consent UI
 
 - Utilize the reference CURL command to create a PHP script that interacts with Basiq's API. Remember to include your API key for authentication.
-- Within this interaction, specify the callback URL you've established.
+
+```bash
+curl --location --request POST 'https://au-api.basiq.io/token' \
+--header 'Authorization: Basic [YOUR-API-KEY]' \
+--header 'Content-Type: application/x-www-form-urlencoded' \
+--header 'basiq-version: 3.0' \
+--data-urlencode 'scope=CLIENT_ACCESS' \
+--data-urlencode 'userId=1234567-1234-1234-1234-123456781234'
+```
+
 - Upon successful communication, Basiq will provide a URL for the Consent UI. This URL can be used to redirect users for the consent process.
 
 ## User Interaction Process
