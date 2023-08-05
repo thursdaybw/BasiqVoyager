@@ -1,4 +1,4 @@
-Based on the review of the project history and blogs, here's the summary:
+# Status: BasicVoyager - Implementing Basiq API into the Web Application
 
 ## Assignment name: BasiqVoyager
 
