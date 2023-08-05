@@ -1,3 +1,5 @@
+# Status: BasicVoyager - Implementing Basiq API into the Web Application
+
 So, we're at this point where we need a solid IDE to make our development process smoother. We could've gone with PHPStorm, it's familiar territory. But, considering the React learning curve and the open-source charm, Visual Studio Code seems like the way to go. Yes, it's a Microsoft product, but let's not hold that against it. We've got a plan in place - update the system packages and then install Visual Studio Code. We're yet to get started, but we'll keep you posted on the journey.
 - Sat 05 Aug 2023 20:12:30 AEST
 
