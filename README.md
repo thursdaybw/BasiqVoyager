@@ -20,12 +20,3 @@ The project is divided into two main phases:
 
 Thursday August 4th 2023
 
-## Navigation
-
-- [Setting Up A Local Development Environment-Phase 2](./setting_up_a_local_development_environment-phase_2.md)
-- [Basiq Familiarisation-Phase 1](./basiq_familiarisation-phase_1.md)
-- [Basic-Blog](./basic-blog.md)
-- [Basiq Api Integration For A Simple Web Application-Phase-3=Blog](./Basiq_API_Integration_for_a_Simple_Web_Application-Phase-3=blog.md)
-- [Basiq Api Integration For A Simple Web Application-Phase-3](./Basiq_API_Integration_for_a_Simple_Web_Application-Phase-3.md)
-
-Please replace [Your Name] with the actual project lead's name.
