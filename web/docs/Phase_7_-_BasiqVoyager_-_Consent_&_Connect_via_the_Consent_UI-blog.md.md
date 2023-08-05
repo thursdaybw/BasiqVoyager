@@ -48,12 +48,12 @@ With the foundational knowledge of PHP, this integration process should be strai
 
 ---
 
-Understood. Let's outline the two PHP scripts:
+### Let's outline the two PHP scripts:
 
 1. **get_user_token.php**:
    - This script will have user data hardcoded, similar to `create_user.php`.
-   - It will interact with Basiq's API to initiate the consent process and retrieve the user's access token.
-   - Once the token is retrieved, it will be stored in `user_token.txt`.
+   - It will interact with Basiq's API to initiate the consent process and retrieve the user's access token and the redirect URL.
+   - Both the token and the redirect URL will be stored in `user_token.txt` in a key-value format.
 
 2. **index.php**:
    - This script will serve as the callback URL.
@@ -61,7 +61,7 @@ Understood. Let's outline the two PHP scripts:
    - Upon successful user consent via Basiq's Consent UI, Basiq will redirect to this URL, passing along the token.
    - The script can then capture this token and perform any subsequent actions, such as storing it or using it to fetch financial data.
 
-Here's a basic structure for both:
+Here's a detailed structure for both:
 
 **get_user_token.php**:
 ```php
@@ -76,11 +76,12 @@ $data = [
 // Interact with Basiq's API to initiate the consent process
 // ... (API interaction code)
 
-// Retrieve the user's access token
-// ... (token retrieval code)
+// Retrieve the user's access token and the redirect URL
+// ... (token and redirect URL retrieval code)
 
-// Store the token in user_token.txt
-file_put_contents('user_token.txt', $token);
+// Store the token and redirect URL in user_token.txt
+$fileContent = "token={$token}\nredirect_url={$redirectUrl}";
+file_put_contents('user_token.txt', $fileContent);
 
 ?>
 ```
@@ -89,23 +90,38 @@ file_put_contents('user_token.txt', $token);
 ```php
 <?php
 
-// Or appropriate method to capture the token
-$userSpecificToken = get_short_lived_user_specific_token_from_basiq_api();
+$userConsentIsGiven = false;
 
+// Check if the token is present in the URL or POST data
+if (isset($_GET['token']) || isset($_POST['token'])) {
+    $userConsentIsGiven = true;
+}
+
+// Read from user_token.txt
+$fileContent = file_get_contents('user_token.txt');
+$lines = explode("\n", $fileContent);
+
+$data = [];
+foreach ($lines as $line) {
+    list($key, $value) = explode("=", $line);
+    $data[$key] = $value;
+}
+
+// Use $data['token'] and $data['redirect_url'] as needed
+
+if (!$userConsentIsGiven) {
 ?>
-
-<?php if (!$userConsentIsGiven) { ?>
 
 <!-- The form to trigger the user's consent process -->
 <form action="https://consent.basiq.io/home" method="get">
-    <input type="hidden" name="token" value="<?php echo $userSpecificToken; ?>">
+    <input type="hidden" name="token" value="<?php echo $data['token']; ?>">
     <input type="submit" value="Connect to Bank">
 </form>
 
 <?php } else { ?>
 
 <?php
-// Optionlly retrieve user account data to display.
+// Optionally retrieve user account data to display.
 ?>
 
 <h3>Success!</h3>
@@ -114,4 +130,4 @@ $userSpecificToken = get_short_lived_user_specific_token_from_basiq_api();
 
 ```
 
-This is a basic structure to get you started. You'll need to fill in the details, especially the API interaction parts, based on Basiq's documentation and your specific requirements. 
+With these scripts, you have a clear roadmap for integrating the Basiq Consent UI, capturing the token and redirect URL, and determining if the user has given their consent. Remember to handle the `user_token.txt` file securely, especially since it contains sensitive information. If you have any further questions or need additional details, feel free to ask. Rock on!
