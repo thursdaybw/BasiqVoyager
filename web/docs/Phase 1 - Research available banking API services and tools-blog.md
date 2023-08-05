@@ -1,4 +1,4 @@
-# Blog Post: Basiq API Integration for a Simple Web Application - Research available banking API services and tools
+# Blog: Basiq API Integration for a Simple Web Application - Research available banking API services and tools
 
 ## Overview
 
