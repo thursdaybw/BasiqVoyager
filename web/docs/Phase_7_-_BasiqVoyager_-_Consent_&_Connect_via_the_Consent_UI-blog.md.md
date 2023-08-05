@@ -47,7 +47,7 @@ $data = [
      * client side.
      */
     'scope' => 'CLIENT_ACCESS', // or 'SERVER_ACCESS' depending on your use case
-    'userid' => 'f16d0fed-ee64-4830-adb9-af153b32f78e'  // Replace with the correct userid value
+    'userid' => '******************'  // Replace with the correct userid value
 ];
 
 $apiKey = BASIQ_API_KEY;
