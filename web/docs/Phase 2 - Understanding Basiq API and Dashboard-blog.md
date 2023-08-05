@@ -1,4 +1,4 @@
-# Blog: My Adventure with Basiq API Integration: A Comprehensive Guide
+# Blog: BasicVoyager - Putting a toe in the Basiq API waters
 
 ## Introduction
 
