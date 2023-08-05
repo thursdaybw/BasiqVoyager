@@ -209,3 +209,6 @@ I have just clicked around and disovered that I can delete the application on th
 
 I noticed also that when I created the new application, I created it as "Payments disabled", there were two other options for "Sandbox" and "Production", I don't know sandbox
 allows payments, a bit scary. So I chose "Payments disabled" for now, it's permanent choice, so I was sure to name my Application with "Payments disabled" in it's name.. I found that confusing too because later I thought the application was disabled.. I assume that the Demo Application has "Payments Disabled" too.
+
+I went ahead and deleted my created application, and then I discovered on that the title of the Application was editable too. Looks like the Demo Application is literally
+just your first application already created with the immutable "Payments disabled" setting already applied.
