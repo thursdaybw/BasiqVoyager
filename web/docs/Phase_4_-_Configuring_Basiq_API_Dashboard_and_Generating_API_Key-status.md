@@ -19,7 +19,8 @@ To start using the Basiq API, you'll need to register your application and confi
 
 ## Loose ends
 
-- None at this stage
+- Basiq API:
+  - Ensure API key is securely stored and not exposed.
 
 ## Recommended Next Steps 
 
