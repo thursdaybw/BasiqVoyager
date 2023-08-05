@@ -204,3 +204,5 @@ When figuring out why I was getting configuration errors from the API I created 
 Soon after I discovered the Base64 double encoding issue and I could connect to the API.
 That left the question, was there an issue with my Demo Application? I generated a new API Key for the Demo Application and inserted that into my script.
 And successfully generated an access token with that API Key. So looks like the Demo Application is ago, but now I have a second application hanging around.
+
+I have just clicked around and disovered that I can delete the application on the left hand menu click All Applications, the menu is little finicky, it will take you to [The application screen](https://dashboard.basiq.io/applications), you can click on you application and disable it or delete it from this screen.
