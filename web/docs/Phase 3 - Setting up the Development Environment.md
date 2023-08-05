@@ -1,4 +1,4 @@
-# Project Report: Basiq API Integration for a Simple Web Application - Phase 2
+# Project Report: Basiq API Integration for a Simple Web Application
 
 ## Project Overview
 
