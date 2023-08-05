@@ -8,7 +8,9 @@ The BasiqVoyager project aims to integrate the Basiq API into a web application.
 
 ## Delayed by Rabbits
 
-We're at the starting line of getting Visual Studio Code up and running on the Manjaro system. We've got a two-step plan: first, we're going to update the system packages, then we'll dive into the installation. As of now, we're still at the 'on your marks' stage, with the actions yet to kick off. We've got a loose end to tie up - we need to confirm the repository URL and grab the 'rabbits' file. Once we've got that sorted, we're all set to get the ball rollin
+Before we can start coding properly, we need to get a few more tools setup.
+
+We're at the starting line of getting Visual Studio Code up and running on the Manjaro system. We've got a two-step plan: first, we're going to update the system packages, then we'll dive into the installation. As of now, we're still at the 'on your marks' stage, with the actions yet to kick off. We've got a loose end to tie up - we need to confirm the repository URL and grab the 'rabbits' file. Once we've got that sorted, we're all set to get the ball rolling. You can read more about it in the [Visual Studio Code Rabbit document](rabbits/Visual_Studio_Code.md)
 
 ## Plan: 
 
