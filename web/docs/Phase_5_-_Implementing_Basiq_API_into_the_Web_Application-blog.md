@@ -67,7 +67,7 @@ This verbose output confirmed that our Authorization header was being sent corre
 > POST /token HTTP/2
 Host: au-api.basiq.io
 accept: */*
-authorization: Basic `************************
+authorization: Basic ************************
 content-type: application/x-www-form-urlencoded
 basiq-version: 2.0
 content-length: 19
