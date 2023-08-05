@@ -1,8 +1,8 @@
-# Project Title: Basiq API Integration for a Simple Web Application
+# Project Title: BasicVoyager 
 
 # Project Overview:
 
-The project aims to integrate the Basiq API into a simple web application to retrieve account balance information for a specific savings account at a specific bank. The user is a PHP developer who is familiar with APIs but had difficulty understanding how to use the Basiq dashboard and API.
+The project aims to integrate allow the user to connect to the their bank via PHP and get their account balance. The Basiq API was found to be a simple, accessible and inexpensive service to provide the API access and thus retrieve account balance information for a specific savings account at a specific bank. The user is a PHP developer who is familiar with APIs but had difficulty understanding how to use the Basiq dashboard and API.
 
 The project is divided into two main phases:
 
