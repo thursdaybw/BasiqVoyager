@@ -1,4 +1,4 @@
-# Assignment name: Basiq Voyager Dashboard Setup
+# Status: BasicVoyager -  Configuring Basiq API Dashboard and Generating API Key
 
 ## Executive Summary 
 
