@@ -40,6 +40,22 @@ curl --location --request POST 'https://au-api.basiq.io/users' \
 
 We need to turn this into PHP code. I have tried this and am having some issues.
 
+Before we go any futher, we may want to make sure we understand all the concepts involved.
+
+I learned about the following concepts we read about on the Basiq getting started guide.
+
+**Authentication Process:** When you want to use Basiq APIs, you need to authenticate your application first. The authentication process involves exchanging your API key for an access token. This token is like a special pass that allows your application to make secure calls to the Basiq API.
+
+**Access Token:** Once you trade your API key for an access token, you receive the access token in the response. You should save this access token somewhere so that you can use it later to make API requests. The access token is like a ticket that allows your application to access the Basiq API securely. Keep in mind that access tokens have a limited lifespan, and they expire every 60 minutes. So, it's essential to keep track of the token's expiration time and refresh it when needed.
+
+**Store it Globally:** Storing the access token "globally" means that you should keep it in a place that is accessible throughout your application, not tied to a specific user's session. A common approach is to store it in a configuration file or environment variable that can be accessed by different parts of your application.
+
+**Scope:** In the context of Basiq API, "scope" refers to the level of access or permissions that your access token has. It determines what actions your application is allowed to perform. There are two types of scopes mentioned: CLIENT_ACCESS and SERVER_ACCESS.
+
+**SERVER_ACCESS Scope:** The SERVER_ACCESS scope is more powerful and should be used for server-side requests. It grants full access to create resources and retrieve data from the Basiq API. It should never be exposed on the client side because it carries more privileges and could be a security risk if leaked.
+
+Client-Side Requests: If you need to make requests from the client-side (e.g., in a web browser or mobile app), you should use the CLIENT_ACCESS scope, which is more restricted for security reasons. It allows access to specific requests like accessing the Consent UI and checking job status.
+
 
 ## Debugging the Basiq API Connection: A Deeper Dive
 
