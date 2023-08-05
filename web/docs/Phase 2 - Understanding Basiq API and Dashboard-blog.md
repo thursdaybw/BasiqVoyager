@@ -1,4 +1,4 @@
-# My Adventure with Basiq API Integration: A Comprehensive Guide
+# Blog: My Adventure with Basiq API Integration: A Comprehensive Guide
 
 ## Introduction
 
