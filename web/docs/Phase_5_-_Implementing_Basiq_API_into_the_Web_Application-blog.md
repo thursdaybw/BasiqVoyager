@@ -1,6 +1,6 @@
 I was about to get into the quick start and writing code, I could do it in vim, but I really want an IDE sooner than later.
 I have PHPStorm on my laptop and am very familier with it, but because I am also engaged in learnign react I am thinking of moving to Visual Studio Code.
-Plus it's opensource which suits my sensibilities versus priority PHPStorm, even though Visual Studio Code was created my MicorSoft.
+Plus it's opensource which suits my sensibilities versus priority PHPStorm, even though Visual Studio Code was created my Micor$oft.
 - Sat 05 Aug 2023 20:12:30 AEST
 
 
