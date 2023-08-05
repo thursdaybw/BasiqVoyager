@@ -1,7 +1,4 @@
-
-
-
-# My Adventure with Basiq API Integration: A Comprehensive Guide
+# Blog: BasiqVoyager - Setting up the Development Environment 
 
 ## Introduction
 
