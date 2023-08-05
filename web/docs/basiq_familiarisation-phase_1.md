@@ -25,27 +25,14 @@ The user was unsure about the relationship between the Basiq dashboard and API, 
 2. **Providing General Overview of Basiq API and Dashboard**
    - Status: Completed
 3. **Addressing Specific Queries about Basiq API and Dashboard**
-   - Status: Completed
-4. **Providing a Step-by-Step Guide for Basiq API Integration**
-   - Status: Completed
+   - Status: Not complete
+
 
 ## Actions Taken 
 
 1. Provided a detailed explanation of the Basiq platform, its dashboard, API, and how they relate to each other.
 2. Addressed specific queries about the Basiq dashboard and API.
-3. Provided a general step-by-step guide on how to use the Basiq dashboard and API to retrieve account balance information.
 
 ## Conclusion
 
-The user now has a better understanding of the Basiq platform and how to use its dashboard and API. The next phase of the project will involve setting up a local development environment using Docker and Lando.
-
-## Recommended Next Steps 
-
-1. **Install Docker for Lando Compatibility**
-   - Task: Guide the user through the process of installing Docker on their Manjaro Linux system for compatibility with Lando.
-   - Status: Not Started
-2. **Install Lando**
-   - Task: Guide the user through the process of installing Lando manually from the GitHub releases page.
-   - Status: Not Started
-
-**Next Report:** [Setting Up the Local Development Environment](#setting-up-the-local-development-environment)
+The user now has a better understanding of the Basiq platform and how to use its dashboard and API.
