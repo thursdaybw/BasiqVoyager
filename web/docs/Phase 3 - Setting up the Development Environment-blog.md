@@ -7,7 +7,29 @@
 
 Greetings, fellow PHP developers! I'm John, and I've embarked on a journey to integrate the Basiq API into a straightforward web application. The objective? To fetch account balance details for a specific savings account from a specific bank. I'm operating on a Manjaro Linux system and have chosen Docker and Lando as my development environment. This blog post is a thorough guide that will walk you through my journey, including the commands I executed, the critical information snippets from their output, and the decisions they led to.
 
-## Setting Up a Local Development Environment
+## Setting up the Local Development Enviorment - Overview
+
+With a good understanding of the Basiq API, I moved on to setting up the local development environment. This involved installing Docker and Lando on my Manjaro Linux system. Docker is a platform that allows you to automate the deployment, scaling, and management of applications, while Lando is a free, open-source, and cross-platform local development environment.
+
+### Overcoming Challenges
+
+Setting up the local development environment was not without its challenges. I encountered an issue with a missing libcrypt library when starting Lando. This issue prevented me from starting my local development environment. However, with some assistance, I was able to resolve this issue by installing the missing library.
+
+### The Unexpected Tangents
+
+During the process of setting up the local development environment, I encountered a warning about the Docker version being incompatible with Lando. The Docker version installed was 24.0.2, while Lando supports Docker versions in the range of 18.09.3 - 20.10.99. This led me down an unexpected path of attempting to downgrade Docker to a version compatible with Lando.
+
+### Attempting to Downgrade Docker
+
+Downgrading Docker proved to be a challenge. The package manager in Manjaro does not support installing specific versions of a package. I tried using the downgrade utility, setting environment variables, and even considering manually installing Docker. However, none of these attempts were successful.
+
+### Backtracking and Looking Ahead
+
+After several attempts to downgrade Docker, I decided to put this issue aside for the time being. I backtracked and tested if Lando would work with the newer Docker version, despite the compatibility warning. If Lando works as expected, I can continue using the current setup. If not, I will need to find another solution for the Docker version compatibility issue.
+
+The journey so far has been a mix of learning, overcoming challenges, and dealing with unexpected turns. However, each step, each challenge, and each tangent has been a stepping stone towards my goal. As I look ahead, I am excited to continue this journey, to implement the Basiq API into my web application, and to share my experiences along the way. Stay tuned for more updates as I continue to navigate this journey.
+
+## Setting Up a Local Development Environment - Detail
 
 This record is all about setting up a local development environment using Docker and Lando. This included setting up a local web server, implementing user authentication, retrieving account balance information, displaying account balance information, and error handling and testing. I started by updating my system's package list and installing Docker on my Manjaro Linux system for compatibility with Lando. Here are the commands I used:
 
