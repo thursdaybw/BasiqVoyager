@@ -1,4 +1,4 @@
-# Status: BasicVoyager - Establishing and Debugging Basiq API Connection in PHP
+# Blog: BasicVoyager - Establishing and Debugging Basiq API Connection in PHP
 
 Before we start, we had some more work to do:
 
