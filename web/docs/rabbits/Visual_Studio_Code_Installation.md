@@ -31,6 +31,25 @@ Relevant Output:
 - The system used Timeshift to create a snapshot before the upgrade. This is a useful feature that allows the system to be rolled back to a previous state in case something goes wrong with the upgrade.
 - The system updated the GRUB bootloader with the new snapshot information.
 
+### Install Visual Studio Code
+
+Command: `sudo pacman -S code`
+
+- `sudo`: This command allows for administrative or "superuser" operations. It's necessary for tasks that require higher privileges than those granted to standard users.
+- `pacman`: This is the package manager used by Manjaro and other Arch Linux-based distributions. It allows for installing, updating, and removing software on the system.
+- `-S`: This option instructs pacman to install a package. `code` is the package name for Visual Studio Code.
+
+Relevant Output:
+
+- The system resolved dependencies and looked for conflicting packages.
+- The system retrieved and installed the packages: `c-ares`, `electron22`, `jsoncpp`, `ripgrep`, `woff2`, and `code`.
+- The total download size was 74.37 MiB, and the total installed size was 294.26 MiB.
+- The system checked keys in the keyring, checked package integrity, loaded package files, checked for file conflicts, and checked available disk space.
+- The system processed package changes and installed all the necessary packages.
+- The system ran post-transaction hooks, including arming ConditionNeedsUpdate, refreshing PackageKit, and updating the desktop file MIME type cache.
+
+The system has successfully installed Visual Studio Code.
+
 ## Loose ends
 
 - None at this stage.
