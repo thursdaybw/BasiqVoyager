@@ -15,3 +15,5 @@ The project is divided into two main phases:
 3. **Phase 3 - Implementing Basiq API into the Web Application**: This phase will focus on the actual implementation of the Basiq API into the user's web application. We will look at the API docs for Basiq and make our first API call via PHP curl command.
 
 This includes setting up a local web server, implementing user authentication, retrieving account balance information, displaying account balance information, and error handling and testing.
+
+## Start Date: Thursday August 4th 2023
