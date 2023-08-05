@@ -1,4 +1,4 @@
-# Blog 7 - BasiqVoyager - Crafting a PHP Script for User Token Retrieval
+# Blog: BasiqVoyager - Crafting a PHP Script for User Token Retrieval
 
 In today's adventure with the Basiq API, we embarked on the mission to generate a user token for initiating the consent process. PHP, being our trusty tool, was at the forefront of this journey.
 
