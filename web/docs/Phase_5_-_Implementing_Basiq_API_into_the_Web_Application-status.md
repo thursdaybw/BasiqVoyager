@@ -1,66 +1,54 @@
-# Status: BasiqVoyager - Implementing Basiq API into the Web Application
+Based on the review of the project history and blogs, here's the summary:
+
+## Assignment name: BasiqVoyager
 
 ## Executive Summary 
 
-In this phase, we focus on the implementation and testing of the Basiq API integration into the web application. This includes writing the necessary PHP code for API requests, handling responses, retrieving and displaying account balance information, implementing robust error handling, and conducting thorough testing. 
+The BasiqVoyager project aims to integrate the Basiq API into a web application. The project has gone through several phases, including researching available banking API services and tools, understanding the Basiq API and Dashboard, setting up the development environment, and configuring the Basiq API Dashboard and generating the API key. The project is currently in Phase 5, which involves implementing the Basiq API into the web application.
 
-## Challenge Description 
+## Plan: 
 
-The main challenge in this phase is to successfully integrate the Basiq API into the web application and ensure it functions as expected. This involves not only technical implementation but also robust error handling and comprehensive testing to ensure reliability and accuracy of the data retrieved and displayed.
-
-## Initial plan: 
-
-1. **API Integration**
-   - Status: Pending
-2. **Data Retrieval and Display**
-   - Status: Pending
-3. **Error Handling**
-   - Status: Pending
-4. **Testing**
-   - Status: Pending
-5. **Refinement and Optimization**
-   - Status: Pending
-6. **Documentation**
-   - Status: Pending
+1. **Phase 1 - Research available banking API services and tools**
+   - Status: Completed
+2. **Phase 2 - Understanding Basiq API and Dashboard**
+   - Status: Completed
+3. **Phase 3 - Setting up the Development Environment**
+   - Status: Completed
+4. **Phase 4 - Configuring Basiq API Dashboard and Generating API Key**
+   - Status: Completed
+5. **Phase 5 - Implementing Basiq API into the Web Application**
+   - Status: In Progress
 
 ## Actions Taken 
 
-None yet, as this phase is just starting.
-
-## Pending actions
-
-1. Implement the Basiq API into the web application.
-2. Retrieve and display account balance information.
-3. Implement robust error handling for the API integration.
-4. Conduct thorough testing of the Basiq API integration.
-5. Refine and optimize the API integration based on testing results.
-6. Document the entire process of API integration.
+| Action | Result | Feedback | Next Step |
+| --- | --- | --- | --- |
+| Research available banking API services and tools | Basiq API selected for integration | Positive | Understand Basiq API and Dashboard |
+| Understand Basiq API and Dashboard | Gained knowledge about Basiq API and its dashboard | Positive | Set up the development environment |
+| Set up the development environment | Environment set up successfully | Positive | Configure Basiq API Dashboard and generate API key |
+| Configure Basiq API Dashboard and generate API key | API key generated successfully | Positive | Implement Basiq API into the web application |
 
 ## Loose ends
 
-None at the moment, as this phase is just starting.
+- Finalize the implementation of Basiq API into the web application
+  - Test the API integration
+  - Debug any issues
+
+## Pending actions  / Next steps.
+
+| Action | Expected Result |
+| --- | --- |
+| Implement Basiq API into the web application | Successful API integration |
+| Test the API integration | Ensure the API is working as expected |
+| Debug any issues | Ensure the application is running smoothly |
 
 ## Recommended Next Steps 
 
-1. **API Integration**
-   - Task: Write the necessary PHP code to make API requests to Basiq and handle the responses.
-   - Status: Pending
-2. **Data Retrieval and Display**
-   - Task: Retrieve account balance information for a specific savings account at a specific bank using the Basiq API, and display this information in the web application.
-   - Status: Pending
-3. **Error Handling**
-   - Task: Implement robust error handling for the API integration.
-   - Status: Pending
-4. **Testing**
-   - Task: Thoroughly test the Basiq API integration.
-   - Status: Pending
-5. **Refinement and Optimization**
-   - Task: Refine and optimize the API integration based on testing results.
-   - Status: Pending
-6. **Documentation**
-   - Task: Document the entire process of API integration.
-   - Status: Pending
+1. **Implement Basiq API into the Web Application**
+   - Task: Code the API integration into the web application
+2. **Test the API Integration**
+   - Task: Run tests to ensure the API is working as expected
+3. **Debug Any Issues**
+   - Task: Fix any issues that arise during testing
 
-## Conclusion 
-
-The project is progressing into an important phase - the actual implementation and testing of the Basiq API integration. This phase will involve technical challenges as well as the need for thorough testing and robust error handling. The goal is to ensure a reliable and accurate integration of the Basiq API into the web application.
+The end goal of the project is to successfully integrate the Basiq API into a web application, providing a seamless banking experience. The most important action at this stage is to implement the Basiq API into the web application, and the next steps involve testing the API integration and debugging any issues.
