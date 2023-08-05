@@ -42,6 +42,10 @@ The BasiqVoyager project aims to integrate the Basiq API into a web application.
 | Test the API integration | Ensure the API is working as expected |
 | Debug any issues | Ensure the application is running smoothly |
 
+## Resources 
+
+[Basiq Getting Quick Start - Part 1](https://api.basiq.io/docs/quickstart-part-1)
+
 ## Recommended Next Steps 
 
 1. **Implement Basiq API into the Web Application**
