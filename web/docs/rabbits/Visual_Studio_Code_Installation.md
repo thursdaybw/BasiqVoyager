@@ -56,11 +56,21 @@ The system has successfully installed Visual Studio Code.
 
 ## Pending actions  / Next steps.
 
-- Install Visual Studio Code
+Great! Now that Visual Studio Code is installed, you can start using it for your development tasks. Here are some next steps you might consider:
+
+1. **Explore Visual Studio Code**: Open the application and familiarize yourself with its interface. You can open files, navigate through your project's directory structure, and customize your workspace.
+
+2. **Install Extensions**: Visual Studio Code has a rich ecosystem of extensions that can enhance your development experience. For example, if you're working with PHP, consider installing the PHP Intelephense extension for intelligent code completion and other advanced features.
+
+3. **Configure Settings**: Visual Studio Code is highly customizable. You can adjust settings to suit your preferences and workflow. For instance, you can change the theme, modify the editor's behavior, and set up keybindings.
+
+4. **Start Coding**: Now you're ready to start working on your project. You can create new files, write code, and use Visual Studio Code's built-in features to help you code more efficiently.
+
+Remember, Visual Studio Code has a built-in terminal, source control management, and a debugger, making it a powerful tool for your development needs.
 
 ## Recommended Next Steps 
 
-1. **Install Visual Studio Code**
-   - Task: Run `sudo pacman -S code` in the terminal.
+1. **Explore Visual Studio Code***
+   - Task: Open the application
 
-The system is now up-to-date and ready for the installation of Visual Studio Code.
+The Visual Studio Code has now been installed and is ready to explore.
