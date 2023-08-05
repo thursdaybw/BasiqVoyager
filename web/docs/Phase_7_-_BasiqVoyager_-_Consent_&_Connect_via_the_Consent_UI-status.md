@@ -1,4 +1,4 @@
-# Status: BasiqVoyager - Consent & Connect via the Consent UI
+# Status: BasiqVoyager - Crafting a PHP Script for User Token Retrieval
 
 ## Executive Summary 
 
