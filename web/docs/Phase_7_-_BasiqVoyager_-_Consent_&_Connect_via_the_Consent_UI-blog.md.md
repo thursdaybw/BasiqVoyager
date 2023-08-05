@@ -55,9 +55,10 @@ Here's a basic structure for both:
 ```php
 <?php
 
-// Hardcoded user data (similar to create_user.php)
-$user_data = [
-    // ... (your user data here)
+// Data to be sent as part of the request
+$data = [
+    'email' => 'fred.jackson+BasiqVoyagerDevel@gmail.com',
+    'mobile' => '+61400111222',
 ];
 
 // Interact with Basiq's API to initiate the consent process
@@ -76,13 +77,29 @@ file_put_contents('user_token.txt', $token);
 ```php
 <?php
 
-// Capture the token provided by Basiq upon redirection
-$token = $_GET['token']; // or appropriate method to capture the token
-
-// Store or use the token as needed
-// ... (your code here)
+// Or appropriate method to capture the token
+$userSpecificToken = get_short_lived_user_specific_token_from_basiq_api();
 
 ?>
+
+<?php if (!$userConsentIsGiven) { ?>
+
+<!-- The form to trigger the user's consent process -->
+<form action="https://consent.basiq.io/home" method="get">
+    <input type="hidden" name="token" value="<?php echo $userSpecificToken; ?>">
+    <input type="submit" value="Connect to Bank">
+</form>
+
+<?php } else { ?>
+
+<?php
+// Optionlly retrieve user account data to display.
+?>
+
+<h3>Success!</h3>
+
+<? } ?>
+
 ```
 
 This is a basic structure to get you started. You'll need to fill in the details, especially the API interaction parts, based on Basiq's documentation and your specific requirements. 
