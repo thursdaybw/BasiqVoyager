@@ -1,4 +1,4 @@
-# Project Report: Basiq API Integration for a Simple Web Application
+# Status: BasiqVoyager - Understanding Basiq API and Dashboard
 
 ## Project Overview
 
