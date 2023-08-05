@@ -26,6 +26,19 @@ To start using the Basiq API, you'll need to register your application and confi
 1. **Start making authenticated requests**
    - Task: Use the generated API key to start making authenticated requests to the Basiq API.
 
+## Resources 
+
+1. [Basiq API Documentation](https://api.basiq.io/): This is the main documentation for the Basiq API. It provides detailed information on how to use the API, including guides, tutorials, and reference materials.
+
+2. [Basiq Dashboard](https://dashboard.basiq.io/): This is where you'll register and manage your applications, generate API keys, and configure your applications.
+- Start making authenticated requests to the Basiq API
+
+3. [Basiq API Quickstart Guide](https://basiq.io/api/guide/quickstart/): This guide provides a quick overview of how to get started with the Basiq API. It covers the basics of registering an application, generating an API key, and making your first API request.
+
+4. [Basiq API GitHub Repository](https://github.com/basiqio/basiq-api): This is the official GitHub repository for the Basiq API. It contains sample code, examples, and other resources that can help you understand how to use the API.
+
+5. [Basiq API Support](https://basiq.io/support/): If you have any questions or run into any issues, you can reach out to Basiq's support team for help.
+
 ## Conclusion 
 
 The initial setup for the Basiq Voyager project has been completed successfully. The application has been registered, an API key has been generated, the consent policy has been set up, and the available institutions have been selected. The next step is to start making authenticated requests to the Basiq API.
