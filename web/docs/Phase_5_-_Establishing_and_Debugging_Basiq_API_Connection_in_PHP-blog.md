@@ -199,3 +199,8 @@ define('BASIQ_API_KEY', '********');
 // define('ANOTHER_SETTING', 'some_value');
 ?>
 ```
+
+When figuring out why I was getting configuration errors from the API I created a new application via Basiq's dashboard, and use that API key.
+Soon after I discovered the Base64 double encoding issue and I could connect to the API.
+That left the question, was there an issue with my Demo Application? I generated a new API Key for the Demo Application and inserted that into my script.
+And successfully generated an access token with that API Key. So looks like the Demo Application is ago, but now I have a second application hanging around.
