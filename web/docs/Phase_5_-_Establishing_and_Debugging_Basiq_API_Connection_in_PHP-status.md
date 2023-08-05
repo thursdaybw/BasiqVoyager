@@ -1,4 +1,4 @@
-# Assignment name: BasiqVoyager 
+# Status: BasicVoyager - Establishing and Debugging Basiq API Connection in PHP
 
 ## Executive Summary 
 
