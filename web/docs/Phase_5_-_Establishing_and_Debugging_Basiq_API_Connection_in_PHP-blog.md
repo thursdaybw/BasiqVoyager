@@ -1,4 +1,4 @@
-# Status: BasicVoyager - Implementing Basiq API into the Web Application
+# Status: BasicVoyager - Establishing and Debugging Basiq API Connection in PHP
 
 Before we start, we had some more work to do:
 
