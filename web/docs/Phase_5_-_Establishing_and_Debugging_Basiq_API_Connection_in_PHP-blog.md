@@ -212,3 +212,7 @@ allows payments, a bit scary. So I chose "Payments disabled" for now, it's perma
 
 I went ahead and deleted my created application, and then I discovered on that the title of the Application was editable too. Looks like the Demo Application is literally
 just your first application already created with the immutable "Payments disabled" setting already applied.
+
+I have also just discovered that I can remove users, so we can get on to the next Phase of creating a user via the API. I would prefer to make a call on my existing user in existing application but I'm going to follow the quick start guide and pass the milestone of using the access token to connect.
+
+See you in Phase 6!
