@@ -31,7 +31,3 @@ To seamlessly integrate the Consent UI flow with the redirect URL, utilizing the
 - Potential issues with token integration.
 - Unexpected behavior during sandbox testing.
 - Possible changes or updates in the Basiq API that might affect the Consent UI flow.
-
----
-
-Hope this project plan aligns with your vision for Phase 8. If you need any adjustments or further details, just let me know. Cheers! 🍻
