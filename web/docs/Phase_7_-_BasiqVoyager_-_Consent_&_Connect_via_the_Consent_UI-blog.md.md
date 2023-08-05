@@ -1,4 +1,4 @@
-# A Guide to Integrating the Basiq Consent UI
+# Blog: BasiqVoyager - Consent & Connect via the Consent UI
 
 In the ongoing development of BasiqVoyager, we've reached a pivotal phase: the integration of the Basiq Consent UI. With our API key already secured, we're well-prepared for this next step. Here's a detailed breakdown of the process:
 
