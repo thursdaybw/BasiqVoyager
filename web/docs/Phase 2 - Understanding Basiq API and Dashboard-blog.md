@@ -1,6 +1,8 @@
-# Blog: BasicVoyager - Putting a toe in the Basiq API waters
+# Blog: BasicVoyager - Understanding Basiq API and Dashboard
 
 ## Introduction
+
+Putting a toe in the Basiq API waters.
 
 Greetings, fellow PHP developers! I'm John, and I've embarked on a journey to integrate the Basiq API into a straightforward web application. The objective? To fetch account balance details for a specific savings account from a specific bank. Although I'm well-versed with APIs, I found the Basiq dashboard and API somewhat challenging to comprehend. 
 
