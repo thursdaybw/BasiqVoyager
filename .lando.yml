@@ -4,3 +4,10 @@ config:
   php: '8.1'
   webroot: web 
   database: mariadb
+services:
+  appserver:
+    # xdebug: 'develop,debug'
+    xdebug: true
+    overrides:
+      environment:
+        XDEBUG_MODE: "develop,debug"
