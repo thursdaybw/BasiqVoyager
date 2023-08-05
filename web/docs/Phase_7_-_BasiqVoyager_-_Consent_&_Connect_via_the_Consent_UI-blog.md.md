@@ -1,7 +1,3 @@
-Certainly! Let's keep it friendly yet professional, in line with the tone of your other documents. Here's a revised blog post and a brief on the PHP script:
-
----
-
 # A Guide to Integrating the Basiq Consent UI
 
 In the ongoing development of BasiqVoyager, we've reached a pivotal phase: the integration of the Basiq Consent UI. With our API key already secured, we're well-prepared for this next step. Here's a detailed breakdown of the process:
@@ -40,14 +36,53 @@ With the foundational knowledge of PHP, this integration process should be strai
 
 ---
 
-**Regarding the PHP Script**:
+Understood. Let's outline the two PHP scripts:
 
-You'll need a PHP script that can:
+1. **get_user_token.php**:
+   - This script will have user data hardcoded, similar to `create_user.php`.
+   - It will interact with Basiq's API to initiate the consent process and retrieve the user's access token.
+   - Once the token is retrieved, it will be stored in `user_token.txt`.
 
-1. Interact with Basiq's API using the provided CURL command reference.
-2. Retrieve the user's access token.
-3. Store the token in a `user_token.txt` file.
+2. **index.php**:
+   - This script will serve as the callback URL.
+   - It will be hosted at `http://basiqvoyager.lndo.site/`.
+   - Upon successful user consent via Basiq's Consent UI, Basiq will redirect to this URL, passing along the token.
+   - The script can then capture this token and perform any subsequent actions, such as storing it or using it to fetch financial data.
 
-This script will serve as both the trigger for the consent process (via a button) and the redirect URL. In subsequent steps, we can import the token from `user_token.txt` for our credential form.
+Here's a basic structure for both:
 
-Would you like a basic outline or a detailed PHP script for this?
+**get_user_token.php**:
+```php
+<?php
+
+// Hardcoded user data (similar to create_user.php)
+$user_data = [
+    // ... (your user data here)
+];
+
+// Interact with Basiq's API to initiate the consent process
+// ... (API interaction code)
+
+// Retrieve the user's access token
+// ... (token retrieval code)
+
+// Store the token in user_token.txt
+file_put_contents('user_token.txt', $token);
+
+?>
+```
+
+**index.php**:
+```php
+<?php
+
+// Capture the token provided by Basiq upon redirection
+$token = $_GET['token']; // or appropriate method to capture the token
+
+// Store or use the token as needed
+// ... (your code here)
+
+?>
+```
+
+This is a basic structure to get you started. You'll need to fill in the details, especially the API interaction parts, based on Basiq's documentation and your specific requirements. 
