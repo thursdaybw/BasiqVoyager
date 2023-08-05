@@ -1,33 +1,3 @@
-# Navigation
-
-- [Setting Up A Local Development Environment-Phase 2.Md](./setting_up_a_local_development_environment-phase_2.md)
-- [Readme.Md](./README.md)
-- [Basiq Familiarisation-Phase 1.Md](./basiq_familiarisation-phase_1.md)
-- [Basic-Blog.Md](./basic-blog.md)
-- [Basiq Api Integration For A Simple Web Application-Phase-3=Blog.Md](./Basiq_API_Integration_for_a_Simple_Web_Application-Phase-3=blog.md)
-- [Basiq Api Integration For A Simple Web Application-Phase-3.Md](./Basiq_API_Integration_for_a_Simple_Web_Application-Phase-3.md)
-
-# Table of Contents
-
-- My Adventure with Basiq API Integration: A Comprehensive Guide
-  - Introduction
-  - Phase 1: Understanding the Basiq API
-  - Phase 2: Setting Up a Local Development Environment
-  - Writing a "Hello World" PHP Script
-  - Resolving Lando Issues
-  - Review
-  - Uninstalling Docker and Lando
-  - Docker Version Compatibility Issue
-  - Attempted Solutions
-  - Current Status
-  - Next Steps
-  - Commands Used and Their Outputs
-  - Commands Used and Their Outputs
-  - Next Steps
-  - Loose Ends
-  - Recommended Next Steps
-  - Conclusion
-
 # My Adventure with Basiq API Integration: A Comprehensive Guide
 
 ## Introduction
