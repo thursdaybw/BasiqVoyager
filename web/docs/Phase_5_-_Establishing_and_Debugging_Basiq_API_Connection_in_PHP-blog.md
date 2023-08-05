@@ -206,3 +206,6 @@ That left the question, was there an issue with my Demo Application? I generated
 And successfully generated an access token with that API Key. So looks like the Demo Application is ago, but now I have a second application hanging around.
 
 I have just clicked around and disovered that I can delete the application on the left hand menu click All Applications, the menu is little finicky, it will take you to [The application screen](https://dashboard.basiq.io/applications), you can click on you application and disable it or delete it from this screen.
+
+I noticed also that when I created the new application, I created it as "Payments disabled", there were two other options for "Sandbox" and "Production", I don't know sandbox
+allows payments, a bit scary. So I chose "Payments disabled" for now, it's permanent choice, so I was sure to name my Application with "Payments disabled" in it's name.. I found that confusing too because later I thought the application was disabled.. I assume that the Demo Application has "Payments Disabled" too.
