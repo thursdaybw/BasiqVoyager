@@ -21,42 +21,23 @@ As part of the preparation for installing Visual Studio Code on the Manjaro syst
 2. **Install Visual Studio Code**
    - Status: Pending
 
-## Actions Taken 
+Based on the content of the "Visual_Studio_Code.md" file from the repository, here's the "Actions Taken" section:
 
-### Update System Packages
+## Actions Taken
 
-Command: `sudo pacman -Syu`
+| Action | Steps | Feedback |
+| --- | --- | --- |
+| Update System Packages | 1. Open terminal<br>2. Run `sudo pacman -Syu` | - The system synchronized its package databases. The `core`, `extra`, `community`, and `multilib` databases are all up to date.<br>- The system started a full system upgrade. It found one package to upgrade: `brave-browser`. The `brave-browser` package was upgraded from version 1.56.19-1 to version 1.56.20-1.<br>- The system used Timeshift to create a snapshot before the upgrade.<br>- The system updated the GRUB bootloader with the new snapshot information. |
+| Install Visual Studio Code | 1. Run `sudo pacman -S code` | - The system resolved dependencies and looked for conflicting packages.<br>- The system retrieved and installed the packages: `c-ares`, `electron22`, `jsoncpp`, `ripgrep`, `woff2`, and `code`. The total download size was 74.37 MiB, and the total installed size was 294.26 MiB.<br>- The system checked keys in the keyring, checked package integrity, loaded package files, checked for file conflicts, and checked available disk space.<br>- The system processed package changes and installed all the necessary packages.<br>- The system ran post-transaction hooks, including arming ConditionNeedsUpdate, refreshing PackageKit, and updating the desktop file MIME type cache. |
+| Open Visual Studio Code | 1. Open the application | ## Actions Taken
 
-- `sudo`: This command allows for administrative or "superuser" operations. It's necessary for tasks that require higher privileges than those granted to standard users.
-- `pacman`: This is the package manager used by Manjaro and other Arch Linux-based distributions. It allows for installing, updating, and removing software on the system.
-- `-Syu`: These are options passed to the `pacman` command. `S` stands for sync, `y` for refresh, and `u` for system upgrade. Together, they update the package database and upgrade all out-of-date packages.
+## How to open Visual Studio Code
 
-Relevant Output:
-
-- The system synchronized its package databases. The `core`, `extra`, `community`, and `multilib` databases are all up to date.
-- The system started a full system upgrade. It found one package to upgrade: `brave-browser`.
-- The `brave-browser` package was upgraded from version 1.56.19-1 to version 1.56.20-1.
-- The system used Timeshift to create a snapshot before the upgrade. This is a useful feature that allows the system to be rolled back to a previous state in case something goes wrong with the upgrade.
-- The system updated the GRUB bootloader with the new snapshot information.
-
-### Install Visual Studio Code
-
-Command: `sudo pacman -S code`
-
-- `sudo`: This command allows for administrative or "superuser" operations. It's necessary for tasks that require higher privileges than those granted to standard users.
-- `pacman`: This is the package manager used by Manjaro and other Arch Linux-based distributions. It allows for installing, updating, and removing software on the system.
-- `-S`: This option instructs pacman to install a package. `code` is the package name for Visual Studio Code.
-
-Relevant Output:
-
-- The system resolved dependencies and looked for conflicting packages.
-- The system retrieved and installed the packages: `c-ares`, `electron22`, `jsoncpp`, `ripgrep`, `woff2`, and `code`.
-- The total download size was 74.37 MiB, and the total installed size was 294.26 MiB.
-- The system checked keys in the keyring, checked package integrity, loaded package files, checked for file conflicts, and checked available disk space.
-- The system processed package changes and installed all the necessary packages.
-- The system ran post-transaction hooks, including arming ConditionNeedsUpdate, refreshing PackageKit, and updating the desktop file MIME type cache.
-
-The system has successfully installed Visual Studio Code.
+| Action | Result | Feedback |
+| --- | --- | --- |
+| Click on the Manjaro logo in the bottom left corner of the screen | KDE Application Launcher opens | The Application Launcher is similar to the Start Menu in Windows. It provides access to all the applications, directories, and settings on your computer. |
+| Type 'code' into the search bar at the top of the Application Launcher | Visual Studio Code appears in the search results | The search function in the Application Launcher allows you to quickly find and open applications without having to navigate through menus. |
+| Click on the Visual Studio Code icon | Visual Studio Code opens | This is the quickest way to open an application in KDE. |
 
 ## Loose ends
 
