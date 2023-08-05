@@ -5,15 +5,11 @@
 
 ## Introduction
 
-Greetings, fellow PHP developers! I'm John, and I've embarked on a journey to integrate the Basiq API into a straightforward web application. The objective? To fetch account balance details for a specific savings account from a specific bank. Although I'm well-versed with APIs, I found the Basiq dashboard and API somewhat challenging to comprehend. I'm operating on a Manjaro Linux system and have chosen Docker and Lando as my development environment. This blog post is a thorough guide that will walk you through my journey, including the commands I executed, the critical information snippets from their output, and the decisions they led to.
+Greetings, fellow PHP developers! I'm John, and I've embarked on a journey to integrate the Basiq API into a straightforward web application. The objective? To fetch account balance details for a specific savings account from a specific bank. I'm operating on a Manjaro Linux system and have chosen Docker and Lando as my development environment. This blog post is a thorough guide that will walk you through my journey, including the commands I executed, the critical information snippets from their output, and the decisions they led to.
 
-## Part 1: Understanding the Basiq API
+## Setting Up a Local Development Environment
 
-The initial phase was all about getting to grips with the Basiq API and dashboard. I began with a broad overview of the Basiq API and dashboard. I had some specific questions about the Basiq API and dashboard and needed a step-by-step guide for Basiq API integration. I was uncertain about the relationship between the Basiq dashboard and API, how to configure the dashboard, and how to use the API to fetch account balance information. Fortunately, I received a detailed explanation of the Basiq platform, its dashboard, API, and how they relate to each other. My specific queries about the Basiq dashboard and API were also addressed.
-
-## Part 2: Setting Up a Local Development Environment
-
-The second phase was all about setting up a local development environment using Docker and Lando. This included setting up a local web server, implementing user authentication, retrieving account balance information, displaying account balance information, and error handling and testing. I started by updating my system's package list and installing Docker on my Manjaro Linux system for compatibility with Lando. Here are the commands I used:
+This record is all about setting up a local development environment using Docker and Lando. This included setting up a local web server, implementing user authentication, retrieving account balance information, displaying account balance information, and error handling and testing. I started by updating my system's package list and installing Docker on my Manjaro Linux system for compatibility with Lando. Here are the commands I used:
 
 Update Package List
 
