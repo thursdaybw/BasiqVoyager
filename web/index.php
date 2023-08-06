@@ -1,53 +1,39 @@
 <?php
+include '../getConsents.php';
 
-// Include the config file for API key and other configurations
-require_once(dirname(__FILE__) . '/../config.php');
+require_once __DIR__  . "/../config.php";
 
+$userId = BASIC_TEST_USER_ID;
 
-// Check if the token is present in the request
-if (isset($_GET['token'])) {
-    $token = $_GET['token'];
-} else {
-    // If the token is not present, retrieve it from the previously generated file
-    $token = file_get_contents(dirname(__FILE__) . '/../user_token.txt');
+// Read the token from token.txt
+$path = __DIR__.'/../token.txt'; 
+$jwtToken = trim(file_get_contents($path));
 
+if (isset($_POST['connectBank'])) {
+    $consents = getBasiqUserConsents($userId, $jwtToken);
+    if (isset($consents['data']) && !empty($consents['data'])) {
+        echo "User has given consent.\n";
+        print_r($consents);
+        // Process the consents as needed
+    } else {
+        echo "No consents found for the user.";
+    }
+    print_r($consents);
 }
-
-// If the token is still not found, exit with an error message
-if (!isset($token)) {
-    echo "Error: Token not found!";
-    exit;
-}
-
-// Set up the cURL request to Basiq's API using the token
-$ch = curl_init();
-
-curl_setopt($ch, CURLOPT_URL, 'https://au-api.basiq.io/consent');
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-curl_setopt($ch, CURLOPT_HTTPHEADER, [
-    'Authorization: Bearer ' . $token,
-    'basiq-version: 3.0'
-]);
-
-$response = curl_exec($ch);
-
-if (curl_errno($ch)) {
-    echo 'Error:' . curl_error($ch);
-    exit;
-}
-
-// Decode the response
-$responseData = json_decode($response, true);
-
-// Check if the consent URL is present in the response
-if (isset($responseData['consent_url'])) {
-    $consentUrl = $responseData['consent_url'];
-    // Redirect the user to the consent URL
-    header("Location: $consentUrl");
-    exit;
-} else {
-    echo "Failed to retrieve consent URL.";
-    exit;
-}
-
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basiq Consent Flow</title>
+</head>
+<body>
+
+<form action="index.php" method="post">
+    <button type="submit" name="connectBank">Check Consent Status</button>
+</form>
+
+</body>
+</html>
