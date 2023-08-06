@@ -119,3 +119,51 @@ function getBasiqUserConsents($userId, $jwtToken) {
 - The next logical step is to integrate this code into a live environment, test the flow, and ensure that the user's consents are correctly retrieved and processed.
 
 As we wrap up this section, it's evident that the journey of integration is filled with twists and turns. The path from initial confusion to a clearer understanding has been enlightening, to say the least. But this is just the beginning. As we move forward, we'll continue to log our experiences, challenges, and solutions right here. So, stay tuned as we execute our plan, test our code, and delve deeper into the world of Basiq integration. Until next time, happy coding!
+
+
+## Continuing Our Journey with Basiq's API
+
+### Running the PHP Code:
+
+Before diving into the Basiq dashboard, we first attempted to run the PHP code we had crafted. We were eager to see it in action and to verify if our understanding was correctly translated into code. However, as with many first attempts, we hit a snag.
+
+1. **Executing the PHP Script**: We ran our PHP script, hoping to see a successful interaction with the Basiq API. I resolved a few issues wtih file paths and variables names, until I hit a "Route Not Found" from the API, this is where things got interesting for a while.
+
+2. **Encountering the "Route Not Found" Error**: To our surprise, the script returned a "Route Not Found" error. This was puzzling, as we had followed the documentation closely.
+
+3. **Discovering the Interactive API Tool**: In our quest to understand the error, we stumbled upon Basiq's [Interactive API Tool](https://api.basiq.io/reference/getconsents). This tool allows users to test API endpoints directly from the browser, which seemed like a perfect way to debug our issue.
+
+4. **Testing with the Interactive API Tool**: Hoping to gain clarity, we tested the same endpoint using the Interactive API Tool. To our astonishment, we received the same "Route Not Found" error, indicating that the issue might not be with our code but with the API or its configuration.
+
+### Generating the Consent Link via Basiq Dashboard:
+
+Given the error, we decided to take a different approach. We did not have enough information to determine if the "Route not found" was
+a legitimate response to retrieving consents that do not yet exist. It's abnormal behavior for an API to do so however it's possible. So, we need to test against a user that has consents, we need to create one manually. I navigated to the Basiq dashboard to manually generate a consent link.
+
+1. **Accessing the Users Section**: We went to the users section of our Basiq application in the dashboard.
+
+2. **Clicking on "Generate Link"**: In the top menu, we found and clicked on the "generate link" option.
+
+3. **Receiving the Consent Link**: The dashboard provided us with a link: `https://connect.basiq.io/0b23510d-2638-44f8-bef1-b430ca3e2987`. We copied this link and opened it in a new browser tab.
+
+### Walking Through the Consent Form:
+
+With the consent link in hand, we proceeded to give our consent via the form.
+
+1. **Opening the Consent Form**: Clicking on the generated link opened the Basiq consent form.
+
+2. **Filling in Personal Details**: The form prompted us for some personal details. We filled these in, which triggered an SMS ID check for identity verification.
+
+3. **Selecting the Bank**: After verifying our identity, the form presented us with a list of banks. We selected our bank from the available options.
+
+4. **Entering Account Details**: Post bank selection, a new form appeared, asking for our bank account details. We entered the necessary information and hit the submit button.
+
+5. **Encountering the "Access Denied" Error**: Instead of a confirmation, we were presented with an error message: "Connections not enabled. Error: access-denied." This was unexpected, and we deduced that the "Payments environment" setting in our Basiq application might be the cause.
+
+### Reflections:
+
+Our hands-on experience with the Basiq API and dashboard provided valuable insights. While we encountered errors, each one offered a learning opportunity. The "Route Not Found" error from both our script and the Interactive API Tool was particularly enlightening, suggesting potential issues on Basiq's end or with their CloudFront configuration.
+
+### Next Steps:
+
+Our journey isn't over. We aim to check the user's consents using the API next as it now likely has a consent attached. Even if we couldn't establish a bank connection, the user might still have given their consent. We're eager to see if this is reflected in the API's response.
