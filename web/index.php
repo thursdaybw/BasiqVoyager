@@ -12,13 +12,14 @@ $jwtToken = trim(file_get_contents($path));
 if (isset($_POST['connectBank'])) {
     $consents = getBasiqUserConsents($userId, $jwtToken);
     if (isset($consents['data']) && !empty($consents['data'])) {
-        echo "User has given consent.\n";
-        print_r($consents);
+        echo "User has given consent.<br />\n";
         // Process the consents as needed
     } else {
-        echo "No consents found for the user.";
+        echo "No consents found for the user.<br />\n";
     }
-    print_r($consents);
+    echo "<pre>\n";
+    print_r(json_encode($consents, JSON_PRETTY_PRINT));
+    echo "</pre>\n";
 }
 ?>
 
