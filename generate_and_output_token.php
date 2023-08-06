@@ -1,12 +1,11 @@
 <?php
-$currentDirectory = __DIR__;
 
 define('BASIQ_CURL_VERBOSE', FALSE);
 
 // Config contains our define('BASIQ_API_KEY', '********');
 // config.php is outside the webroot, so it keeps the API Key safe.
 // Do not commit config.php to your repo.
-require_once("{$currentDirectory}/../config.php");
+require_once("./config.php");
 
 $apiKey = BASIQ_API_KEY;
 
@@ -15,7 +14,8 @@ $url = 'https://au-api.basiq.io/token';
 
 // Data to be sent as part of the request
 $data = [
-    'scope' => 'SERVER_ACCESS', // Use SERVER_ACCESS for full access
+    //'scope' => 'SERVER_ACCESS', // Use SERVER_ACCESS for full access
+    'scope' => 'CLIENT_ACCESS', // Use CLIENT_ACCESS for consent. 
 ];
 
 // Set up the cURL request
