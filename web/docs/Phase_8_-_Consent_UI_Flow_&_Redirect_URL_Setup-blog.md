@@ -276,5 +276,6 @@ After making these changes, we tested the integration again, and voilà! We rece
 
 ### What's Next?
 
-Our immediate next step is to pretty print this JSON data. By formatting it for better readability, we can analyze the content more effectively. This will help us understand the details of the consent and any other relevant information the JSON might hold.
+Our immediate next step is to analyze the content to help us understand the details of the consent and any other relevant information the JSON might hold.
 
+[Here is the the first successful consent response](assets/first_successful_consent_response.json)
