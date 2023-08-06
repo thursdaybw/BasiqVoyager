@@ -32,7 +32,7 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, [
     // Add the API key as a Basic Authorization header
     'Authorization: Basic ' . $apiKey,
     'Content-Type: application/x-www-form-urlencoded',
-    'basiq-version: 2.0',
+    'basiq-version: 3.0',
 ]);
 
 // Enable verbose output for debugging

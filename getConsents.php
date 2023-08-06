@@ -13,6 +13,7 @@ function getBasiqUserConsents($userId, $jwtToken) {
 
     $headers = array();
     $headers[] = "Authorization: Bearer $jwtToken";
+    $headers[] = "basiq-version: 3.0";
     curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
     $result = curl_exec($ch);
@@ -21,7 +22,6 @@ function getBasiqUserConsents($userId, $jwtToken) {
         return null;
     }
     curl_close($ch);
-
 
     // Decode the result to get the consents
     return json_decode($result, true);
