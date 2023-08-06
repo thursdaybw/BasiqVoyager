@@ -210,4 +210,71 @@ As we move forward, our plan is to:
 - Explore potential solutions or workarounds for the CloudFront issue.
 - Continue to document our experiences, challenges, and solutions to provide a comprehensive guide for others navigating the Basiq integration.
 
-Stay tuned as we continue our journey, face new challenges, and share our insights. Until next time, happy coding!
+## BasiqVoyager Integration - The Journey Continues
+
+### Addressing the "Route not found for this API version" Error
+
+Despite our best efforts, the "Route not found for this API version." error persisted. We initially thought that adding the `basiq-version` to the request headers would resolve the issue. However, even after including the version string in the header, the error remained.
+
+### The User ID Mismatch
+
+A crucial realization dawned upon us. The user for whom we had created consent was not the same user we were trying to retrieve consent for in our PHP script. This mismatch was likely a result of switching users when testing consent via the Basiq Dashboard. To address this, we updated the user ID in our `get_user_token.php` script.
+
+### Generating a New Token
+
+With the updated user ID in place, the next step was to generate a new token. We ran the script to generate a fresh token and saved it in the `token.txt` file. This file serves as a reference for our script to read the token.
+
+### A Breakthrough!
+
+After making these changes, we tested the integration again, and voilà! We received an actual result. The returned JSON was extensive and contained a wealth of information:
+
+```json
+{
+  "type": "list",
+  "size": 1,
+  "data": [
+    {
+      "type": "consent",
+      "id": "b90cb14e-e2bc-47a5-939d-9c9ac70a7c88",
+      "created": "2023-08-05T16:08:38Z",
+      "updated": "2023-08-05T16:08:38Z",
+      "expiryDate": "2024-08-05T07:27:00Z",
+      "origin": "user",
+      "status": "active",
+      "purpose": "...",
+      ...
+    }
+  ]
+}
+```
+
+### Double checking our assumptions
+
+1. **'basiq-version: 2.0'**
+    - I removed the basiq-version: 2.0 string from the header sent by `getBasiqUserConsents()` and confirm I can retieve a valid response now.
+
+2. **[The Interactive API tool](https://api.basiq.io/reference/getconsents)**
+    - I entered the User ID of the user and the newish Application JWT Access token to the form once more. I noticed this time that when I double clicked in the "Bearer/JST" box to select the existing value it did not highlight the entire string but rather identified characters in that token as an end of word, so a 'double click' > `ctrl+v` action was likely resulting in an invalid token in my previous attempts.
+
+3. **Response for user's with no consents**
+    - Having got both my PHP script and the Interactive API Tool to give valid responses, I grabbed the ID from the dashboard of the user with no consents, tested via the Interacgice API tool and was able to retrieve a response then too.
+    ```json
+    {
+      "type": "list",
+      "correlationId": "9db99f4a-a733-4237-a4e3-90adbf8dcf55",
+      "data": [
+        {
+          "type": "error",
+          "code": "access-denied",
+          "title": "Access denied.",
+          "detail": "",
+          "source": null
+        }
+      ]
+    }
+    ``` 
+
+### What's Next?
+
+Our immediate next step is to pretty print this JSON data. By formatting it for better readability, we can analyze the content more effectively. This will help us understand the details of the consent and any other relevant information the JSON might hold.
+
