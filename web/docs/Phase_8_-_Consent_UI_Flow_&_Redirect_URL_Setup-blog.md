@@ -164,6 +164,50 @@ With the consent link in hand, we proceeded to give our consent via the form.
 
 Our hands-on experience with the Basiq API and dashboard provided valuable insights. While we encountered errors, each one offered a learning opportunity. The "Route Not Found" error from both our script and the Interactive API Tool was particularly enlightening, suggesting potential issues on Basiq's end or with their CloudFront configuration.
 
+
 ### Next Steps:
 
 Our journey isn't over. We aim to check the user's consents using the API next as it now likely has a consent attached. Even if we couldn't establish a bank connection, the user might still have given their consent. We're eager to see if this is reflected in the API's response.
+
+## Continuing Our Journey with Basiq's API
+
+### Blog: BasiqVoyager - Navigating API Challenges and Discovering CloudFront Issues
+
+After our initial journey with the Basiq API, where we delved deep into the "Consent" step and tried to integrate it into our PHP application, we encountered several challenges. Here's a continuation of our experiences and the insights we've gathered:
+
+#### Exploring the User's Dashboard
+
+While navigating through the user's area of the Basiq dashboard, we made a significant discovery. We found that we could directly view and manage consents for a user. This feature allowed us to:
+
+- View the status and scopes of any consents.
+- Remove consents if needed.
+
+This direct access provided us with a clearer picture of the user's interactions with the platform and their consent status.
+
+#### Encountering the 403 Error
+
+Our next step was to use the interactive API form provided by Basiq. Upon entering the user's ID, we were met with a 403 error. This error, which typically indicates a permissions issue, hinted at "insufficient rights to a resource." This led us to believe that our Application JWT access token might have expired. JWT tokens are time-sensitive, and their expiration can lead to such errors.
+
+To address this, we used our `generate_and_output_token.php` script to generate a fresh JWT token, ensuring that our subsequent API requests would have the necessary permissions.
+
+#### The Recurring "Route Not Found" Error
+
+Even with a new JWT token, we faced the "Route not found for this API version." error again. This recurring issue was puzzling, especially since we were following the Basiq documentation closely.
+
+## The Suspicion Around CloudFront
+
+CloudFront, Amazon's content delivery network (CDN) service, came into the spotlight. If Basiq is using CloudFront for their API, any misconfigurations or issues with CloudFront could lead to the errors we were experiencing. The "Route not found" error, which is atypical for an API endpoint that should exist, suggested a potential issue with how CloudFront was routing the requests to the Basiq API.
+
+Given this observation, we began to suspect that the root cause of our challenges might lie with CloudFront. It's possible that there's a misconfiguration on Basiq's end or that CloudFront is caching an older version of the API.
+
+## Reflections and Next Steps
+
+Our journey with the Basiq API has been filled with learning opportunities. Each challenge, from understanding the "Consent" step to navigating API errors, has provided us with valuable insights. The discovery around CloudFront, in particular, has given us a direction to explore further.
+
+As we move forward, our plan is to:
+
+- Reach out to Basiq's support with our findings to gain more clarity.
+- Explore potential solutions or workarounds for the CloudFront issue.
+- Continue to document our experiences, challenges, and solutions to provide a comprehensive guide for others navigating the Basiq integration.
+
+Stay tuned as we continue our journey, face new challenges, and share our insights. Until next time, happy coding!
