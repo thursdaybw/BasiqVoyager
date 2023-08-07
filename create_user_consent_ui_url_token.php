@@ -29,7 +29,7 @@ curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
 curl_setopt($ch, CURLOPT_HTTPHEADER, [
     'Authorization: Basic ' . $apiKey,
     'Content-Type: application/x-www-form-urlencoded',
-    'basiq-version: 2.0'
+    'basiq-version: 3.0'
 ]);
 
 $response = curl_exec($ch);
@@ -44,7 +44,6 @@ curl_close($ch);
 // Decode the response
 // Decode the response
 $responseData = json_decode($response, true);
-print_r($responseData);
 
 // Check if there's an error in the data array
 if (isset($responseData['data'])) {
@@ -64,7 +63,7 @@ $accessToken = $responseData['access_token'] ?? null;
 
 // You now have the Consent UI URL 
 if ($accessToken) {
-    echo "https://consent.basiq.io/home?token=$accessToken";
+    echo "https://consent.basiq.io/home?token=$accessToken\n";
 } else {
     echo 'No access token received.';
 }
