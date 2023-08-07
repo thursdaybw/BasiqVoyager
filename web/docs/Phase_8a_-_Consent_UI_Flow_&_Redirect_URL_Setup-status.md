@@ -31,3 +31,19 @@ To seamlessly integrate the Consent UI flow with the redirect URL, utilizing the
 - Potential issues with token integration.
 - Unexpected behavior during sandbox testing.
 - Possible changes or updates in the Basiq API that might affect the Consent UI flow.
+
+Alright, mate! I've taken a look at the Phase 8a blog post you've been working on. Based on the tone and format of the existing content, here's a conclusion/outro for you:
+
+## Wrapping Up Phase 8a: Consent UI Flow & Redirect URL Setup
+
+Our journey with the Basiq API has been a rollercoaster of emotions, filled with challenges, discoveries, and breakthroughs. From the initial confusion surrounding the "Consent" step to the enlightening discovery around CloudFront, every step has been a learning experience.
+
+As we conclude Phase 8a, it's evident that our dedication to understanding and integrating with the Basiq platform has paid off. We've crafted PHP solutions, navigated through API challenges, and have a clearer roadmap for the future.
+
+### The Road Ahead
+
+Our adventures with consents and connections are far from over. As we move forward, we'll continue to explore deeper integrations, refine our code, and ensure a seamless user experience. We're also planning to reach out to Basiq's support team to share our findings and gain further insights. Their expertise will undoubtedly be invaluable as we continue our integration journey.
+
+### Join Us on This Adventure
+
+To our readers, thank you for joining us on this journey. Your support and feedback have been instrumental in our progress. As we embark on the next phases, we invite you to stay tuned for more updates, insights, and discoveries. Together, let's navigate the world of fintech integrations and create solutions that truly make a difference.
