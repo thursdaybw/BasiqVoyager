@@ -4,7 +4,7 @@ function getBasiqUserConsents($userId, $jwtToken) {
 
     $ch = curl_init();
 
-    // Sstore URL in variable so we can print as is.
+    // Store URL in variable so we can print as is.
     $url = "https://au-api.basiq.io/users/$userId/consents";
 
     curl_setopt($ch, CURLOPT_URL, $url);

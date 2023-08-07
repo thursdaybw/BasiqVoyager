@@ -1,4 +1,5 @@
 <?php
+
 include '../getConsents.php';
 
 require_once __DIR__  . "/../config.php";
@@ -9,7 +10,9 @@ $userId = BASIC_TEST_USER_ID;
 $path = __DIR__.'/../token.txt'; 
 $jwtToken = trim(file_get_contents($path));
 
-$my_template_var = ""; // Initialize the template variable
+ // Initialize the template variable
+$my_template_var = "";
+
 
 function fetchUser($userId, $jwtToken) {
     // Initialize cURL session
@@ -57,13 +60,45 @@ function fetchUserAccounts($userId, $jwtToken) {
     return $accountResult;
 }
 
+
 if (isset($_POST['connectBank'])) {
     $consents = getBasiqUserConsents($userId, $jwtToken);
+    print_r($consents);
+
     if (isset($consents['data']) && !empty($consents['data'])) {
-        //$accountResult = fetchUserAccounts($userId, $jwtToken);
         $accountResult = json_decode(fetchUser($userId, $jwtToken));
-        $accountObject = print_r($accountResult, 1);
-        $my_template_var = <<<EOF
+
+        // Check for errors in the 'data' array
+        $errors = array_filter($consents['data'], function($item) {
+            return isset($item['type']) && $item['type'] === 'error';
+        });
+
+        if (!empty($errors)) {
+            // Log the error for debugging
+            error_log("Error found in the 'data' key of the response.");
+
+            // Format the error report for the template
+            $correlationId = $consents['correlationId'];
+            $errorDetails = "";
+            foreach ($errors as $error) {
+                $error['source'] = print_r($error['source'], 1);
+                $errorDetails .= <<<EOF
+Title: {$error['title']}<br />
+Code: {$error['code']}<br />
+Detail: {$error['detail']}<br />
+Source: {$error['source']}<br /><br />
+EOF;
+            }
+
+            $my_template_var = <<<EOF
+<h2>Error Report</h2>
+Correlation ID: {$correlationId}<br /><br />
+Errors:<br />
+{$errorDetails}
+EOF;
+        } elseif ($accountResult !== null) {  // Check if $accountResult is not null
+            $accountObject = print_r($accountResult, 1);
+            $my_template_var = <<<EOF
 <h2>Welcome: {$accountResult->firstName}</h1>
 
 First name: {$accountResult->firstName}<br /> 
@@ -73,11 +108,14 @@ Email: {$accountResult->email}<br />
 Total banks connected: {$accountResult->connections->count}<br /> 
 Total accounts connected: {$accountResult->accounts->count}<br /> 
 EOF;
-
+        } else {
+            $my_template_var = "Error fetching user details.";
+        }
     } else {
         $my_template_var = "No consents found for the user.";
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -90,7 +128,7 @@ EOF;
 <body>
 
 <form action="index.php" method="post">
-    <button type="submit" name="connectBank">Get my user details from the remote "BasiqAPI"</button>
+    <button type="submit" name="connectBank">Get my user details from the remote BasiqAPI"</button>
 </form>
 
 <?php echo $my_template_var; ?>

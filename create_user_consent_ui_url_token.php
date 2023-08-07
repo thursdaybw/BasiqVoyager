@@ -14,7 +14,7 @@ $data = [
      * client side.
      */
     'scope' => 'CLIENT_ACCESS', // or 'SERVER_ACCESS' depending on your use case
-    'userid' => BASIC_TEST_USER_ID,
+    'userId' => BASIC_TEST_USER_ID,
 ];
 
 $apiKey = BASIQ_API_KEY;
@@ -29,28 +29,44 @@ curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
 curl_setopt($ch, CURLOPT_HTTPHEADER, [
     'Authorization: Basic ' . $apiKey,
     'Content-Type: application/x-www-form-urlencoded',
-    'basiq-version: 3.0'
+    'basiq-version: 2.0'
 ]);
 
 $response = curl_exec($ch);
 
 if (curl_errno($ch)) {
     echo 'Error:' . curl_error($ch);
-    exit;
+    exit(1);
 }
 
 curl_close($ch);
 
 // Decode the response
+// Decode the response
 $responseData = json_decode($response, true);
+print_r($responseData);
 
-// Check if the token and redirect URL are present in the response
-if (isset($responseData['access_token'])) {
-    // Store the token in user_token.txt
-    print_r($responseData);
+// Check if there's an error in the data array
+if (isset($responseData['data'])) {
+    $errors = array_filter($responseData['data'], function($item) {
+        return isset($item['type']) && $item['type'] === 'error';
+    });
+
+    if (!empty($errors)) {
+        // Output to standard error
+        fwrite(STDERR, print_r($responseData, true));
+        // Return an error code of 1
+        exit(1);
+    }
+}
+
+$accessToken = $responseData['access_token'] ?? null;
+
+// You now have the Consent UI URL 
+if ($accessToken) {
+    echo "https://consent.basiq.io/home?token=$accessToken";
 } else {
-    echo "Failed to retrieve token or redirect URL.";
-    exit;
+    echo 'No access token received.';
 }
 
 ?>

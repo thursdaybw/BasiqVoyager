@@ -14,8 +14,8 @@ $url = 'https://au-api.basiq.io/token';
 
 // Data to be sent as part of the request
 $data = [
-    //'scope' => 'SERVER_ACCESS', // Use SERVER_ACCESS for full access
-    'scope' => 'CLIENT_ACCESS', // Use CLIENT_ACCESS for consent. 
+    'scope' => 'SERVER_ACCESS', // Use SERVER_ACCESS for full access
+    //'scope' => 'CLIENT_ACCESS', // Use CLIENT_ACCESS for consent. 
 ];
 
 // Set up the cURL request
@@ -62,6 +62,20 @@ if (!empty(BASIQ_CURL_VERBOSE)) {
 
 // Decode the response JSON to extract the access token
 $responseData = json_decode($response, true);
+
+// Check if there's an error in the data array
+if (isset($responseData['data'])) {
+    $errors = array_filter($responseData['data'], function($item) {
+        return isset($item['type']) && $item['type'] === 'error';
+    });
+
+    if (!empty($errors)) {
+        // Output to standard error
+        fwrite(STDERR, print_r($responseData, true));
+        // Return an error code of 1
+        exit(1);
+    }
+}
 
 $accessToken = $responseData['access_token'] ?? null;
 
