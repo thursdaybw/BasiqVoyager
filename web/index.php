@@ -63,7 +63,6 @@ function fetchUserAccounts($userId, $jwtToken) {
 
 if (isset($_POST['connectBank'])) {
     $consents = getBasiqUserConsents($userId, $jwtToken);
-    print_r($consents);
 
     if (isset($consents['data']) && !empty($consents['data'])) {
         $accountResult = json_decode(fetchUser($userId, $jwtToken));
