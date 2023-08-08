@@ -15,7 +15,6 @@ $url = 'https://au-api.basiq.io/token';
 // Data to be sent as part of the request
 $data = [
     'scope' => 'SERVER_ACCESS', // Use SERVER_ACCESS for full access
-    //'scope' => 'CLIENT_ACCESS', // Use CLIENT_ACCESS for consent. 
 ];
 
 // Set up the cURL request
@@ -34,13 +33,6 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, [
     'Content-Type: application/x-www-form-urlencoded',
     'basiq-version: 3.0',
 ]);
-
-// Enable verbose output for debugging
-if (!empty(BASIQ_CURL_VERBOSE)) {
-    curl_setopt($ch, CURLOPT_VERBOSE, true);
-    $verbose = fopen('php://temp', 'w+');
-    curl_setopt($ch, CURLOPT_STDERR, $verbose);
-}
 
 // Execute the cURL request
 $response = curl_exec($ch);

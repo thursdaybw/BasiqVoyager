@@ -1,1 +1,32 @@
-./vendor/
+# .gitignore
+
+# Ignore Composer's vendor directory
+/vendor/
+
+# Ignore environment variables
+.env
+
+# Ignore IDE specific files
+.idea/
+*.sublime-project
+*.sublime-workspace
+.vscode/
+
+# Ignore OS generated files
+.DS_Store
+Thumbs.db
+
+# Ignore PHPStorm project files
+.idea/
+
+# Ignore node modules
+node_modules/
+
+# Ignore cache and logs
+cache/*
+logs/*
+
+# Ignore build artifacts, compiled files and binaries
+/bin/
+/build/
+

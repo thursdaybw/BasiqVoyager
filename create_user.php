@@ -31,8 +31,11 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, [
     // Add the API key as a Basic Authorization header
     'Authorization: Bearer ' . $token, // Use Bearer for token authorization
     'Content-Type: application/json',
-    'basiq-version: 2.0',
+    'basiq-version: 3.0',
 ]);
+
+// Execute the cURL request
+$response = curl_exec($ch);
 
 // Enable verbose output for debugging
 if (!empty(BASIQ_CURL_VERBOSE)) {

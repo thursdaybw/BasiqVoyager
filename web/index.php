@@ -3,6 +3,9 @@
 include '../getConsents.php';
 
 require_once __DIR__  . "/../config.php";
+require_once __DIR__  . "/../vendor/autoload.php"; // Include this if your autoload file is in the vendor directory
+
+use GuzzleHttp\Client;
 
 $userId = BASIC_TEST_USER_ID;
 
@@ -10,62 +13,126 @@ $userId = BASIC_TEST_USER_ID;
 $path = __DIR__.'/../token.txt'; 
 $jwtToken = trim(file_get_contents($path));
 
- // Initialize the template variable
+// Initialize the template variable
 $my_template_var = "";
 
+$client = new Client([
+    'base_uri' => 'https://au-api.basiq.io',
+    'headers' => [
+        'accept' => 'application/json',
+        'authorization' => 'Bearer ' . $jwtToken,
+        'basiq-version' => '3.0'
+    ]
+]);
 
-function fetchUser($userId, $jwtToken) {
-    // Initialize cURL session
-    $ch = curl_init();
-
-    // Set cURL options
-    $url = 'https://au-api.basiq.io/users/' . $userId;
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // Return the transfer as a string
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-        'accept: application/json',
-        'authorization: Bearer ' . $jwtToken
-    ));
-
-    // Execute cURL session and fetch the result
-    $response = curl_exec($ch);
-
-    // Check for cURL errors
-    if (curl_errno($ch)) {
-        echo 'Error:' . curl_error($ch);
+function fetchUser($userId, $client) {
+    try {
+        $response = $client->request('GET', "/users/{$userId}");
+        return $response->getBody();
+    } catch (Exception $e) {
+        echo 'Error: ' . $e->getMessage();
         return false;
     }
-
-    // Close cURL session
-    curl_close($ch);
-
-    // Return the response
-    return $response;
 }
 
-function fetchUserAccounts($userId, $jwtToken) {
-    // Reach out to Basiq API to retrieve a list of the user's accounts
-    $ch = curl_init();
-    $url = "https://au-api.basiq.io/users/$userId/accounts";
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
-    $headers = array();
-    $headers[] = "Authorization: Bearer $jwtToken";
-    $headers[] = 'basiq-version: 3.0';
-    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-    $accountResult = curl_exec($ch);
-    curl_close($ch);
-    
-    return $accountResult;
+function fetchUserAccounts($userId, $client) {
+    try {
+        $response = $client->request('GET', "/users/{$userId}/accounts");
+        return $response->getBody();
+    } catch (Exception $e) {
+        echo 'Error: ' . $e->getMessage();
+        return false;
+    }
 }
 
+function fetchUserAccount($url, $client) {
+    try {
+        $response = $client->request('GET', $url);
+        return $response->getBody();
+    } catch (Exception $e) {
+        echo 'Error: ' . $e->getMessage();
+        return false;
+    }
+}
+
+function extractUserAccountLinksFromUserObject($userObject) {
+    $accountLinks = array();
+
+    foreach ($userObject->accounts->data as $account) {
+        $accountLinks[$account->id] = $account->links->self;
+    }
+
+    return $accountLinks;
+}
+
+function formatAccountData($accounts) {
+    $html = '';
+    foreach ($accounts as $account) {
+        $name = $account->name ?? '';
+        $accountNo = $account->accountNo ?? '';
+        $balance = $account->balance ?? '';
+        $availableFunds = $account->availableFunds ?? '';
+        $lastUpdated = $account->lastUpdated ?? '';
+        $creditLimit = $account->creditLimit ?? '';
+        $type = $account->type ?? '';
+        $product = $account->class->product ?? '';
+        $accountHolder = $account->accountHolder ?? '';
+        $status = $account->status ?? '';
+
+        $lendingRates = '';
+        if (!empty($account->meta->lendingRates)) {
+            $lendingRates = '<ul style="list-style-type: none;">';
+            foreach ($account->meta->lendingRates as $rate) {
+                $lendingRates .= "<li>Type: {$rate->lendingRateType}</li>";
+                $lendingRates .= "<li>Rate: {$rate->rate}</li>";
+                $lendingRates .= "<li>Frequency: {$rate->applicationFrequency}</li>";
+            }
+            $lendingRates .= '</ul>';
+        }
+
+        $loan = '';
+        if (!empty($account->meta->loan)) {
+            $loan = "<ul style='list-style-type: none;'>
+                        <li>Repayment Type: {$account->meta->loan->repaymentType}</li>
+                        <li>Min Instalment Amount: {$account->meta->loan->minInstalmentAmount}</li>
+                    </ul>";
+        }
+
+        $creditCard = '';
+        if (!empty($account->meta->creditCard)) {
+            $creditCard = "<ul style='list-style-type: none;'>
+                            <li>Min Payment Amount: {$account->meta->creditCard->minPaymentAmount}</li>
+                            <li>Payment Due Amount: {$account->meta->creditCard->paymentDueAmount}</li>
+                            <li>Payment Due Date: {$account->meta->creditCard->paymentDueDate}</li>
+                        </ul>";
+        }
+
+        $html .= <<<EOT
+        <table class="account" style="margin-top: 50px">
+            <tr><th colspan="2" style="text-align: left;">$name</th></tr>
+            <tr><td>Account No:</td><td>$accountNo</td></tr>
+            <tr><td>Balance:</td><td>$balance</td></tr>
+            <tr><td>Available Funds:</td><td>$availableFunds</td></tr>
+            <tr><td>Last Updated:</td><td>$lastUpdated</td></tr>
+            <tr><td>Credit Limit:</td><td>$creditLimit</td></tr>
+            <tr><td>Type:</td><td>$type</td></tr>
+            <tr><td>Product:</td><td>$product</td></tr>
+            <tr><td>Account Holder:</td><td>$accountHolder</td></tr>
+            <tr><td>Status:</td><td>$status</td></tr>
+            <tr><td style="vertical-align: top;">Lending Rates:</td><td>$lendingRates</td></tr>
+            <tr><td style="vertical-align: top;">Loan:</td><td>$loan</td></tr>
+            <tr><td style="vertical-align: top;">Credit Card:</td><td>$creditCard</td></tr>
+        </table>
+        EOT;
+    }
+    return $html;
+}
 
 if (isset($_POST['connectBank'])) {
     $consents = getBasiqUserConsents($userId, $jwtToken);
 
     if (isset($consents['data']) && !empty($consents['data'])) {
-        $accountResult = json_decode(fetchUser($userId, $jwtToken));
+        $userObject = json_decode(fetchUser($userId, $client));
 
         // Check for errors in the 'data' array
         $errors = array_filter($consents['data'], function($item) {
@@ -95,17 +162,37 @@ Correlation ID: {$correlationId}<br /><br />
 Errors:<br />
 {$errorDetails}
 EOF;
-        } elseif ($accountResult !== null) {  // Check if $accountResult is not null
-            $accountObject = print_r($accountResult, 1);
+        }
+        elseif ($userObject !== null) {
+
+            $account_links = extractUserAccountLinksFromUserObject($userObject);
+            $accounts = [];
+            foreach ($account_links as $account_link) {
+               $accounts[] = json_decode(fetchUserAccount($account_link, $client));
+               $account_links_output = "Account link: " . print_r($account_link, 1) . "<br />";
+            }
+
+            $accounts_template_var = formatAccountData($accounts); 
+
             $my_template_var = <<<EOF
-<h2>Welcome: {$accountResult->firstName}</h1>
+<h2>Welcome: {$userObject->firstName}</h1>
 
-First name: {$accountResult->firstName}<br /> 
-Last name: {$accountResult->lastName}<br /> 
-Email: {$accountResult->email}<br /> 
+First name: {$userObject->firstName}<br /> 
+Last name: {$userObject->lastName}<br /> 
+Email: {$userObject->email}<br /> 
 
-Total banks connected: {$accountResult->connections->count}<br /> 
-Total accounts connected: {$accountResult->accounts->count}<br /> 
+Total banks connected: {$userObject->connections->count}<br /> 
+Total accounts connected: {$userObject->accounts->count}<br /> 
+
+Accounts:<br />
+<pr>
+ $accounts_template_var
+</pre>
+
+<!--
+Account links:<br />
+ $account_links_output
+-->
 EOF;
         } else {
             $my_template_var = "Error fetching user details.";

@@ -6,7 +6,6 @@ config:
   database: mariadb
 services:
   appserver:
-    # xdebug: 'develop,debug'
     xdebug: true
     overrides:
       environment:
