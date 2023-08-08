@@ -31,7 +31,13 @@ The user was unsure about the relationship between the Basiq dashboard and API, 
 
 https://docs.basiq.io/en/articles/5088006-resolving-complaints: You can find the head office address, phone number and the support@basiq.io email address here.
 
+https://api.basiq.io/docs/open-banking CDR, Open Banking and your software application
 
+https://api.basiq.io/docs/supported-access-models Supported access models 
+
+https://api.basiq.io/docs/supported-access-models Due to the strictly regulated nature of the CDR, Basiq is responsible for ensuring any of our partners consuming CDR data via the platform are doing so under an approved CDR access model.
+
+https://api.basiq.io/docs/trusted-advisor Trusted advisor The Trusted Advisor access model allows qualified professionals to access consumer data for the purpose of providing financial advice.
 
 ## Conclusion
 
