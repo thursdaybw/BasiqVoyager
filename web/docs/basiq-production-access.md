@@ -61,17 +61,17 @@ required to provide access to their data via APIs.
 3. **What is Basiq?**
    - Basiq is an accredited entity that provides a secure and simple way to connect with financial data. They offer APIs that allow developers to access financial data from a variety of sources, including banks and other financial institutions. Basiq is used for a range of applications, from personal finance management apps to lending platforms and more. They connect to Open Banking APIs provided by banks under the Consumer Data Right, given they have the necessary authorisation.
 
-4. **Does the financial institution that holds the account of the author offer an Open Banking API at this time?**
-   - No, the financial institution that holds the account of the author does not currently offer an Open Banking API.
+4. **Does the financial institution that holds my acccount offer an Open Banking API at this time?**
+   - No, the financial institution that holds my account does not currently offer an Open Banking API.
    - I have not found any information about direct access to an Open Banking API for my instition.
    - I noticed on the configuration inside basiq for that instition is marked as "web".
    - Open Banking is relatively new and my suspsicion is that the financial institions are dragging their feet in getting it implemented.
 
-5. **How does Basiq retrieve the data from the financial institution that holds the account of the author?**
-   - Basiq retrieves the data from the financial institution that holds the account of the author through web scraping. This is based on the information provided by the author.
+5. **How does Basiq retrieve the data from my financial institution?**
+   - Basiq can retrieve my account data from my financial institution through web scraping. I have researched my financial instition as my very first step on this journey and that eventually lead me here to Basiq.
 
-  5a. **Doesn't this mean one doesn't need to meet the CDR?**
-    - Technically yes, my very strong 
+  5a. **Doesn't the fact they it's scraped mean it's not CDR and technically I do not need to meet the CDR?**
+    - Technically yes, my very strong suspician is that Basiq requires it anyway, I would.
 
 6. **What is an Accredited Data Recipient (ADR)?**
    - An ADR is an entity that has been granted accreditation by the ACCC to receive CDR data.
@@ -81,10 +81,14 @@ required to provide access to their data via APIs.
    - In order to qualify my "app" as an "Outsourced Service Provider" I would need to be sponsored by and "ADR".
 
 8. **Do I need to apply for ACCC accreditation to access Open Banking data via Basiq?**
-   - Depending on the access model you choose, you may need to apply for accreditation with the ACCC. Some access models, such as the "Trusted Advisor" or "Outsourced Service Provider" models, may not require official CDR accreditation.
+   - Depending on the access model I choose, I may need to apply for accreditation with the ACCC. Some access models, such as the "Trusted Advisor" or "Outsourced Service Provider" models, may not require official CDR accreditation.
 
 9. **Can I connect to a real bank in the sandbox environment?**
-   - Assumption: The sandbox environment is typically used for testing with simulated data, not real data. For accessing real bank data, you'd generally use a production environment. However, it's recommended to confirm this with Basiq.
+   - The sandbox environment is typically used for testing with simulated data, not real data. For accessing real bank data, I'd generally use a production environment.
 
 10. **Can Basiq enable the sandbox to talk to a real bank, or can they approve a production application?**
-    - Assumption: The Basiq representative's statement suggests that Basiq can enable access to real bank data, but it's not clear whether this refers to the sandbox or production environment. It would be best to clarify this directly with Basiq support. This is based on the information provided by the author.
+   - I contacted a Basiq representative via the discussion board of the representative's Basiq GitHub account, seeking clarification about access to production data. The Basiq representative's response was: 
+
+     > "The 'Error: Connections not enabled - Error: Access denied' relates with live connection, on sandbox environment, you can use our test institutions which are [outlined here](https://basiq.io/docs/guide/connections#test-institutions) in our docs, but if you try to connect with a real bank account, you will get this error, In this case, Basiq enables this for you, all you need to do is to reach out to support@basiq.io and discuss your plan."
+
+     The use of the word "this" in the representative's response creates ambiguity. It could be interpreted as Basiq being able to enable a live connection to a real bank in the sandbox environment. However, this interpretation seems implausible as the term "sandbox" typically implies a testing environment without access to production data. Alternatively, the representative might be using "this" to refer to a shift in context, implying that Basiq can enable a live connection to a real bank in a production environment. Given the ambiguity, it would be best to seek further clarification directly from Basiq support.
