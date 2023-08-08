@@ -1,59 +1,19 @@
 <?php
 
-include '../getConsents.php';
 
 require_once __DIR__  . "/../config.php";
 require_once __DIR__  . "/../vendor/autoload.php"; // Include this if your autoload file is in the vendor directory
 
-use GuzzleHttp\Client;
+use App\HttpClient\GuzzleHttpClient;
+use App\Api\BasiqApi;
+use App\Service\ConsentService;
+
+$jwtToken = trim(file_get_contents(__DIR__.'/../token.txt'));
+$httpClient = new GuzzleHttpClient($jwtToken);
+$api = new BasiqApi($httpClient);
+$consentService = new ConsentService($httpClient);
 
 $userId = BASIC_TEST_USER_ID;
-
-// Read the token from token.txt
-$path = __DIR__.'/../token.txt'; 
-$jwtToken = trim(file_get_contents($path));
-
-// Initialize the template variable
-$my_template_var = "";
-
-$client = new Client([
-    'base_uri' => 'https://au-api.basiq.io',
-    'headers' => [
-        'accept' => 'application/json',
-        'authorization' => 'Bearer ' . $jwtToken,
-        'basiq-version' => '3.0'
-    ]
-]);
-
-function fetchUser($userId, $client) {
-    try {
-        $response = $client->request('GET', "/users/{$userId}");
-        return $response->getBody();
-    } catch (Exception $e) {
-        echo 'Error: ' . $e->getMessage();
-        return false;
-    }
-}
-
-function fetchUserAccounts($userId, $client) {
-    try {
-        $response = $client->request('GET', "/users/{$userId}/accounts");
-        return $response->getBody();
-    } catch (Exception $e) {
-        echo 'Error: ' . $e->getMessage();
-        return false;
-    }
-}
-
-function fetchUserAccount($url, $client) {
-    try {
-        $response = $client->request('GET', $url);
-        return $response->getBody();
-    } catch (Exception $e) {
-        echo 'Error: ' . $e->getMessage();
-        return false;
-    }
-}
 
 function extractUserAccountLinksFromUserObject($userObject) {
     $accountLinks = array();
@@ -128,11 +88,14 @@ function formatAccountData($accounts) {
     return $html;
 }
 
+// Initialize the template variable
+$my_template_var = "";
+
 if (isset($_POST['connectBank'])) {
-    $consents = getBasiqUserConsents($userId, $jwtToken);
+    $consents = $consentService->getBasiqUserConsents($userId);
 
     if (isset($consents['data']) && !empty($consents['data'])) {
-        $userObject = json_decode(fetchUser($userId, $client));
+        $user = $api->fetchUser($userId);
 
         // Check for errors in the 'data' array
         $errors = array_filter($consents['data'], function($item) {
@@ -168,7 +131,7 @@ EOF;
             $account_links = extractUserAccountLinksFromUserObject($userObject);
             $accounts = [];
             foreach ($account_links as $account_link) {
-               $accounts[] = json_decode(fetchUserAccount($account_link, $client));
+               $accounts[] = json_decode($account = $api->fetchUserAccount($account_link));
                $account_links_output = "Account link: " . print_r($account_link, 1) . "<br />";
             }
 
