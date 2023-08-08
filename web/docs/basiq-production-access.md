@@ -87,4 +87,4 @@ required to provide access to their data via APIs.
    - Assumption: The sandbox environment is typically used for testing with simulated data, not real data. For accessing real bank data, you'd generally use a production environment. However, it's recommended to confirm this with Basiq.
 
 10. **Can Basiq enable the sandbox to talk to a real bank, or can they approve a production application?**
-   - Assumption: The Basiq representative's statement suggests that Basiq can enable access to real bank data, but it's not clear whether this refers to the sandbox or production environment. It would be best to clarify this directly with Basiq support. This is based on the information provided by the author.
+    - Assumption: The Basiq representative's statement suggests that Basiq can enable access to real bank data, but it's not clear whether this refers to the sandbox or production environment. It would be best to clarify this directly with Basiq support. This is based on the information provided by the author.
