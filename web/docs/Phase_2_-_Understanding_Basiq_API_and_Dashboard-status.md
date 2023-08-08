@@ -21,11 +21,17 @@ The user was unsure about the relationship between the Basiq dashboard and API, 
 3. **Addressing Specific Queries about Basiq API and Dashboard**
    - Status: Not complete
 
-
 ## Actions Taken 
 
 1. Provided a detailed explanation of the Basiq platform, its dashboard, API, and how they relate to each other.
 2. Addressed specific queries about the Basiq dashboard and API.
+
+
+## Resources
+
+https://docs.basiq.io/en/articles/5088006-resolving-complaints: You can find the head office address, phone number and the support@basiq.io email address here.
+
+
 
 ## Conclusion
 
