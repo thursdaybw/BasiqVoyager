@@ -29,7 +29,7 @@ services:
             $tokenHandler: '@App\BasiqApi\TokenHandler'
     App\BasiqApi\BasiqApi:
         arguments:
-            $httpClientFactory: '@App\BasiqApi\BasiqHttpClientFactory'
+            $httpClientFactory: '@App\BasiqApi\HttpClient\BasiqHttpClientFactory'
     App\Service\ConsentService:
         arguments:
-            $httpClientFactory: '@App\BasiqApi\BasiqHttpClientFactory'
+            $httpClientFactory: '@App\BasiqApi\HttpClient\BasiqHttpClientFactory'

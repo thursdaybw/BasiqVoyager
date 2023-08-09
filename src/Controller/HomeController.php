@@ -18,6 +18,17 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController {
 
+    private $api;
+    private $consentService;
+
+    public function __construct(
+        BasiqApi $api,
+        ConsentService $consentService
+    ) {
+        $this->api = $api;
+        $this->consentService = $consentService;
+    }
+
     #[Route('/', name: 'home')]
     public function index(Request $request): Response
     {
@@ -29,14 +40,7 @@ class HomeController extends AbstractController {
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // Handle form submission
-            $tokenHandler = new TokenHandler();
-            $httpClientFactory = new BasiqHttpClientFactory($tokenHandler);
-
-            $api = new BasiqApi($httpClientFactory);
-            $consentService = new ConsentService($httpClientFactory);
-
-            $consents = $consentService->getBasiqUserConsents(BASIC_TEST_USER_ID);
+            $consents = $this->consentService->getBasiqUserConsents(BASIC_TEST_USER_ID);
 
             if (isset($consents['data']) && !empty($consents['data'])) {
                 $errors = array_filter($consents['data'], function ($item) {
@@ -56,12 +60,12 @@ class HomeController extends AbstractController {
             }
 
             if (isset($consents['data']) && !empty($consents['data'])) {
-                if ($user = $api->fetchUser(BASIC_TEST_USER_ID)) {
+                if ($user = $this->api->fetchUser(BASIC_TEST_USER_ID)) {
                     $user_model = new User($user);
                     $account_links = $user_model->getAccountLinks();
                     $accounts = [];
                     foreach ($account_links as $account_link) {
-                        $accounts[] = $api->fetchUsersAccount($account_link);
+                        $accounts[] = $this->api->fetchUsersAccount($account_link);
                     }
 
                     $account_required_keys = [
