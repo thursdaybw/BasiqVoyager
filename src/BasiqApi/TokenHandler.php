@@ -2,7 +2,7 @@
 
 namespace App\BasiqApi;
 
-use App\HttpClient\BasiqHttpApplicationJwtAuthTokenFactory;
+use App\BasiqApi\HttpClient\BasiqHttpApplicationJwtAuthTokenFactory;
 
 class TokenHandler {
     private $tokenFile = 'token.json';

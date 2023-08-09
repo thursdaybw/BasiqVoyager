@@ -2,7 +2,7 @@
 
 namespace App\BasiqApi;
 
-use App\HttpClient\HttpClientInterface;
+use App\BasiqApi\HttpClient\HttpClientInterface;
 
 class BasiqApi {
     private $client;

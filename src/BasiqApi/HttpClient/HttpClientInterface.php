@@ -1,6 +1,6 @@
 <?php
 
-namespace App\HttpClient;
+namespace App\BasiqApi\HttpClient;
 
 interface HttpClientInterface {
     public function request(string $method, string $url);

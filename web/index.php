@@ -5,8 +5,8 @@ require_once __DIR__  . "/../vendor/autoload.php"; // Include this if your autol
 
 use App\BasiqApi\BasiqApi;
 use App\BasiqApi\TokenHandler;
-use App\HttpClient\GuzzleHttpClient;
-use App\HttpClient\BasiqHttpClientFactory;
+use App\BasiqApi\HttpClient\GuzzleHttpClient;
+use App\BasiqApi\HttpClient\BasiqHttpClientFactory;
 use App\Service\ConsentService;
 use App\Model\User;
 

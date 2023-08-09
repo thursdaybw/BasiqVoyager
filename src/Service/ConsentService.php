@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-use App\HttpClient\HttpClientInterface;
+use App\BasiqApi\HttpClient\HttpClientInterface;
 
 class ConsentService {
     private $client;

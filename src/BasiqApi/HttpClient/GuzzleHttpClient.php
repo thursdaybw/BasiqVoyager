@@ -1,6 +1,6 @@
 <?php
 
-namespace App\HttpClient;
+namespace App\BasiqApi\HttpClient;
 
 use GuzzleHttp\Client;
 

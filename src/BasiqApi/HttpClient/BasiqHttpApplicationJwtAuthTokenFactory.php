@@ -1,8 +1,8 @@
 <?php
 
-namespace App\HttpClient;
+namespace App\BasiqApi\HttpClient;
 
-use App\Api\TokenHandler;
+use App\BasiqApi\TokenHandler;
 
 class BasiqHttpApplicationJwtAuthTokenFactory {
 
