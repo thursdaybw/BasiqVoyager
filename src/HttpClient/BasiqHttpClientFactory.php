@@ -2,7 +2,7 @@
 
 namespace App\HttpClient;
 
-use App\Api\TokenHandler;
+use App\BasiqApi\TokenHandler;
 
 class BasiqHttpClientFactory {
     private $tokenHandler;

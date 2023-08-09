@@ -3,8 +3,8 @@
 require_once __DIR__  . "/../config.php";
 require_once __DIR__  . "/../vendor/autoload.php"; // Include this if your autoload file is in the vendor directory
 
-use App\Api\BasiqApi;
-use App\Api\TokenHandler;
+use App\BasiqApi\BasiqApi;
+use App\BasiqApi\TokenHandler;
 use App\HttpClient\GuzzleHttpClient;
 use App\HttpClient\BasiqHttpClientFactory;
 use App\Service\ConsentService;
@@ -77,23 +77,8 @@ function generateAccountHTML($processedAccounts) {
     return $html;
 }
 
-
-function consent_processor($variables) {
-
-  $error = $variables['error'];
-
-  return <<<EOF
-  Title: {$error['title']}<br />
-  Code: {$error['code']}<br />
-  Detail: {$error['detail']}<br />
-  Source: {$error['source']}<br /><br />
-EOF; 
-
-}
-
 function consent_error_details_processor($variables) {
-
-return <<<EOF
+  return <<<EOF
 <h2>Error Report</h2>
 Correlation ID: {$correlationId}<br /><br />
 Errors:<br />
