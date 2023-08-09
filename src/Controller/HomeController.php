@@ -35,23 +35,7 @@ class HomeController extends AbstractController {
         if ($form->isSubmitted() && $form->isValid()) {
 
             $consents = $this->basiqUserService->getUserConsents(BASIC_TEST_USER_ID);
-
-            if (isset($consents['data']) && !empty($consents['data'])) {
-                $errors = array_filter($consents['data'], function ($item) {
-                    return isset($item['type']) && $item['type'] === 'error';
-                });
-
-                if (!empty($errors)) {
-                    error_log("Error found in the 'data' key of the response.");
-                    $consent_errors_rendered = $this->render(
-                        'consent_errors.html.twig',
-                        [
-                            'correleation_id' => $consents['correlationId'],
-                            'errors' => print_r($errors, 1),
-                        ]
-                    );
-                }
-            }
+            $consent_errors_rendered = $this->handleConsentErrors($consents);
 
             if (isset($consents['data']) && !empty($consents['data'])) {
                 if ($user = $this->basiqUserService->fetchUserDetails(BASIC_TEST_USER_ID)) {
@@ -124,5 +108,27 @@ class HomeController extends AbstractController {
         ->add('connectBank', SubmitType::class, ['label' => 'Connect Bank'])
         ->getForm();
    }
+
+   private function handleConsentErrors(array $consents): ?Response {
+    if (isset($consents['data']) && !empty($consents['data'])) {
+        $errors = array_filter($consents['data'], function ($item) {
+            return isset($item['type']) && $item['type'] === 'error';
+        });
+
+        if (!empty($errors)) {
+            error_log("Error found in the 'data' key of the response.");
+            return $this->render(
+                'consent_errors.html.twig',
+                [
+                    'correleation_id' => $consents['correlationId'],
+                    'errors' => print_r($errors, 1),
+                ]
+            );
+        }
+    }
+
+    return null;
+   }
+
 
 }
