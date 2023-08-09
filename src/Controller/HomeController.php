@@ -4,43 +4,33 @@ namespace App\Controller;
 
 require_once __DIR__ . "/../../config.php";
 
-use App\BasiqApi\BasiqApi;
-use App\BasiqApi\TokenHandler;
-use App\BasiqApi\HttpClient\GuzzleHttpClient;
-use App\BasiqApi\HttpClient\BasiqHttpClientFactory;
-use App\Service\ConsentService;
 use App\Model\User;
+use App\Service\BasiqUserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController {
 
-    private $api;
-    private $consentService;
 
-    public function __construct(
-        BasiqApi $api,
-        ConsentService $consentService
-    ) {
-        $this->api = $api;
-        $this->consentService = $consentService;
+    public function __construct(BasiqUserService $basiqUserService)
+    {
+        $this->basiqUserService = $basiqUserService;
     }
 
     #[Route('/', name: 'home')]
     public function index(Request $request): Response
     {
-        $form = $this->createFormBuilder()
-        ->add('connectBank', SubmitType::class, ['label' => 'Connect Bank'])
-        ->getForm();
+        $form = $this->createConnectBankForm();
 
        $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $consents = $this->consentService->getBasiqUserConsents(BASIC_TEST_USER_ID);
+            $consents = $this->basiqUserService->getUserConsents(BASIC_TEST_USER_ID);
 
             if (isset($consents['data']) && !empty($consents['data'])) {
                 $errors = array_filter($consents['data'], function ($item) {
@@ -60,12 +50,12 @@ class HomeController extends AbstractController {
             }
 
             if (isset($consents['data']) && !empty($consents['data'])) {
-                if ($user = $this->api->fetchUser(BASIC_TEST_USER_ID)) {
+                if ($user = $this->basiqUserService->fetchUserDetails(BASIC_TEST_USER_ID)) {
                     $user_model = new User($user);
                     $account_links = $user_model->getAccountLinks();
                     $accounts = [];
                     foreach ($account_links as $account_link) {
-                        $accounts[] = $this->api->fetchUsersAccount($account_link);
+                        $accounts[] = $this->basiqUserService->fetchUsersAccount($account_link);
                     }
 
                     $accounts = $this->processAccounts($accounts);
@@ -125,5 +115,10 @@ class HomeController extends AbstractController {
       return $accounts;
    }
 
+   private function createConnectBankForm(): FormInterface {
+    return $this->createFormBuilder()
+        ->add('connectBank', SubmitType::class, ['label' => 'Connect Bank'])
+        ->getForm();
+   }
 
 }

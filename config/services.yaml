@@ -30,6 +30,6 @@ services:
     App\BasiqApi\BasiqApi:
         arguments:
             $httpClientFactory: '@App\BasiqApi\HttpClient\BasiqHttpClientFactory'
-    App\Service\ConsentService:
+    App\Service\BasiqUserService:
         arguments:
-            $httpClientFactory: '@App\BasiqApi\HttpClient\BasiqHttpClientFactory'
+            - '@App\BasiqApi\BasiqApi'

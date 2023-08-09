@@ -26,4 +26,7 @@ class BasiqApi {
         return $this->httpClient->request('GET', $relativeUrl);
     }
 
+    public function getBasiqUserConsents(string $userId): array {
+        return $this->httpClient->request('GET', "/users/{$userId}/consents");
+    }
 }
