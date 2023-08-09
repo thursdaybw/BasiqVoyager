@@ -19,7 +19,7 @@ class BasiqApi {
         return $this->client->request('GET', "/users/{$userId}/accounts");
     }
 
-    public function fetchUserAccount(string $accountUrl): array {
+    public function fetchUsersAccount(string $accountUrl): array {
         // Remove the base URL from the account URL
         $relativeUrl = str_replace('https://au-api.basiq.io', '', $accountUrl);
         return $this->client->request('GET', $relativeUrl);
