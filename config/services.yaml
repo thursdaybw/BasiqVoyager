@@ -24,12 +24,8 @@ services:
     # please note that last definitions always *replace* previous ones
 
     App\BasiqApi\TokenHandler: ~
-    App\BasiqApi\HttpClient\BasiqHttpClientFactory:
-        arguments:
-            $tokenHandler: '@App\BasiqApi\TokenHandler'
-    App\BasiqApi\BasiqApi:
-        arguments:
-            $httpClientFactory: '@App\BasiqApi\HttpClient\BasiqHttpClientFactory'
-    App\Service\BasiqUserService:
-        arguments:
-            - '@App\BasiqApi\BasiqApi'
+    App\BasiqApi\HttpClient\BasiqHttpClientFactory: ~
+    App\BasiqApi\BasiqApi: ~
+    App\Service\BasiqUserService: ~
+    App\Service\ConsentService: ~
+    App\Service\AccountService: ~
