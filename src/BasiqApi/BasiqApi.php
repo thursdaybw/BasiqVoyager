@@ -2,24 +2,18 @@
 
 namespace App\BasiqApi;
 
-use App\BasiqApi\HttpClient\HttpClientInterface;
+use App\BasiqApi\HttpClient\BasiqHttpClientFactory;
 
 class BasiqApi {
-    private $client;
+    private $httpClient;
 
-    private $tokenHandler;
-
-    public function __construct(HttpClientInterface $client) {
-        $this->client = $client;
-        $this->tokenHandler = new TokenHandler();
-    }
-
-    public function getToken(): string {
-        return $this->tokenHandler->getToken();
+    public function __construct(BasiqHttpClientFactory $httpClientFactory)
+    {
+        $this->httpClient = $httpClientFactory->createClient();
     }
 
     public function fetchUser(string $userId): \stdClass {
-        return (object) $this->client->request('GET', "/users/{$userId}");
+        return (object) $this->httpClient->request('GET', "/users/{$userId}");
     }
 
     public function fetchUserAccounts(string $userId): array {
@@ -29,7 +23,7 @@ class BasiqApi {
     public function fetchUsersAccount(string $accountUrl): array {
         // Remove the base URL from the account URL
         $relativeUrl = str_replace('https://au-api.basiq.io', '', $accountUrl);
-        return $this->client->request('GET', $relativeUrl);
+        return $this->httpClient->request('GET', $relativeUrl);
     }
 
 }

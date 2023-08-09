@@ -8,7 +8,7 @@ class TokenHandler {
 
     private $tokenFile = 'token.json';
     private $tokenData = [];
-
+    
     public function getToken() {
         $this->tokenData = $this->readTokenDataFromFile();
 

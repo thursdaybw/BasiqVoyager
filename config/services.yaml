@@ -22,3 +22,14 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    App\BasiqApi\TokenHandler: ~
+    App\BasiqApi\HttpClient\BasiqHttpClientFactory:
+        arguments:
+            $tokenHandler: '@App\BasiqApi\TokenHandler'
+    App\BasiqApi\BasiqApi:
+        arguments:
+            $httpClientFactory: '@App\BasiqApi\BasiqHttpClientFactory'
+    App\Service\ConsentService:
+        arguments:
+            $httpClientFactory: '@App\BasiqApi\BasiqHttpClientFactory'

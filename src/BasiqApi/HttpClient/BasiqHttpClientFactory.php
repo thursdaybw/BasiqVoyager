@@ -5,6 +5,7 @@ namespace App\BasiqApi\HttpClient;
 use App\BasiqApi\TokenHandler;
 
 class BasiqHttpClientFactory {
+
     private $tokenHandler;
 
     public function __construct(TokenHandler $tokenHandler) {

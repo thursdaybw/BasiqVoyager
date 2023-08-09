@@ -4,9 +4,12 @@
 
 {% block body %}
 
-<form action="index.php" method="post">
-    <button type="submit" name="connectBank">Get my user details from the remote BasiqAPI"</button>
-</form>
+{% if showForm %}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+{% endif %}
 
-  {{ main|raw }}
+{{ main|raw }}
+
 {% endblock %}
