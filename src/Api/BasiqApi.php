@@ -7,8 +7,15 @@ use App\HttpClient\HttpClientInterface;
 class BasiqApi {
     private $client;
 
+    private $tokenHandler;
+
     public function __construct(HttpClientInterface $client) {
         $this->client = $client;
+        $this->tokenHandler = new TokenHandler();
+    }
+
+    public function getToken(): string {
+        return $this->tokenHandler->getToken();
     }
 
     public function fetchUser(string $userId): \stdClass {

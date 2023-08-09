@@ -3,13 +3,17 @@
 require_once __DIR__  . "/../config.php";
 require_once __DIR__  . "/../vendor/autoload.php"; // Include this if your autoload file is in the vendor directory
 
-use App\HttpClient\GuzzleHttpClient;
 use App\Api\BasiqApi;
+use App\Api\TokenHandler;
+use App\HttpClient\GuzzleHttpClient;
+use App\HttpClient\BasiqHttpClientFactory;
 use App\Service\ConsentService;
 use App\Model\User;
 
-$jwtToken = trim(file_get_contents(__DIR__.'/../token.txt'));
-$httpClient = new GuzzleHttpClient($jwtToken);
+$tokenHandler = new TokenHandler(); 
+$httpClientFactory = new BasiqHttpClientFactory($tokenHandler);
+$httpClient = $httpClientFactory->createClient();
+
 $api = new BasiqApi($httpClient);
 $consentService = new ConsentService($httpClient);
 

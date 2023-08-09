@@ -7,24 +7,55 @@ use GuzzleHttp\Client;
 class GuzzleHttpClient implements HttpClientInterface {
     private $client;
 
-    public function __construct(string $jwtToken) {
+    public function __construct(string $baseUri, array $headers = []) {
         $this->client = new Client([
-            'base_uri' => 'https://au-api.basiq.io',
-            'headers' => [
-                'accept' => 'application/json',
-                'authorization' => 'Bearer ' . $jwtToken,
-                'basiq-version' => '3.0'
-            ]
+            'base_uri' => $baseUri,
+            'headers' => $headers
         ]);
+        $this->response = NULL;
     }
 
-    public function request(string $method, string $url) {
+    public function get(string $url, array $query_parameters = NULL) {
+          $options = [
+              'query' => $query_string_data ?? NULL,
+          ];
+
+          return $this->request('GET', $url, $options);
+    }
+
+    public function post(string $url, array $form_params = NULL) {
+          $options = [
+              'form_params' => $form_params ?? NULL,
+          ];
+
+          return $this->request('POST', $url, $options);
+    }
+
+    public function request(string $method, string $url, array $options = NULL) {
+
         try {
-            $response = $this->client->request($method, $url);
-            return json_decode($response->getBody(), true);
+            if ($options) {
+              $this->response = $this->client->request($method, $url, $options);
+            }
+            else {
+              $this->response = $this->client->request($method, $url);
+            }
+
+            $body = json_decode($this->response->getBody(), true);
+            return $body;
         } catch (Exception $e) {
             echo 'Error: ' . $e->getMessage();
             return false;
         }
     }
+
+    public function getStatusCode() {
+       if (!empty($this->response)) {
+            return $this->response->getStatusCode();
+       }
+       else {
+            return FALSE;
+       }
+    }
+
 }
