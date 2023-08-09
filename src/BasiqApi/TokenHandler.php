@@ -5,18 +5,22 @@ namespace App\BasiqApi;
 use App\BasiqApi\HttpClient\BasiqHttpApplicationJwtAuthTokenFactory;
 
 class TokenHandler {
+
     private $tokenFile = 'token.json';
+    private $tokenData = [];
 
     public function getToken() {
-        if ($this->isTokenExpired()) {
+        $this->tokenData = $this->readTokenDataFromFile();
+
+        if (empty($this->tokenData) || $this->isTokenExpired()) {
           $this->fetchNewToken();
         }
 
-        return $this->readTokenFromFile();
+        return $this->tokenData['access_token'];
     }
 
     private function isTokenExpired() {
-        $expires_at = $this->readExpiresAtFromFile();
+        $expires_at = $this->tokenData['expires_at']; 
         if ($expires_at <= time()) {
             return FALSE;
         }
@@ -41,7 +45,7 @@ class TokenHandler {
             $statusCode = $client->getStatusCode();
     
             if ($statusCode === 200) {
-                $this->saveTokenToFile($data);
+                $this->saveTokenDataToFile($data);
             } else {
                 // Handle other status codes as needed
                 // You may log the error or throw an exception
@@ -53,35 +57,21 @@ class TokenHandler {
         }
     }
 
-    private function readTokenFromFile() {
+    private function readTokenDataFromFile() {
         $tokenFilePath = __DIR__.'/../../token.json';
     
         if (file_exists($tokenFilePath)) {
             $jsonContent = file_get_contents($tokenFilePath);
             $tokenData = json_decode($jsonContent, true); // Decode the JSON as an associative array
-            $jwtToken = $tokenData['access_token']; // Access the access_token field
         } else {
-            $jwtToken = $this->fetchNewToken();
+            $tokenData = [];
         }
     
-        return $jwtToken;
+        return $tokenData;
     }
 
-    private function readExpiresAtFromFile() {
-        $tokenFilePath = __DIR__.'/../../token.json';
-    
-        if (file_exists($tokenFilePath)) {
-            $jsonContent = file_get_contents($tokenFilePath);
-            $tokenData = json_decode($jsonContent, true); // Decode the JSON as an associative array
-            $jwtToken = $tokenData['expires_at']; // Access the access_token field
-        } else {
-            $jwtToken = $this->fetchNewToken();
-        }
-    
-        return $jwtToken;
-    }
-
-    private function saveTokenToFile($data) {
+    private function saveTokenDataToFile($data) {
+        $this->tokenData = $data;
         $tokenFilePath = __DIR__.'/../../token.json';
     
         // Calculate the expiration time

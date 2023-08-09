@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block body %}
+
+<form action="index.php" method="post">
+    <button type="submit" name="connectBank">Get my user details from the remote BasiqAPI"</button>
+</form>
+
+  {{ main|raw }}
+{% endblock %}

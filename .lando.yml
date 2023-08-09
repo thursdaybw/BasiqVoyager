@@ -2,7 +2,7 @@ name: basiqvoyager
 recipe: lamp
 config:
   php: '8.1'
-  webroot: web 
+  webroot: ./public 
   database: mariadb
 services:
   appserver:

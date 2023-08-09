@@ -1,0 +1,16 @@
+# In the config/config.yaml file, you can define configuration
+# that applies across all environments.
+
+imports:
+    - { resource: services.yaml }
+
+#framework:
+    # secret: '%env(APP_SECRET)%' # Use this for the BasiqApi Key 
+    # Other general framework configuration
+
+twig:
+    paths: '%kernel.project_dir%/templates'
+    debug: '%kernel.debug%'
+    # Other Twig configuration
+
+# Additional general configuration for other bundles and components

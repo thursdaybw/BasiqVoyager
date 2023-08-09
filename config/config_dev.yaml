@@ -1,0 +1,12 @@
+# You can override or extend the general configuration in the
+# environment-specific files. For example, you might enable
+# debugging and configure development-specific services
+# config_dev|stage|prod.php. 
+# example:
+
+#framework:
+#   web_profiler:
+#       toolbar: true
+#       intercept_redirects: false
+
+# Additional development-specific configuration
