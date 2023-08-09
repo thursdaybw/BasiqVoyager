@@ -1,0 +1,9 @@
+<h2>Welcome: {{ user.firstName }}</h2>
+First name: {{ user.firstName }}<br />
+Last name: {{ user.lastName }}<br />
+Email: {{ user.email }}<br />
+Total banks connected: {{ user.connections.count }}<br />
+Total accounts connected: {{ user.accounts.count }}<br />
+Accounts:<br />
+{{ accounts|raw }}
+{{errors|raw }}
