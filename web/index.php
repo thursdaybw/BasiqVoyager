@@ -18,8 +18,8 @@ $userId = BASIC_TEST_USER_ID;
 function extractUserAccountLinksFromUserObject($userObject) {
     $accountLinks = array();
 
-    foreach ($userObject->accounts->data as $account) {
-        $accountLinks[$account->id] = $account->links->self;
+    foreach ($userObject->accounts['data'] as $account) {
+        $accountLinks[$account['id']] = $account['links']['self'];
     }
 
     return $accountLinks;
@@ -28,42 +28,42 @@ function extractUserAccountLinksFromUserObject($userObject) {
 function formatAccountData($accounts) {
     $html = '';
     foreach ($accounts as $account) {
-        $name = $account->name ?? '';
-        $accountNo = $account->accountNo ?? '';
-        $balance = $account->balance ?? '';
-        $availableFunds = $account->availableFunds ?? '';
-        $lastUpdated = $account->lastUpdated ?? '';
-        $creditLimit = $account->creditLimit ?? '';
-        $type = $account->type ?? '';
-        $product = $account->class->product ?? '';
-        $accountHolder = $account->accountHolder ?? '';
-        $status = $account->status ?? '';
+        $name = $account['name'] ?? '';
+        $accountNo = $account['accountNo'] ?? '';
+        $balance = $account['balance'] ?? '';
+        $availableFunds = $account['availableFunds'] ?? '';
+        $lastUpdated = $account['lastUpdated'] ?? '';
+        $creditLimit = $account['creditLimit'] ?? '';
+        $type = $account['type'] ?? '';
+        $product = $account['class']['product'] ?? '';
+        $accountHolder = $account['accountHolder'] ?? '';
+        $status = $account['status'] ?? '';
 
         $lendingRates = '';
-        if (!empty($account->meta->lendingRates)) {
+        if (!empty($account['meta']['lendingRates'])) {
             $lendingRates = '<ul style="list-style-type: none;">';
-            foreach ($account->meta->lendingRates as $rate) {
-                $lendingRates .= "<li>Type: {$rate->lendingRateType}</li>";
-                $lendingRates .= "<li>Rate: {$rate->rate}</li>";
-                $lendingRates .= "<li>Frequency: {$rate->applicationFrequency}</li>";
+            foreach ($account['meta']['lendingRates'] as $rate) {
+                $lendingRates .= "<li>Type: {$rate['lendingRateType']}</li>";
+                $lendingRates .= "<li>Rate: {$rate['rate']}</li>";
+                $lendingRates .= "<li>Frequency: {$rate['applicationFrequency']}</li>";
             }
             $lendingRates .= '</ul>';
         }
 
         $loan = '';
-        if (!empty($account->meta->loan)) {
+        if (!empty($account['meta']['loan'])) {
             $loan = "<ul style='list-style-type: none;'>
-                        <li>Repayment Type: {$account->meta->loan->repaymentType}</li>
-                        <li>Min Instalment Amount: {$account->meta->loan->minInstalmentAmount}</li>
+                        <li>Repayment Type: {$account['meta']['loan']['repaymentType']}</li>
+                        <li>Min Instalment Amount: {$account['meta']['loan']['minInstalmentAmount']}</li>
                     </ul>";
         }
 
         $creditCard = '';
-        if (!empty($account->meta->creditCard)) {
+        if (!empty($account['meta']['creditCard'])) {
             $creditCard = "<ul style='list-style-type: none;'>
-                            <li>Min Payment Amount: {$account->meta->creditCard->minPaymentAmount}</li>
-                            <li>Payment Due Amount: {$account->meta->creditCard->paymentDueAmount}</li>
-                            <li>Payment Due Date: {$account->meta->creditCard->paymentDueDate}</li>
+                            <li>Min Payment Amount: {$account['meta']['creditCard']['minPaymentAmount']}</li>
+                            <li>Payment Due Amount: {$account['meta']['creditCard']['paymentDueAmount']}</li>
+                            <li>Payment Due Date: {$account['meta']['creditCard']['paymentDueDate']}</li>
                         </ul>";
         }
 
@@ -126,26 +126,26 @@ Errors:<br />
 {$errorDetails}
 EOF;
         }
-        elseif ($userObject !== null) {
+        elseif ($user !== null) {
 
-            $account_links = extractUserAccountLinksFromUserObject($userObject);
+            $account_links = extractUserAccountLinksFromUserObject($user);
             $accounts = [];
             foreach ($account_links as $account_link) {
-               $accounts[] = json_decode($account = $api->fetchUserAccount($account_link));
+               $accounts[] = $account = $api->fetchUserAccount($account_link);
                $account_links_output = "Account link: " . print_r($account_link, 1) . "<br />";
             }
 
             $accounts_template_var = formatAccountData($accounts); 
 
             $my_template_var = <<<EOF
-<h2>Welcome: {$userObject->firstName}</h1>
+<h2>Welcome: {$user->firstName}</h1>
 
-First name: {$userObject->firstName}<br /> 
-Last name: {$userObject->lastName}<br /> 
-Email: {$userObject->email}<br /> 
+First name: {$user->firstName}<br /> 
+Last name: {$user->lastName}<br /> 
+Email: {$user->email}<br /> 
 
-Total banks connected: {$userObject->connections->count}<br /> 
-Total accounts connected: {$userObject->accounts->count}<br /> 
+Total banks connected: {$user->connections['count']}<br /> 
+Total accounts connected: {$user->accounts['count']}<br /> 
 
 Accounts:<br />
 <pr>

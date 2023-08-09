@@ -11,8 +11,8 @@ class BasiqApi {
         $this->client = $client;
     }
 
-    public function fetchUser(string $userId): array {
-        return $this->client->request('GET', "/users/{$userId}");
+    public function fetchUser(string $userId): \stdClass {
+        return (object) $this->client->request('GET', "/users/{$userId}");
     }
 
     public function fetchUserAccounts(string $userId): array {
