@@ -5,6 +5,7 @@ namespace App\Controller;
 require_once __DIR__ . "/../../config.php";
 
 use App\Model\User;
+use App\Service\AccountProcessingService;
 use App\Service\BasiqUserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -15,10 +16,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController {
 
+    private $basiqUserService;
+    private $accountProcessingService;
 
-    public function __construct(BasiqUserService $basiqUserService)
+    public function __construct(BasiqUserService $basiqUserService, AccountProcessingService $accountProcessingService)
     {
         $this->basiqUserService = $basiqUserService;
+        $this->accountProcessingService = $accountProcessingService;
     }
 
     #[Route('/', name: 'home')]
@@ -58,7 +62,7 @@ class HomeController extends AbstractController {
                         $accounts[] = $this->basiqUserService->fetchUsersAccount($account_link);
                     }
 
-                    $accounts = $this->processAccounts($accounts);
+                    $accounts = $this->accountProcessingService->setDefaultValuesForMissingKeysOfAccounts($accounts);
 
                     $accounts_rendered = $this->render(
                         'home/accounts.html.twig',
