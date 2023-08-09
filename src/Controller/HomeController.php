@@ -16,8 +16,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class HomeController extends AbstractController {
-
+class HomeController extends AbstractController
+{
     private $basiqUserService;
     private $accountProcessingService;
     private $consentService;
@@ -27,14 +27,15 @@ class HomeController extends AbstractController {
         BasiqUserService $basiqUserService,
         ConsentService $consentService,
         AccountService $accountService
-        ) {
+    ) {
             $this->basiqUserService = $basiqUserService;
             $this->consentService = $consentService;
             $this->accountService = $accountService;
     }
 
     #[Route('/', name: 'home')]
-    public function index(Request $request): Response {
+    public function index(Request $request): Response
+    {
         $form = $this->createConnectBankForm();
         $form->handleRequest($request);
 
@@ -45,20 +46,21 @@ class HomeController extends AbstractController {
             $main_content_rendered = $this->handleMainContent($consents, $consent_errors_rendered);
 
             return $this->render('home/index.html.twig', [
-                'form' => NULL,
-                'showForm' => FALSE,
+                'form' => null,
+                'showForm' => false,
                 'main' => $main_content_rendered,
             ]);
         }
 
         return $this->render('home/index.html.twig', [
             'form' => $form->createView(),
-            'showForm' => TRUE,
+            'showForm' => true,
             'main' => 'Nothing happened.',
         ]);
     }
 
-    private function handleMainContent($consents, $consent_errors_rendered) {
+    private function handleMainContent($consents, $consent_errors_rendered)
+    {
         if (isset($consents['data']) && !empty($consents['data'])) {
             if ($user = $this->basiqUserService->fetchUserDetails(BASIC_TEST_USER_ID)) {
                 $user_model = new User($user);
@@ -74,7 +76,8 @@ class HomeController extends AbstractController {
         }
     }
 
-    private function renderMainContent($user, $accounts, $consent_errors_rendered) {
+    private function renderMainContent($user, $accounts, $consent_errors_rendered)
+    {
         $accounts_rendered = $this->render('home/accounts.html.twig', ['accounts' => $accounts]);
         return $this->render('home/main.html.twig', [
             'user' => $user,
@@ -84,10 +87,10 @@ class HomeController extends AbstractController {
     }
 
 
-    private function createConnectBankForm(): FormInterface {
+    private function createConnectBankForm(): FormInterface
+    {
         return $this->createFormBuilder()
             ->add('connectBank', SubmitType::class, ['label' => 'Connect Bank'])
             ->getForm();
     }
-
 }

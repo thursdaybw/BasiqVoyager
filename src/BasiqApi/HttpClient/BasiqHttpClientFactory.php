@@ -4,15 +4,17 @@ namespace App\BasiqApi\HttpClient;
 
 use App\BasiqApi\TokenHandler;
 
-class BasiqHttpClientFactory {
-
+class BasiqHttpClientFactory
+{
     private $tokenHandler;
 
-    public function __construct(TokenHandler $tokenHandler) {
+    public function __construct(TokenHandler $tokenHandler)
+    {
         $this->tokenHandler = $tokenHandler;
     }
 
-    public function createClient(): HttpClientInterface {
+    public function createClient(): HttpClientInterface
+    {
         $baseUri = 'https://au-api.basiq.io';
         $jwtToken = $this->tokenHandler->getToken();
         $headers = [

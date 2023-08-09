@@ -2,14 +2,17 @@
 
 namespace App\Model;
 
-class User {
+class User
+{
     private $data;
 
-    public function __construct($data) {
+    public function __construct($data)
+    {
         $this->data = $data;
     }
 
-    public function getAccountLinks() {
+    public function getAccountLinks()
+    {
         $accountLinks = array();
 
         foreach ($this->data->accounts['data'] as $account) {

@@ -4,9 +4,10 @@ namespace App\BasiqApi\HttpClient;
 
 use App\BasiqApi\TokenHandler;
 
-class BasiqHttpApplicationJwtAuthTokenFactory {
-
-    public function createClient(): GuzzleHttpClient {
+class BasiqHttpApplicationJwtAuthTokenFactory
+{
+    public function createClient(): GuzzleHttpClient
+    {
         $baseUri = 'https://au-api.basiq.io';
         $headers = [
             'accept' => 'application/json',

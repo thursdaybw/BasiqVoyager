@@ -37,12 +37,13 @@ class BasiqUserService
         return $accounts;
     }
 
-    public function fetchUserAccounts(string $userId): array {
+    public function fetchUserAccounts(string $userId): array
+    {
         return $this->basiqApi->fetchUserAccounts($userId);
     }
 
-    public function fetchUsersAccount(string $accountUrl): array {
+    public function fetchUsersAccount(string $accountUrl): array
+    {
         return $this->basiqApi->fetchUsersAccount($accountUrl);
     }
-
 }

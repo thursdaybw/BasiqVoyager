@@ -5,9 +5,9 @@ require_once('config.php');
 
 // Data to be sent as part of the request
 $data = [
-    /** 
+    /**
      * CLIENT_ACCESS is required for user token generation.
-     * 
+     *
      * BasiqAPI expects a token generation request to come from
      * a browser, hence the name "CLIENT_ACCESS", but for our
      * purposes we are performing the client action ahead of time,
@@ -47,7 +47,7 @@ $responseData = json_decode($response, true);
 
 // Check if there's an error in the data array
 if (isset($responseData['data'])) {
-    $errors = array_filter($responseData['data'], function($item) {
+    $errors = array_filter($responseData['data'], function ($item) {
         return isset($item['type']) && $item['type'] === 'error';
     });
 
@@ -61,11 +61,9 @@ if (isset($responseData['data'])) {
 
 $accessToken = $responseData['access_token'] ?? null;
 
-// You now have the Consent UI URL 
+// You now have the Consent UI URL
 if ($accessToken) {
     echo "https://consent.basiq.io/home?token=$accessToken\n";
 } else {
     echo 'No access token received.';
 }
-
-?>

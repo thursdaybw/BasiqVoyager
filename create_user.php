@@ -2,7 +2,7 @@
 
 $currentDirectory = __DIR__;
 
-define('BASIQ_CURL_VERBOSE', FALSE);
+define('BASIQ_CURL_VERBOSE', false);
 
 // Read the token from token.txt
 $token = trim(file_get_contents("{$currentDirectory}/token.txt"));
@@ -71,5 +71,3 @@ if ($responseData) {
 } else {
     echo 'No user data received.';
 }
-
-?>
