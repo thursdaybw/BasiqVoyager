@@ -68,25 +68,7 @@ class HomeController extends AbstractController {
                         $accounts[] = $this->api->fetchUsersAccount($account_link);
                     }
 
-                    $account_required_keys = [
-                        'balance',
-                        'availableFunds',
-                        'lastUpdated',
-                        'creditLimit',
-                        'type',
-                        'product',
-                        'accountHolder',
-                        'status',
-                    ];
-
-
-                    foreach ($accounts as &$account) {
-                      foreach ($account_required_keys as $required_key) {
-                         if (!isset($account[$required_key])) {
-                            $account[$required_key] = NULL;
-                         } 
-                      }
-                    }
+                    $accounts = $this->processAccounts($accounts);
 
                     $accounts_rendered = $this->render(
                         'home/accounts.html.twig',
@@ -124,4 +106,24 @@ class HomeController extends AbstractController {
         ]);
 
     }
+
+    private function processAccounts(array $accounts): array {
+      $account_required_keys = [
+        'balance', 'availableFunds', 'lastUpdated',
+        'creditLimit', 'type', 'product',
+        'accountHolder', 'status',
+      ];
+
+      foreach ($accounts as &$account) {
+        foreach ($account_required_keys as $required_key) {
+            if (!isset($account[$required_key])) {
+                $account[$required_key] = NULL;
+            }
+        }
+      }
+
+      return $accounts;
+   }
+
+
 }
