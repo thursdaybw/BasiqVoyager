@@ -4,12 +4,15 @@
 
 {% block body %}
 
-{% if showForm %}
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    {{ form_end(form) }}
-{% endif %}
+    {% if viewModel.showForm %}
+        {{ form_start(viewModel.form) }}
+        {{ form_widget(viewModel.form) }}
+        {{ form_end(viewModel.form) }}
+    {% endif %}
 
-{{ main|raw }}
+    {{ dump(viewModel.mainContent) }}
+
+    <p>User: {{ viewModel.mainContent.user }}</p>
+    <p>Accounts: {{ viewModel.mainContent.accounts|join(', ') }}</p>
 
 {% endblock %}

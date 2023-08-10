@@ -2,10 +2,13 @@
 
 namespace App\BasiqApi\HttpClient;
 
-use App\BasiqApi\TokenHandler;
+// Include the config file for API key and other configurations
+require_once(__DIR__ . '/../../../config.php');
 
 class BasiqHttpApplicationJwtAuthTokenFactory
 {
+
+
     public function createClient(): GuzzleHttpClient
     {
         $baseUri = 'https://au-api.basiq.io';
