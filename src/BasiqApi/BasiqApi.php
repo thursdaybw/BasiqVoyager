@@ -25,8 +25,10 @@ class BasiqApi
 
     public function fetchUsersAccount(string $accountUrl): array
     {
-        // Remove the base URL from the account URL
-        $relativeUrl = str_replace('https://au-api.basiq.io', '', $accountUrl);
+        // Parse the URL to get the path and query parts
+        $parsedUrl = parse_url($accountUrl);
+        $relativeUrl = $parsedUrl['path'] . (isset($parsedUrl['query']) ? '?' . $parsedUrl['query'] : '');
+
         return $this->httpClient->request('GET', $relativeUrl);
     }
 
