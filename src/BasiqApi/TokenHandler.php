@@ -6,13 +6,16 @@ use App\BasiqApi\HttpClient\BasiqHttpApplicationJwtAuthTokenFactory;
 use GuzzleHttp\Exception\RequestException;
 
 /**
- *
+ * Class TokenHandler
+ * This class is responsible for handling JWT tokens for Basiq API authentication.
  */
 class TokenHandler {
   private $tokenData = [];
 
   /**
+   * Retrieves the current token or fetches a new one if expired or absent.
    *
+   * @return string The access token for Basiq API requests.
    */
   public function getToken() {
     $this->tokenData = $this->readTokenDataFromFile();
@@ -25,7 +28,9 @@ class TokenHandler {
   }
 
   /**
+   * Checks if the current token is expired.
    *
+   * @return bool TRUE if the token is expired, FALSE otherwise.
    */
   private function isTokenExpired() {
     $expires_at = $this->tokenData['expires_at'];
@@ -38,7 +43,7 @@ class TokenHandler {
   }
 
   /**
-   *
+   * Fetches a new token from the Basiq API and saves it to a file.
    */
   private function fetchNewToken() {
     $clientFactory = new BasiqHttpApplicationJwtAuthTokenFactory();
@@ -46,7 +51,7 @@ class TokenHandler {
 
     try {
       $form_params = [
-      // Use SERVER_ACCESS for full access.
+            // Use SERVER_ACCESS for full access.
         'scope' => 'SERVER_ACCESS',
       ];
 
@@ -69,7 +74,9 @@ class TokenHandler {
   }
 
   /**
+   * Reads token data from a file.
    *
+   * @return array The token data as an associative array.
    */
   private function readTokenDataFromFile() {
     $tokenFilePath = __DIR__ . '/../../token.json';
@@ -87,7 +94,14 @@ class TokenHandler {
   }
 
   /**
+   * Saves token data to a file, including calculating the expiration time.
    *
+   * @param array $data
+   *   The token data to save.
+   *
+   * @return string The JSON data written to the file.
+   *
+   * @throws \Exception If the file could not be written.
    */
   private function saveTokenDataToFile($data) {
     $this->tokenData = $data;
@@ -105,7 +119,7 @@ class TokenHandler {
     // Check if the file exists or needs to be created, then write the JSON data.
     if (file_put_contents($tokenFilePath, $jsonData) === FALSE) {
       // Handle the error if the file could not be written.
-      throw new Exception('Failed to write to ' . $tokenFilePath);
+      throw new \Exception('Failed to write to ' . $tokenFilePath);
     }
 
     return $jsonData;
