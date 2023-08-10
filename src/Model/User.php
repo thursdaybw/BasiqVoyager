@@ -2,23 +2,30 @@
 
 namespace App\Model;
 
-class User
-{
-    private $data;
+/**
+ *
+ */
+class User {
+  private $data;
 
-    public function __construct($data)
-    {
-        $this->data = $data;
+  /**
+   *
+   */
+  public function __construct($data) {
+    $this->data = $data;
+  }
+
+  /**
+   *
+   */
+  public function getAccountLinks() {
+    $accountLinks = [];
+
+    foreach ($this->data->accounts['data'] as $account) {
+      $accountLinks[$account['id']] = $account['links']['self'];
     }
 
-    public function getAccountLinks()
-    {
-        $accountLinks = array();
+    return $accountLinks;
+  }
 
-        foreach ($this->data->accounts['data'] as $account) {
-            $accountLinks[$account['id']] = $account['links']['self'];
-        }
-
-        return $accountLinks;
-    }
 }

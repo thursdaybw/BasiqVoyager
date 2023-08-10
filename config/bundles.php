@@ -1,6 +1,13 @@
 <?php
 
+/**
+ * @file
+ */
+
+use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
+use Symfony\Bundle\TwigBundle\TwigBundle;
+
 return [
-    Symfony\Bundle\FrameworkBundle\FrameworkBundle::class => ['all' => true],
-    Symfony\Bundle\TwigBundle\TwigBundle::class => ['all' => true],
+  FrameworkBundle::class => ['all' => TRUE],
+  TwigBundle::class => ['all' => TRUE],
 ];
