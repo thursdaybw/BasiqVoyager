@@ -8,7 +8,10 @@ class HomePageViewModel
 {
     private $form;
     private $showForm;
-    private $mainContent;
+    private $user;
+    private $accounts;
+    private $errors;
+    private $message;
 
     public function getForm(): ?FormView
     {
@@ -30,13 +33,43 @@ class HomePageViewModel
         $this->showForm = $showForm;
     }
 
-    public function getMainContent()
+    public function getUser()
     {
-        return $this->mainContent;
+        return $this->user;
     }
 
-    public function setMainContent($mainContent): void
+    public function setUser($user): void
     {
-        $this->mainContent = $mainContent;
+        $this->user = $user;
+    }
+
+    public function getAccounts()
+    {
+        return $this->accounts;
+    }
+
+    public function setAccounts($accounts): void
+    {
+        $this->accounts = $accounts;
+    }
+
+    public function getErrors()
+    {
+        return $this->errors;
+    }
+
+    public function setErrors($errors): void
+    {
+        $this->errors = $errors;
+    }
+
+    public function getMessage()
+    {
+        return $this->message;
+    }
+
+    public function setMessage($message): void
+    {
+        $this->message = $message;
     }
 }

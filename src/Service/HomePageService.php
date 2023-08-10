@@ -38,35 +38,31 @@ class HomePageService
         $form->handleRequest($request);
 
         $showForm = true;
-        $mainContent = 'Nothing happened.';
+        $viewModel = new HomePageViewModel();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $consents = $this->basiqUserService->getUserConsents(BASIC_TEST_USER_ID);
-            $consentErrorsRendered = $this->consentService->handleConsentErrors($consents);
 
             if (isset($consents['data']) && !empty($consents['data'])) {
                 if ($user = $this->basiqUserService->fetchUserDetails(BASIC_TEST_USER_ID)) {
                     $userModel = new User($user);
                     $accounts = $this->accountService->getAccountsByUrls($userModel->getAccountLinks());
-                    $mainContent = [
-                        'user' => $user,
-                        'accounts' => $accounts,
-                        'errors' => $consentErrorsRendered ?? null
-                    ];
+
+                    $viewModel->setUser($user);
+                    $viewModel->setAccounts($accounts);
+
                 } else {
-                    $mainContent = "Error fetching user details.";
+                    $viewModel->setMessage("Error fetching user details.");
                 }
             } else {
-                $mainContent = "No consents found for the user.";
+                $viewModel->setMessage("Error fetching user details. No valid consents found.");
             }
 
             $showForm = false;
         }
 
-        $viewModel = new HomePageViewModel();
         $viewModel->setForm($form->createView());
         $viewModel->setShowForm($showForm);
-        $viewModel->setMainContent($mainContent);
 
         return $viewModel;
     }

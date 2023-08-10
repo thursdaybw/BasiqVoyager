@@ -21,8 +21,9 @@ class HomeController extends AbstractController
     public function index(Request $request): Response
     {
         $viewModel = $this->homePageService->handleHomePageRequest($request);
+
         return $this->render('home/index.html.twig', [
-            'viewModel' => $viewModel
+            'viewModel' => $viewModel,
         ]);
     }
 }
