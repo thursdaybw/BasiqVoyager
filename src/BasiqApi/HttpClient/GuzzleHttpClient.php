@@ -12,7 +12,7 @@ class GuzzleHttpClient implements HttpClientInterface
     {
         $this->client = new Client([
             'base_uri' => $baseUri,
-            'headers' => $headers
+            'headers' => $headers,
         ]);
         $this->response = null;
     }
@@ -35,6 +35,7 @@ class GuzzleHttpClient implements HttpClientInterface
           return $this->request('POST', $url, $options);
     }
 
+
     public function request(string $method, string $url, array $options = null)
     {
 
@@ -47,9 +48,8 @@ class GuzzleHttpClient implements HttpClientInterface
 
             $body = json_decode($this->response->getBody(), true);
             return $body;
-        } catch (Exception $e) {
-            echo 'Error: ' . $e->getMessage();
-            return false;
+        } catch (\Exception $e) {
+            throw new HttpClientException('Error making HTTP request: ' . $e->getMessage(), $e->getCode(), $e);
         }
     }
 
