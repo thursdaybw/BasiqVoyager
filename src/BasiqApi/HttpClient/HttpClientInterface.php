@@ -3,8 +3,10 @@
 namespace App\BasiqApi\HttpClient;
 
 /**
- * Interface HttpClientInterface
- * This interface defines the contract for HTTP clients used in the project, providing a method for making HTTP requests.
+ * Interface HttpClientInterface.
+ *
+ * This interface defines the contract for HTTP clients used in the project,
+ * providing a method for making HTTP requests.
  */
 interface HttpClientInterface {
 

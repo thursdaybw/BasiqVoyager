@@ -7,7 +7,8 @@ use App\BasiqApi\HttpClient\BasiqHttpClientFactory;
 /**
  * Class BasiqApi.
  *
- * This class provides methods to interact with the Basiq API, allowing fetching of user data, accounts, and consents.
+ * This class provides methods to interact with the Basiq API, allowing
+ * fetching of user data, accounts, and consents.
  */
 class BasiqApi {
   private $httpClient;

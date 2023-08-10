@@ -6,10 +6,13 @@ use App\BasiqApi\HttpClient\BasiqHttpApplicationJwtAuthTokenFactory;
 use GuzzleHttp\Exception\RequestException;
 
 /**
- * Class TokenHandler
- * This class is responsible for handling JWT tokens for Basiq API authentication.
+ * Class TokenHandler.
+ *
+ * This class is responsible for handling JWT tokens for Basiq API
+ * authentication.
  */
 class TokenHandler {
+
   private $tokenData = [];
 
   /**
@@ -34,11 +37,12 @@ class TokenHandler {
    */
   private function isTokenExpired() {
     $expires_at = $this->tokenData['expires_at'];
+
     if ($expires_at <= time()) {
-      return FALSE;
+      return TRUE;
     }
     else {
-      return TRUE;
+      return FALSE;
     }
   }
 
@@ -108,15 +112,12 @@ class TokenHandler {
     $tokenFilePath = __DIR__ . '/../../token.json';
 
     // Calculate the expiration time.
+    // @todo extract to a method.
     $data['expires_at'] = time() + $data['expires_in'];
-
-    // Remove the 'expires_in' field as it's no longer needed.
     unset($data['expires_in']);
 
-    // Convert the data to JSON format.
-    $jsonData = json_encode($data);
+    $jsonData = json_encode($data, JSON_PRETTY_PRINT);
 
-    // Check if the file exists or needs to be created, then write the JSON data.
     if (file_put_contents($tokenFilePath, $jsonData) === FALSE) {
       // Handle the error if the file could not be written.
       throw new \Exception('Failed to write to ' . $tokenFilePath);

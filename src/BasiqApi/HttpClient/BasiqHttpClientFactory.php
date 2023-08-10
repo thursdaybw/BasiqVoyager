@@ -7,10 +7,10 @@ use App\BasiqApi\TokenHandler;
 /**
  * Class BasiqHttpClientFactory.
  *
- * This class is responsible for creating HTTP clients to interact with the Basiq API.
+ * This class is responsible for creating HTTP clients to interact with the
+ * Basiq API.
  */
 class BasiqHttpClientFactory {
-  private $tokenHandler;
 
   /**
    * BasiqHttpClientFactory constructor.
@@ -18,9 +18,7 @@ class BasiqHttpClientFactory {
    * @param \App\BasiqApi\TokenHandler $tokenHandler
    *   Handler for managing JWT tokens for Basiq API authentication.
    */
-  public function __construct(TokenHandler $tokenHandler) {
-    $this->tokenHandler = $tokenHandler;
-  }
+  public function __construct(readonly TokenHandler $tokenHandler) {}
 
   /**
    * Creates an HTTP client for interacting with the Basiq API.

@@ -2,21 +2,31 @@
 
 namespace App\Service;
 
+use Symfony\Component\HttpFoundation\Response;
+
 /**
+ * Class ConsentService.
  *
+ * This class is responsible for handling consent-related errors.
  */
 class ConsentService {
   private $basiqUserService;
 
   /**
+   * ConsentService constructor.
    *
+   * @param BasiqUserService $basiqUserService
    */
   public function __construct(BasiqUserService $basiqUserService) {
     $this->basiqUserService = $basiqUserService;
   }
 
   /**
+   * Handles consent errors and returns a response if errors are found.
    *
+   * @param array $consents
+   *
+   * @return \Symfony\Component\HttpFoundation\Response|null
    */
   public function handleConsentErrors(array $consents): ?Response {
     if (isset($consents['data']) && !empty($consents['data'])) {

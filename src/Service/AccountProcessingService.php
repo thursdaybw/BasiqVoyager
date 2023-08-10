@@ -3,12 +3,19 @@
 namespace App\Service;
 
 /**
+ * Class AccountProcessingService.
  *
+ * This class is responsible for processing and setting default values for
+ * account details.
  */
 class AccountProcessingService {
 
   /**
+   * Sets default values for missing keys of accounts.
    *
+   * @param array $accounts
+   *
+   * @return array
    */
   public function setDefaultValuesForMissingKeysOfAccounts(array $accounts): array {
     $account_required_keys = [

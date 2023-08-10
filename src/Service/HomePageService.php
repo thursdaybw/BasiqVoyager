@@ -2,9 +2,10 @@
 
 namespace App\Service;
 
-use App\Model\User;
+use App\Model\UserModel;
 use App\ViewModel\HomePageViewModel;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,32 +14,36 @@ use Symfony\Component\HttpFoundation\Request;
 require_once __DIR__ . '/../../config.php';
 
 /**
+ * Class HomePageService.
  *
+ * This class is responsible for handling home page requests and managing the
+ * connect bank form.
  */
 class HomePageService {
-  private $basiqUserService;
-  private $consentService;
-  private $accountService;
-  private FormFactoryInterface $formFactory;
+
+  private FormBuilderInterface $formBuilder;
 
   /**
+   * HomePageService constructor.
    *
+   * @param BasiqUserService $basiqUserService
+   * @param AccountService $accountService
+   * @param \Symfony\Component\Form\FormFactoryInterface $formFactory
    */
   public function __construct(
-        BasiqUserService $basiqUserService,
-        ConsentService $consentService,
-        AccountService $accountService,
-        FormFactoryInterface $formFactory,
-    ) {
-    $this->basiqUserService = $basiqUserService;
-    $this->consentService = $consentService;
-    $this->accountService = $accountService;
-    $this->formFactory = $formFactory;
+    readonly BasiqUserService $basiqUserService,
+    readonly AccountService $accountService,
+    readonly FormFactoryInterface $formFactory,
+  ) {
     $this->formBuilder = $this->formFactory->createBuilder();
   }
 
   /**
+   * Handles home page requests and returns a view model.
    *
+   * @param \Symfony\Component\HttpFoundation\Request $request
+   *
+   * @return \App\ViewModel\HomePageViewModel
    */
   public function handleHomePageRequest(Request $request): HomePageViewModel {
     $form = $this->createConnectBankForm();
@@ -52,7 +57,7 @@ class HomePageService {
 
       if (isset($consents['data']) && !empty($consents['data'])) {
         if ($user = $this->basiqUserService->fetchUserDetails(BASIC_TEST_USER_ID)) {
-          $userModel = new User($user);
+          $userModel = new UserModel($user);
           $accounts = $this->accountService->getAccountsByUrls($userModel->getAccountLinks());
 
           $viewModel->setUser($user);
@@ -77,7 +82,9 @@ class HomePageService {
   }
 
   /**
+   * Creates the connect bank form.
    *
+   * @return \Symfony\Component\Form\FormInterface
    */
   private function createConnectBankForm(): FormInterface {
     return $this->formBuilder

@@ -2,6 +2,10 @@
 
 /**
  * @file
+ * This file creates a user by sending a cURL request to the Basiq API.
+ *
+ * It reads the token from a file, sets up the cURL request, executes it, and
+ * handles the response.
  */
 
 $currentDirectory = __DIR__;
@@ -10,7 +14,6 @@ define('BASIQ_CURL_VERBOSE', FALSE);
 
 // Read the token from token.txt.
 $token = trim(file_get_contents("{$currentDirectory}/token.txt"));
-
 
 // Endpoint URL.
 // Change this to the correct endpoint for creating a user.
