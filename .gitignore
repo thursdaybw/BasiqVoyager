@@ -27,7 +27,6 @@ cache/*
 logs/*
 
 # Ignore build artifacts, compiled files and binaries
-/bin/
 /build/
 
 
