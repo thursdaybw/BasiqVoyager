@@ -7,12 +7,12 @@ namespace App\Model;
  */
 class UserModel {
 
-  private array $data;
+  private \StdClass $data;
 
   /**
    * Constructs a new UserModel.
    */
-  public function __construct(array $data) {
+  public function __construct(\StdClass $data) {
     $this->data = $data;
   }
 
