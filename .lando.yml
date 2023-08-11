@@ -6,7 +6,21 @@ config:
   database: mariadb
 services:
   appserver:
-    xdebug: true
+    xdebug: true 
+    # To run anything as root, your options here are to either build_as_root or run_as_root.
+    # The choice between these two depends on when you need command run:
+    #  * If you need netcat installed before your service starts, then use build_as_root.
+    #    - Example, installing apt package: This will ensure that the package is installed during the building phase,
+    #      before your service starts running.
+    #  * If it's fine for netcat to be installed after your service starts, then use run_as_root.
+    #    - Example, installing apt package This will install the package after your service is already running.
+    run_as_root:
+      # Install netcat package to provide the nc command.
+      # This way we can check that we can connect to the  XDEBUG client port using this command:
+      # `nc -zv <your host IP> <the client xdebug port> && echo "Port is open" || echo "Port is closed"`
+      - apt-get update -y && apt-get install -y netcat
     overrides:
       environment:
+        # This should(tm) turn up in PHP's
         XDEBUG_MODE: "develop,debug"
+        XDEBUG_CONFIG: 'idekey=BASIQVOYAGERPHPSTORM client_host=172.17.0.1 log=/tmp/xdebug.log'
