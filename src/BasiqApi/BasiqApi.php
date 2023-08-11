@@ -3,6 +3,7 @@
 namespace App\BasiqApi;
 
 use App\BasiqApi\HttpClient\BasiqHttpClientFactory;
+use App\BasiqApi\HttpClient\HttpClientInterface;
 
 /**
  * Class BasiqApi.
@@ -11,17 +12,14 @@ use App\BasiqApi\HttpClient\BasiqHttpClientFactory;
  * fetching of user data, accounts, and consents.
  */
 class BasiqApi {
-  private $httpClient;
 
   /**
    * BasiqApi constructor.
    *
-   * @param \App\BasiqApi\HttpClient\BasiqHttpClientFactory $httpClientFactory
-   *   Factory to create the HTTP client for Basiq API requests.
+   * @param \App\BasiqApi\HttpClient\HttpClientInterface $httpClient
+   *   The preconfigured client to talk to the BasiqApi with.
    */
-  public function __construct(BasiqHttpClientFactory $httpClientFactory) {
-    $this->httpClient = $httpClientFactory->createClient();
-  }
+  public function __construct(readonly HttpClientInterface $httpClient) {}
 
   /**
    * Fetches user information from the Basiq API.
@@ -44,7 +42,7 @@ class BasiqApi {
    * @return array An array of account objects.
    */
   public function fetchUserAccounts(string $userId): array {
-    return $this->client->request('GET', "/users/{$userId}/accounts");
+    return $this->httpClient->request('GET', "/users/{$userId}/accounts");
   }
 
   /**
@@ -53,9 +51,10 @@ class BasiqApi {
    * @param string $accountUrl
    *   The URL of the account to fetch.
    *
-   * @return array An array containing account details.
+   * @return ?array
+   *   An array containing account details.
    */
-  public function fetchUsersAccount(string $accountUrl): array {
+  public function fetchUsersAccount(string $accountUrl): ?array {
     // Parse the URL to get the path and query parts.
     $parsedUrl = parse_url($accountUrl);
     $relativeUrl = $parsedUrl['path'] . (isset($parsedUrl['query']) ? '?' . $parsedUrl['query'] : '');
@@ -71,8 +70,9 @@ class BasiqApi {
    *
    * @return array An array of consent objects.
    */
-  public function getBasiqUserConsents(string $userId): array {
-    return $this->httpClient->request('GET', "/users/{$userId}/consents");
+  public function getBasiqUserConsents(string $userId): ?array {
+    $consents = $this->httpClient->request('GET', "/users/{$userId}/consents");
+    return $consents;
   }
 
 }

@@ -25,7 +25,7 @@ class BasiqHttpClientFactory {
    *
    * @return HttpClientInterface The HTTP client configured with the base URI and headers for Basiq API requests.
    */
-  public function createClient(): HttpClientInterface {
+  public function createHttpClient(): HttpClientInterface {
     $baseUri = 'https://au-api.basiq.io';
 
     // getToken will take care of getting the current

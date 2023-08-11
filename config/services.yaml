@@ -25,7 +25,28 @@ services:
 
     App\BasiqApi\TokenHandler: ~
     App\BasiqApi\HttpClient\BasiqHttpClientFactory: ~
-    App\BasiqApi\BasiqApi: ~
+
+    # This line tells Symfony that whenever something asks for the HttpClientInterface, it should provide the
+    # SymfonyHttpClient service.
+    App\BasiqApi\HttpClient\HttpClientInterface: '@App\SymfonyHttpClient'
+
+    # @todo I want to get rid of this service so that I can package BasiqApi into it's own thing.
+    App\BasiqApi\BasiqApi:
+        $httpClient: '@App\BasiqApi\HttpClient\HttpClientInterface'
+
     App\Service\BasiqUserService: ~
     App\Service\ConsentService: ~
     App\Service\AccountService: ~
+
+    BasiqHttpClientFactory:
+      class: App\BasiqApi\HttpClient\BasiqHttpClientFactory
+
+    App\SymfonyHttpClient:
+        arguments:
+            $factory: '@BasiqHttpClientFactory'
+
+    App\Api\ApiInterface:
+        class: App\Api\BasiqApiWrapper
+        arguments:
+            $basiqApi: '@App\BasiqApi\BasiqApi'
+

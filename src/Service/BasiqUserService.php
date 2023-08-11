@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Api\ApiInterface;
 use App\BasiqApi\BasiqApi;
 
 /**
@@ -17,10 +18,10 @@ class BasiqUserService {
   /**
    * BasiqUserService constructor.
    *
-   * @param \App\BasiqApi\BasiqApi $basiqApi
+   * @param \App\Api\ApiInterface $api
    */
-  public function __construct(BasiqApi $basiqApi) {
-    $this->basiqApi = $basiqApi;
+  public function __construct(ApiInterface $api) {
+    $this->basiqApi = $api;
   }
 
   /**
@@ -32,7 +33,8 @@ class BasiqUserService {
    */
   public function getUserConsents(string $userId) {
     // Use BasiqApi to fetch consents and process as needed.
-    return $this->basiqApi->getBasiqUserConsents($userId);
+    $consents = $this->basiqApi->getBasiqUserConsents($userId);
+    return $consents;
   }
 
   /**
