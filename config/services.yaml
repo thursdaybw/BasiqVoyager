@@ -26,15 +26,15 @@ services:
 
     ## Wrapper to BasiqApi defined in our webapp scope.
     App\BankingDataApi\ApiInterface:
-        class: App\BankingDataApi\BasiqApiWrapper
+        class: App\Application\BankingDataApi\BasiqBankingDataApiWrapper
         arguments:
             $basiqApi: '@App\BasiqApi\BasiqApi'
             # this is our dependency on BasiqApi
 
     # These seems rather tied to the BasiqAPI too.
-    App\Service\BasiqUserService: ~
-    App\Service\ConsentService: ~
-    App\Service\AccountService: ~
+    App\Application\BasiqUserService: ~
+    App\Application\ConsentService: ~
+    App\Application\AccountService: ~
 
     # BasiqPHP_API Services.
     # @todo I want to convert these services into a framework agnostic dependency injection system.
@@ -43,6 +43,8 @@ services:
     # which is used to fetch a token for our app to authenticate with the api.
     # The other creates a client and uses the stored token for the bearer auth header used
     # for further communiciation with the API.
+    # Pass the base_uri of the BasiqApi Rest service to each of the factories.
+    # This will be passed down into the guzzleWrapper and then to guzzle etc.
     App\BasiqApi\GuzzleWrapper\Factory\GuzzleWrapperWithAuthBasicFactory:
     App\BasiqApi\GuzzleWrapper\Factory\GuzzleWrapperWithAuthBearerTokenFactory:
 
@@ -50,11 +52,15 @@ services:
     # as service.
     App\BasiqApi\GuzzleWrapper\BasicAuthClient:
        factory: ['@App\BasiqApi\GuzzleWrapper\Factory\GuzzleWrapperWithAuthBasicFactory', 'createClient']
+       arguments:
+           - '%base_uri%'
 
     # Use the client created by the AuthTokenFactory to create the client configured with bearer token auth
     # as as service.
     App\BasiqApi\GuzzleWrapper\BearerTokenClient:
        factory: ['@App\BasiqApi\GuzzleWrapper\Factory\GuzzleWrapperWithAuthBearerTokenFactory', 'createClient']
+       arguments:
+           - '%base_uri%'
 
     # Wire up the BearerTokenManager to use the BasicAuthClient.
     # The BearerTokenManager calls then BasiqApi via Basic auth to get a refreshed token

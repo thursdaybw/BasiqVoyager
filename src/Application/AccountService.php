@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service;
+namespace App\Application;
 
 /**
  * Class AccountService.
@@ -12,11 +12,11 @@ class AccountService {
   /**
    * AccountService constructor.
    *
-   * @param BasiqUserService $basiqUserService
+   * @param UserService $basiqUserService
    * @param AccountProcessingService $accountProcessingService
    */
   public function __construct(
-    readonly BasiqUserService $basiqUserService,
+    readonly UserService $basiqUserService,
     readonly AccountProcessingService $accountProcessingService,
   ) {
   }

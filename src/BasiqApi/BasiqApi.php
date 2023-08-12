@@ -69,7 +69,7 @@ class BasiqApi {
    *
    * @return array An array of consent objects.
    */
-  public function getBasiqUserConsents(string $userId): ?array {
+  public function getUserConsents(string $userId): ?array {
     $consents = $this->httpClient->request('GET', "/users/{$userId}/consents");
     return $consents;
   }

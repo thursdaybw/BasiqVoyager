@@ -158,4 +158,5 @@ class GuzzleClientWrapper implements HttpClientWrapperInterface {
       return NULL;
     }
   }
+
 }

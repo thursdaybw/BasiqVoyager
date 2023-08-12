@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service;
+namespace App\Application;
 
 use App\Model\UserModel;
 use App\ViewModel\HomePageViewModel;
@@ -26,12 +26,12 @@ class HomePageService {
   /**
    * HomePageService constructor.
    *
-   * @param BasiqUserService $basiqUserService
+   * @param UserService $basiqUserService
    * @param AccountService $accountService
    * @param \Symfony\Component\Form\FormFactoryInterface $formFactory
    */
   public function __construct(
-    readonly BasiqUserService $basiqUserService,
+    readonly UserService $basiqUserService,
     readonly AccountService $accountService,
     readonly FormFactoryInterface $formFactory,
   ) {

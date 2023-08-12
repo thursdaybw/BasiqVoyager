@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Service\HomePageService;
+use App\Application\HomePageService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,7 +27,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * allows for a clean separation of concerns, ensuring that the controller
  * remains focused on coordinating the request handling, while the service
  * class handles the underlying business logic, and the view model facilitates
- * the presentation.
+ * the presentationBankingDataApi/BankingDataApiInterface.php.
  *
  * This design promotes maintainability, testability, and adherence to the
  * principles of clean code.

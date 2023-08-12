@@ -16,7 +16,6 @@ class BearerTokenManager {
   private GuzzleClientWrapper $basicAuthClient;
   private $tokenData = [];
 
-
   public function __construct(GuzzleClientWrapper $basicAuthClient) {
     $this->basicAuthClient = $basicAuthClient;
   }

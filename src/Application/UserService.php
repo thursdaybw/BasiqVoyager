@@ -1,27 +1,26 @@
 <?php
 
-namespace App\Service;
+namespace App\Application;
 
-use App\BankingDataApi\ApiInterface;
-use App\BasiqApi\BasiqApi;
+use App\Application\BankingDataApi\BankingDataApiInterface;
 
 /**
- * Class BasiqUserService.
+ * Class UserService.
  *
  * This class is responsible for managing and retrieving user details and
  * accounts.
  */
-class BasiqUserService {
+class UserService {
 
-  private $basiqApi;
+  private $bankingDataApi;
 
   /**
    * BasiqUserService constructor.
    *
-   * @param \App\BankingDataApi\ApiInterface $api
+   * @param \App\Application\BankingDataApi\BankingDataApiInterface $api
    */
-  public function __construct(ApiInterface $api) {
-    $this->basiqApi = $api;
+  public function __construct(BankingDataApiInterface $api) {
+    $this->bankingDataApi = $api;
   }
 
   /**
@@ -33,7 +32,7 @@ class BasiqUserService {
    */
   public function getUserConsents(string $userId) {
     // Use BasiqApi to fetch consents and process as needed.
-    $consents = $this->basiqApi->getBasiqUserConsents($userId);
+    $consents = $this->bankingDataApi->getUserConsents($userId);
     return $consents;
   }
 
@@ -45,7 +44,7 @@ class BasiqUserService {
    * @return mixed
    */
   public function fetchUserDetails(string $userId) {
-    $user = $this->basiqApi->fetchUser($userId);
+    $user = $this->bankingDataApi->fetchUser($userId);
     // Process user details as needed for the controller.
     return $user;
   }
@@ -61,7 +60,7 @@ class BasiqUserService {
     $accounts = [];
     $accountLinks = $this->fetchUserDetails($userId)->getAccountLinks();
     foreach ($accountLinks as $accountLink) {
-      $accounts[] = $this->basiqApi->fetchUsersAccount($accountLink);
+      $accounts[] = $this->bankingDataApi->fetchUsersAccount($accountLink);
     }
     // Process accounts as needed for the controller.
     return $accounts;
@@ -75,7 +74,7 @@ class BasiqUserService {
    * @return array
    */
   public function fetchUserAccounts(string $userId): array {
-    return $this->basiqApi->fetchUserAccounts($userId);
+    return $this->bankingDataApi->fetchUserAccounts($userId);
   }
 
   /**
@@ -86,7 +85,7 @@ class BasiqUserService {
    * @return array
    */
   public function fetchUsersAccount(string $accountUrl): array {
-    return $this->basiqApi->fetchUsersAccount($accountUrl);
+    return $this->bankingDataApi->fetchUsersAccount($accountUrl);
   }
 
 }

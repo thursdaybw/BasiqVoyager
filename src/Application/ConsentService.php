@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service;
+namespace App\Application;
 
 use Symfony\Component\HttpFoundation\Response;
 
@@ -15,9 +15,9 @@ class ConsentService {
   /**
    * ConsentService constructor.
    *
-   * @param BasiqUserService $basiqUserService
+   * @param UserService $basiqUserService
    */
-  public function __construct(BasiqUserService $basiqUserService) {
+  public function __construct(UserService $basiqUserService) {
     $this->basiqUserService = $basiqUserService;
   }
 
