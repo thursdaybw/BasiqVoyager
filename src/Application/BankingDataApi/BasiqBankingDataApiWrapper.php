@@ -2,7 +2,7 @@
 
 namespace App\Application\BankingDataApi;
 
-use App\BasiqApi\BasiqApi;
+use BasiqPhpApi\Api;
 
 /**
  * Wraps the BasiqPHPAPI with a simple interface for use with our front end.
@@ -13,7 +13,7 @@ class BasiqBankingDataApiWrapper implements BankingDataApiInterface {
 
   private $basiqApi;
 
-  public function __construct(BasiqApi $basiqApi) {
+  public function __construct(Api $basiqApi) {
     $this->basiqApi = $basiqApi;
   }
 
