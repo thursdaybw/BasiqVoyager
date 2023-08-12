@@ -2,16 +2,13 @@
 
 namespace App\Application;
 
+use App\Alias\BasiqUserId;
 use App\Model\UserModel;
 use App\ViewModel\HomePageViewModel;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
-
-// Include the config file for API key and other configurations.
-require_once __DIR__ . '/../../config.php';
 
 /**
  * Class HomePageService.
@@ -21,22 +18,20 @@ require_once __DIR__ . '/../../config.php';
  */
 class HomePageService {
 
-  private FormBuilderInterface $formBuilder;
-
   /**
    * HomePageService constructor.
    *
    * @param UserService $basiqUserService
    * @param AccountService $accountService
    * @param \Symfony\Component\Form\FormFactoryInterface $formFactory
+   * @param string $userId
    */
   public function __construct(
     readonly UserService $basiqUserService,
     readonly AccountService $accountService,
     readonly FormFactoryInterface $formFactory,
-  ) {
-    $this->formBuilder = $this->formFactory->createBuilder();
-  }
+    readonly string $userId
+  ) {}
 
   /**
    * Handles home page requests and returns a view model.
@@ -53,10 +48,10 @@ class HomePageService {
     $viewModel = new HomePageViewModel();
 
     if ($form->isSubmitted() && $form->isValid()) {
-      $consents = $this->basiqUserService->getUserConsents(BASIC_TEST_USER_ID);
+      $consents = $this->basiqUserService->getUserConsents($this->userId);
 
       if (isset($consents['data']) && !empty($consents['data'])) {
-        if ($user = $this->basiqUserService->fetchUserDetails(BASIC_TEST_USER_ID)) {
+        if ($user = $this->basiqUserService->fetchUserDetails($this->userId)) {
           $userModel = new UserModel($user);
           $accounts = $this->accountService->getAccountsByUrls($userModel->getAccountLinks());
 
@@ -87,7 +82,7 @@ class HomePageService {
    * @return \Symfony\Component\Form\FormInterface
    */
   private function createConnectBankForm(): FormInterface {
-    return $this->formBuilder
+    return $this->formFactory->createBuilder()
       ->add('connectBank', SubmitType::class, ['label' => 'Connect Bank'])
       ->getForm();
   }

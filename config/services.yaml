@@ -7,7 +7,7 @@ parameters:
     basiq_api_settings:
         base_uri: '%env(BASIQ_BASE_URI)%'
         user_id: '%env(BASIQ_USER_ID)%'
-        basiq_api_key: '%env(BASIQ_API_KEY)%'
+        api_key: '%env(BASIQ_API_KEY)%'
 
 services:
     # default configuration for services in *this* file
@@ -38,8 +38,25 @@ services:
         arguments:
             $basiqApi: '@BasiqPhpApi\Api'
 
-    # These seems rather tied to the BasiqAPI too.
     App\Application\BasiqUserService: ~
     App\Application\ConsentService: ~
     App\Application\AccountService: ~
 
+    # @todo Want to move thins banking data to a symfony package,
+    # will need to do something about the paremeters up top of this page
+    # and here too.
+    # This configuatin facory is a good start, it manages the basiq api
+    # configuration for us.
+    App\Application\BankingDataApi\Configuration\BasiqApiConfiguration:
+        arguments:
+            $basiqApiSettings: '%basiq_api_settings%'
+
+    # This lot allows the HomePageService to depend on a $userId
+    # via the BasiqApiConfiguration manager, keeping it isolated from secrets.
+    app.basiq_user_id:
+        class: string
+        factory: ['@App\Application\BankingDataApi\Configuration\BasiqApiConfiguration', 'getUserId']
+
+    App\Application\HomePageService:
+        arguments:
+            $userId: '@app.basiq_user_id'

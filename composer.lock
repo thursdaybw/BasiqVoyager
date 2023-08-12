@@ -3914,12 +3914,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/thursdaybw/basiq-php-api.git",
-                "reference": "a2c037f55df371f849839ab726b30d62394621f7"
+                "reference": "6ec5341d9f937599ecbeab565a968f6b5bd3f2bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thursdaybw/basiq-php-api/zipball/a2c037f55df371f849839ab726b30d62394621f7",
-                "reference": "a2c037f55df371f849839ab726b30d62394621f7",
+                "url": "https://api.github.com/repos/thursdaybw/basiq-php-api/zipball/6ec5341d9f937599ecbeab565a968f6b5bd3f2bb",
+                "reference": "6ec5341d9f937599ecbeab565a968f6b5bd3f2bb",
                 "shasum": ""
             },
             "require": {
@@ -3940,7 +3940,7 @@
                 "source": "https://github.com/thursdaybw/basiq-php-api/tree/main",
                 "issues": "https://github.com/thursdaybw/basiq-php-api/issues"
             },
-            "time": "2023-08-12T08:08:52+00:00"
+            "time": "2023-08-12T09:01:05+00:00"
         },
         {
             "name": "twig/twig",
