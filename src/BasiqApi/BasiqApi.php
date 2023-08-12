@@ -2,8 +2,7 @@
 
 namespace App\BasiqApi;
 
-use App\BasiqApi\HttpClient\BasiqHttpClientFactory;
-use App\BasiqApi\HttpClient\HttpClientInterface;
+use App\BasiqApi\HttpClient\HttpClientWrapperInterface;
 
 /**
  * Class BasiqApi.
@@ -16,10 +15,10 @@ class BasiqApi {
   /**
    * BasiqApi constructor.
    *
-   * @param \App\BasiqApi\HttpClient\HttpClientInterface $httpClient
+   * @param \App\BasiqApi\HttpClient\HttpClientWrapperInterface $httpClient
    *   The preconfigured client to talk to the BasiqApi with.
    */
-  public function __construct(readonly HttpClientInterface $httpClient) {}
+  public function __construct(readonly HttpClientWrapperInterface $httpClient) {}
 
   /**
    * Fetches user information from the Basiq API.

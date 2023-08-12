@@ -38,6 +38,10 @@ The project is divided into several phases:
 - Status: Completed
 - [Status Update](web/docs/Phase_6_-_Creating_a_user_in_your_application_via_the_PHP_API-status.md)
 
+## Todo
+- Update the BankingData Wrapper to work with a composer installed version of the BasiqPHPAPI
+
+
 
 This includes setting up a local web server, implementing user authentication, retrieving account balance information, displaying account balance information, and error handling and testing.
 

@@ -1,8 +1,10 @@
 <?php
 
-namespace App\BasiqApi\HttpClient;
+namespace App\BasiqApi\GuzzleWrapper\Factory;
 
-use App\BasiqApi\TokenHandler;
+use App\BasiqApi\GuzzleWrapper\GuzzleClientWrapper;
+use App\BasiqApi\HttpClient\HttpClientWrapperInterface;
+use App\BasiqApi\BearerTokenManager;
 
 /**
  * Class BasiqHttpClientFactory.
@@ -10,22 +12,23 @@ use App\BasiqApi\TokenHandler;
  * This class is responsible for creating HTTP clients to interact with the
  * Basiq API.
  */
-class BasiqHttpClientFactory {
+class GuzzleWrapperWithAuthBearerTokenFactory implements GuzzleWrapperFactoryInterface {
 
   /**
    * BasiqHttpClientFactory constructor.
    *
-   * @param \App\BasiqApi\TokenHandler $tokenHandler
+   * @param \App\BasiqApi\BearerTokenManager $tokenHandler
    *   Handler for managing JWT tokens for Basiq API authentication.
    */
-  public function __construct(readonly TokenHandler $tokenHandler) {}
+  public function __construct(readonly BearerTokenManager $tokenHandler) {}
 
   /**
    * Creates an HTTP client for interacting with the Basiq API.
    *
-   * @return HttpClientInterface The HTTP client configured with the base URI and headers for Basiq API requests.
+   * @return \App\BasiqApi\HttpClient\HttpClientWrapperInterface
+   *   The HTTP client configured with the base URI and headers for Basiq API requests.
    */
-  public function createHttpClient(): HttpClientInterface {
+  public function createClient(): HttpClientWrapperInterface {
     $baseUri = 'https://au-api.basiq.io';
 
     // getToken will take care of getting the current
@@ -39,7 +42,7 @@ class BasiqHttpClientFactory {
       'basiq-version' => '3.0',
     ];
 
-    return new GuzzleHttpClient($baseUri, $headers);
+    return new GuzzleClientWrapper($baseUri, $headers);
   }
 
 }

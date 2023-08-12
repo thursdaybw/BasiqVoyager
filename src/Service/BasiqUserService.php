@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-use App\Api\ApiInterface;
+use App\BankingDataApi\ApiInterface;
 use App\BasiqApi\BasiqApi;
 
 /**
@@ -18,7 +18,7 @@ class BasiqUserService {
   /**
    * BasiqUserService constructor.
    *
-   * @param \App\Api\ApiInterface $api
+   * @param \App\BankingDataApi\ApiInterface $api
    */
   public function __construct(ApiInterface $api) {
     $this->basiqApi = $api;

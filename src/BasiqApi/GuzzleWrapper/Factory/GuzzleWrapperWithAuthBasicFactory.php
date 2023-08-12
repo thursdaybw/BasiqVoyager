@@ -1,25 +1,26 @@
 <?php
 
-namespace App\BasiqApi\HttpClient;
+namespace App\BasiqApi\GuzzleWrapper\Factory;
 
-// Include the config file for API key and other configurations.
-require_once __DIR__ . '/../../../config.php';
+use App\BasiqApi\GuzzleWrapper\GuzzleClientWrapper;
+
+require_once __DIR__ . '/../../../../config.php';
 
 /**
- * Class BasiqHttpApplicationJwtAuthTokenFactory.
+ * Class HttpApplicationWithAuthBasicFactory.
  *
  * This class is responsible for creating HTTP clients specifically for
  * handling JWT authentication tokens with the Basiq API.
  */
-class BasiqHttpApplicationJwtAuthTokenFactory {
+class GuzzleWrapperWithAuthBasicFactory implements GuzzleWrapperFactoryInterface {
 
   /**
    * Creates an HTTP client which handles JWT auth tokens with the Basiq API.
    *
-   * @return GuzzleHttpClient
+   * @return GuzzleClientWrapper
    *   The HTTP client configured with the base URI and headers for JWT auth.
    */
-  public function createClient(): GuzzleHttpClient {
+  public function createClient(): GuzzleClientWrapper {
     $baseUri = 'https://au-api.basiq.io';
     $headers = [
       'accept' => 'application/json',
@@ -28,7 +29,7 @@ class BasiqHttpApplicationJwtAuthTokenFactory {
       'content-type' => 'application/x-www-form-urlencoded',
     ];
 
-    return new GuzzleHttpClient($baseUri, $headers);
+    return new GuzzleClientWrapper($baseUri, $headers);
   }
 
 }

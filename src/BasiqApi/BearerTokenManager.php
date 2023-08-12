@@ -2,7 +2,7 @@
 
 namespace App\BasiqApi;
 
-use App\BasiqApi\HttpClient\BasiqHttpApplicationJwtAuthTokenFactory;
+use App\BasiqApi\GuzzleWrapper\GuzzleClientWrapper;
 use GuzzleHttp\Exception\RequestException;
 
 /**
@@ -11,9 +11,15 @@ use GuzzleHttp\Exception\RequestException;
  * This class is responsible for handling JWT tokens for Basiq API
  * authentication.
  */
-class TokenHandler {
+class BearerTokenManager {
 
+  private GuzzleClientWrapper $basicAuthClient;
   private $tokenData = [];
+
+
+  public function __construct(GuzzleClientWrapper $basicAuthClient) {
+    $this->basicAuthClient = $basicAuthClient;
+  }
 
   /**
    * Retrieves the current token or fetches a new one if expired or absent.
@@ -50,8 +56,6 @@ class TokenHandler {
    * Fetches a new token from the Basiq API and saves it to a file.
    */
   private function fetchNewToken() {
-    $clientFactory = new BasiqHttpApplicationJwtAuthTokenFactory();
-    $client = $clientFactory->createClient();
 
     try {
       $form_params = [
@@ -59,8 +63,11 @@ class TokenHandler {
         'scope' => 'SERVER_ACCESS',
       ];
 
-      $data = $client->post("/token", $form_params);
-      $statusCode = $client->getStatusCode();
+      $data = $this->basicAuthClient->post("/token", $form_params);
+
+      $last_request_headers = $this->basicAuthClient->getResponseHeaders();
+
+      $statusCode = $this->basicAuthClient->getStatusCode();
 
       if ($statusCode === 200) {
         $this->saveTokenDataToFile($data);

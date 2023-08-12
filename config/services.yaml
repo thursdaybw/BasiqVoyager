@@ -4,6 +4,7 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    base_uri: 'https://au-api.basiq.io'
 
 services:
     # default configuration for services in *this* file
@@ -20,33 +21,52 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
-    # add more service definitions when explicit configuration is needed
+    # Add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
-    App\BasiqApi\TokenHandler: ~
-    App\BasiqApi\HttpClient\BasiqHttpClientFactory: ~
+    ## Wrapper to BasiqApi defined in our webapp scope.
+    App\BankingDataApi\ApiInterface:
+        class: App\BankingDataApi\BasiqApiWrapper
+        arguments:
+            $basiqApi: '@App\BasiqApi\BasiqApi'
+            # this is our dependency on BasiqApi
 
-    # This line tells Symfony that whenever something asks for the HttpClientInterface, it should provide the
-    # SymfonyHttpClient service.
-    App\BasiqApi\HttpClient\HttpClientInterface: '@App\SymfonyHttpClient'
-
-    # @todo I want to get rid of this service so that I can package BasiqApi into it's own thing.
-    App\BasiqApi\BasiqApi:
-        $httpClient: '@App\BasiqApi\HttpClient\HttpClientInterface'
-
+    # These seems rather tied to the BasiqAPI too.
     App\Service\BasiqUserService: ~
     App\Service\ConsentService: ~
     App\Service\AccountService: ~
 
-    BasiqHttpClientFactory:
-      class: App\BasiqApi\HttpClient\BasiqHttpClientFactory
+    # BasiqPHP_API Services.
+    # @todo I want to convert these services into a framework agnostic dependency injection system.
 
-    App\SymfonyHttpClient:
+    # Define our two client factories, one creates a client configured with basic auth
+    # which is used to fetch a token for our app to authenticate with the api.
+    # The other creates a client and uses the stored token for the bearer auth header used
+    # for further communiciation with the API.
+    App\BasiqApi\GuzzleWrapper\Factory\GuzzleWrapperWithAuthBasicFactory:
+    App\BasiqApi\GuzzleWrapper\Factory\GuzzleWrapperWithAuthBearerTokenFactory:
+
+    # Use the client created by the AuthBasicFactory to create the client configured with basic auth as
+    # as service.
+    App\BasiqApi\GuzzleWrapper\BasicAuthClient:
+       factory: ['@App\BasiqApi\GuzzleWrapper\Factory\GuzzleWrapperWithAuthBasicFactory', 'createClient']
+
+    # Use the client created by the AuthTokenFactory to create the client configured with bearer token auth
+    # as as service.
+    App\BasiqApi\GuzzleWrapper\BearerTokenClient:
+       factory: ['@App\BasiqApi\GuzzleWrapper\Factory\GuzzleWrapperWithAuthBearerTokenFactory', 'createClient']
+
+    # Wire up the BearerTokenManager to use the BasicAuthClient.
+    # The BearerTokenManager calls then BasiqApi via Basic auth to get a refreshed token
+    # when the token expires.
+    App\BasiqApi\BearerTokenManager:
+        class: App\BasiqApi\BearerTokenManager
         arguments:
-            $factory: '@BasiqHttpClientFactory'
+            - '@App\BasiqApi\GuzzleWrapper\BasicAuthClient'
 
-    App\Api\ApiInterface:
-        class: App\Api\BasiqApiWrapper
+    # Wire up the BasiqApi client, provide it the BearerTokenClient so it can fetch data from
+    # BasiqApi via the authentication token.
+    App\BasiqApi\BasiqApi:
+        class: App\BasiqApi\BasiqApi
         arguments:
-            $basiqApi: '@App\BasiqApi\BasiqApi'
-
+            - '@App\BasiqApi\GuzzleWrapper\BearerTokenClient'

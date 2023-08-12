@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Api;
+namespace App\BankingDataApi;
 
 use App\BasiqApi\BasiqApi;
 

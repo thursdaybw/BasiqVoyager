@@ -1,32 +1,37 @@
 <?php
 
-namespace App\BasiqApi\HttpClient;
+namespace App\BasiqApi\GuzzleWrapper;
 
+use App\BasiqApi\HttpClient\HttpClientWrapperInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\MessageFormatter;
 use GuzzleHttp\Middleware;
+use GuzzleHttp\Psr7\Response;
 use Monolog\Handler\ErrorLogHandler;
 use Monolog\Logger;
 
 /**
- * Class GuzzleHttpClient.
+ * Class GuzzleHttpClientWrapper.
  *
- * This class implements the HttpClientInterface and provides methods for making
- * HTTP requests using Guzzle.
+ * This class implements the HttpClientInterface and provides a simplified
+ * interface for making HTTP requests using Guzzle.
+ *
+ * In handles a extra guzzle configuration such as enabling logging.
  */
-class GuzzleHttpClient implements HttpClientInterface {
+class GuzzleClientWrapper implements HttpClientWrapperInterface {
 
-  private $client;
+  private Client $client;
+
+  private ?Response $response;
 
   /**
-   * GuzzleHttpClient constructor.
+   * GuzzleHttpClientWrapper constructor.
    *
    * @param string $baseUri
    *   The base URI for the HTTP client.
    * @param array $headers
-   *   Optional headers to include with requests.
-   */
+   *   Optional headers to include with requests. */
   public function __construct(string $baseUri, array $headers = []) {
 
     /*
@@ -103,12 +108,10 @@ class GuzzleHttpClient implements HttpClientInterface {
    *   The HTTP method to use (e.g., GET, POST).
    * @param string $url
    *   The URL to request.
-   * @param array $options
+   * @param ?array $options
    *   Optional options to include with the request.
    *
    * @return array The response body as an associative array.
-   *
-   * @throws HttpClientException If an error occurs during the request.
    */
   public function request(string $method, string $url, array $options = NULL) {
 
@@ -124,7 +127,7 @@ class GuzzleHttpClient implements HttpClientInterface {
       return $body;
     }
     catch (\Exception $e) {
-      throw new HttpClientException('Error making HTTP request: ' . $e->getMessage(), $e->getCode(), $e);
+      throw new GuzzleWrapperException('Error making HTTP request: ' . $e->getMessage(), $e->getCode(), $e);
     }
   }
 
@@ -142,4 +145,17 @@ class GuzzleHttpClient implements HttpClientInterface {
     }
   }
 
+  /**
+   * Retrieves the status code from the last response.
+   *
+   * @return ?array The status code, or FALSE if no response is available.
+   */
+  public function getResponseHeaders(): ?array {
+    if (!empty($this->response)) {
+      return $this->response->getHeaders();
+    }
+    else {
+      return NULL;
+    }
+  }
 }
