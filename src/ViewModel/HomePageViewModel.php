@@ -100,6 +100,8 @@ class HomePageViewModel {
 
   /**
    * Gets the accounts details.
+   *
+   * @return ?\OpenAPI\Client\Model\Account[]
    */
   public function getAccounts(): ?array {
     return $this->accounts ?? NULL;

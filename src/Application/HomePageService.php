@@ -21,16 +21,16 @@ class HomePageService {
   /**
    * HomePageService constructor.
    *
-   * @param UserService $basiqUserService
+   * @param UserService $userService
    * @param AccountService $accountService
    * @param \Symfony\Component\Form\FormFactoryInterface $formFactory
    * @param string $userId
    */
   public function __construct(
-    readonly UserService $basiqUserService,
-    readonly AccountService $accountService,
+    readonly UserService          $userService,
+    readonly AccountService       $accountService,
     readonly FormFactoryInterface $formFactory,
-    readonly string $userId
+    readonly string               $userId
   ) {}
 
   /**
@@ -48,24 +48,9 @@ class HomePageService {
     $viewModel = new HomePageViewModel();
 
     if ($form->isSubmitted() && $form->isValid()) {
-      $consents = $this->basiqUserService->getUserConsents($this->userId);
 
-      if (isset($consents['data']) && !empty($consents['data'])) {
-        if ($user = $this->basiqUserService->fetchUserDetails($this->userId)) {
-          $userModel = new UserModel($user);
-          $accounts = $this->accountService->getAccountsByUrls($userModel->getAccountLinks());
-
-          $viewModel->setUser($user);
-          $viewModel->setAccounts($accounts);
-
-        }
-        else {
-          $viewModel->setMessage("Error fetching user details.");
-        }
-      }
-      else {
-        $viewModel->setMessage("Error fetching user details. No valid consents found.");
-      }
+      $accounts = $this->userService->fetchUserAccounts($this->userId);
+      $viewModel->setAccounts($accounts);
 
       $showForm = FALSE;
     }

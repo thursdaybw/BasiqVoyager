@@ -3,6 +3,7 @@
 namespace App\Application;
 
 use App\Application\BankingDataApi\BankingDataApiInterface;
+use OpenAPI\Client\Model\Account;
 
 /**
  * Class UserService.
@@ -12,16 +13,7 @@ use App\Application\BankingDataApi\BankingDataApiInterface;
  */
 class UserService {
 
-  private $bankingDataApi;
-
-  /**
-   * BasiqUserService constructor.
-   *
-   * @param \App\Application\BankingDataApi\BankingDataApiInterface $api
-   */
-  public function __construct(BankingDataApiInterface $api) {
-    $this->bankingDataApi = $api;
-  }
+  public function __construct(readonly BankingDataApiInterface $bankingDataApi) {}
 
   /**
    * Retrieves user consents.
@@ -30,11 +22,6 @@ class UserService {
    *
    * @return mixed
    */
-  public function getUserConsents(string $userId) {
-    // Use BasiqApi to fetch consents and process as needed.
-    $consents = $this->bankingDataApi->getUserConsents($userId);
-    return $consents;
-  }
 
   /**
    * Fetches user details.
@@ -45,7 +32,7 @@ class UserService {
    */
   public function fetchUserDetails(string $userId) {
     $user = $this->bankingDataApi->fetchUser($userId);
-    // Process user details as needed for the controller.
+
     return $user;
   }
 
@@ -71,7 +58,7 @@ class UserService {
    *
    * @param string $userId
    *
-   * @return array
+   * @return \OpenAPI\Client\Model\Account[]
    */
   public function fetchUserAccounts(string $userId): array {
     return $this->bankingDataApi->fetchUserAccounts($userId);

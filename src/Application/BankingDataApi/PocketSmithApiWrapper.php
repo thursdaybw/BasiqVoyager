@@ -2,38 +2,39 @@
 
 namespace App\Application\BankingDataApi;
 
-use BasiqPhpApi\Api;
+use OpenAPI\Client\Api\AccountsApi;
+
 /**
  * Wraps the BasiqPHPAPI with a simple interface for use with our front end.
  *
  * @todo I am concerned about the connection to "BasiqUserConsents".
  */
-class BasiqBankingDataApiWrapper implements BankingDataApiInterface {
+class PocketSmithApiWrapper implements BankingDataApiInterface {
 
-  private $basiqApi;
+  private $api;
 
-  public function __construct(Api $basiqApi) {
-    $this->basiqApi = $basiqApi;
+  public function __construct(AccountsApi $api) {
+    $this->api = $api;
   }
 
   public function fetchData($userId): \stdClass {
-    return $this->basiqApi->fetchUser($userId);
+    return $this->api->fetchUser($userId);
   }
 
   public function fetchUser($userId): \stdClass {
-    return $this->basiqApi->fetchUser($userId);
+    return $this->api->usersIdAccountsGet($userId);
   }
 
   public function fetchUserAccounts($userId): array {
-    return $this->basiqApi->fetchUserAccounts($userId);
+    return $this->api->usersIdAccountsGet($userId);
   }
 
   public function fetchUsersAccount($userId): ?array {
-    return $this->basiqApi->fetchUsersAccount($userId);
+    return $this->api->fetchUsersAccount($userId);
   }
 
   public function getUserConsents($userId): ?array {
-    return $this->basiqApi->getUserConsents($userId);
+    return $this->api->getUserConsents($userId);
   }
 
 }

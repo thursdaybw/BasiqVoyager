@@ -5,9 +5,8 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     basiq_api_settings:
-        base_uri: '%env(BASIQ_BASE_URI)%'
-        user_id: '%env(BASIQ_USER_ID)%'
-        api_key: '%env(BASIQ_API_KEY)%'
+        user_id: '%env(USER_ID)%'
+        api_key: '%env(API_KEY)%'
 
 services:
     # default configuration for services in *this* file
@@ -27,20 +26,27 @@ services:
     # Add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
-    BasiqPhpApi\Api:
-        factory: ['App\Application\BankingDataApi\BasiqApiFactory', 'create']
+    #app.pocketsmith_api_factory:
+    #    class: App\Application\BankingDataApi\PocksmithApiFactory
+
+    bankingdata.api:
+        class: App\Application\BankingDataApi\BankingDataApiInterface
+        factory: ['@App\Application\BankingDataApi\PocksmithApiFactory', 'create']
         arguments:
             $settings: '%basiq_api_settings%'
 
     ## Wrapper to BasiqApi defined in our webapp scope.
     App\BankingDataApi\ApiInterface:
-        class: App\Application\BankingDataApi\BasiqBankingDataApiWrapper
+        class: App\Application\BankingDataApi\PocketsmithApiWrapper
         arguments:
-            $basiqApi: '@BasiqPhpApi\Api'
+            $api: '@bankingdata.api'
 
-    App\Application\BasiqUserService: ~
     App\Application\ConsentService: ~
     App\Application\AccountService: ~
+    App\Application\UserService:
+        class: \App\Application\UserService
+        arguments:
+            - '@bankingdata.api'
 
     # @todo Want to move thins banking data to a symfony package,
     # will need to do something about the paremeters up top of this page
@@ -56,6 +62,11 @@ services:
     app.basiq_user_id:
         class: string
         factory: ['@App\Application\BankingDataApi\Configuration\BasiqApiConfiguration', 'getUserId']
+
+    #App\Application\UserService:
+    #    factory: ['App\Application\BankingDataApi\PocksmithApiFactory', 'create']
+    #    arguments:
+    #        $settings: '%basiq_api_settings%'
 
     App\Application\HomePageService:
         arguments:
