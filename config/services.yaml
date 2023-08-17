@@ -36,10 +36,10 @@ services:
             $settings: '%basiq_api_settings%'
 
     ## Wrapper to BasiqApi defined in our webapp scope.
-    App\BankingDataApi\ApiInterface:
-        class: App\Application\BankingDataApi\PocketsmithApiWrapper
-        arguments:
-            $api: '@bankingdata.api'
+    #App\BankingDataApi\ApiInterface:
+    #    class: App\Application\BankingDataApi\PocketsmithApiWrapper
+    #    arguments:
+    #        $api: '@bankingdata.api'
 
     App\Application\ConsentService: ~
     App\Application\AccountService: ~

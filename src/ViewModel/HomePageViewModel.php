@@ -37,6 +37,11 @@ class HomePageViewModel {
   private array $accounts;
 
   /**
+   * The transactions of an account.
+   */
+  private array $transactions;
+
+  /**
    * Any errors we pulled to display below the form, for debugging.
    */
   private array $errors;
@@ -105,6 +110,19 @@ class HomePageViewModel {
    */
   public function getAccounts(): ?array {
     return $this->accounts ?? NULL;
+  }
+
+  public function setTransactions($transactions): void {
+    $this->transactions = $transactions;
+  }
+
+  /**
+   * Gets the account's transactions.
+   *
+   * @return ?\OpenAPI\Client\Model\Transaction[]
+   */
+  public function getTransactions(): ?array {
+    return $this->transactions ?? NULL;
   }
 
   /**

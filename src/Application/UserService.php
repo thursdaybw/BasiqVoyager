@@ -64,6 +64,10 @@ class UserService {
     return $this->bankingDataApi->fetchUserAccounts($userId);
   }
 
+  public function fetchAccountsTransactions(string $account_id): array {
+    return $this->bankingDataApi->fetchAccountsTransactions($account_id);
+  }
+
   /**
    * Fetches a user's account.
    *

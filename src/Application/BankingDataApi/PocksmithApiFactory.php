@@ -4,6 +4,7 @@ namespace App\Application\BankingDataApi;
 
 use GuzzleHttp\Client;
 use OpenAPI\Client\Api\AccountsApi;
+use OpenAPI\Client\Api\TransactionsApi;
 use OpenAPI\Client\Configuration;
 
 class PocksmithApiFactory {
@@ -13,12 +14,18 @@ class PocksmithApiFactory {
     $config = Configuration::getDefaultConfiguration()
       ->setApiKey('X-Developer-Key', $settings['api_key']);
 
-    $api = new AccountsApi(
+    $accountsApi = new AccountsApi(
       new Client(),
       $config
     );
 
-    return new PocketSmithApiWrapper($api);
+    $transactionsApi = new TransactionsApi(
+      new Client([
+      ]),
+      $config
+    );
+
+    return new PocketSmithApiWrapper($accountsApi, $transactionsApi);
 
   }
 

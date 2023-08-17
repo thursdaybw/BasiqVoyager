@@ -36,4 +36,8 @@ class BasiqBankingDataApiWrapper implements BankingDataApiInterface {
     return $this->basiqApi->getUserConsents($userId);
   }
 
+  public function fetchAccountsTransactions(string $account_id): array {
+    return $this->basiqApi->getUserConsents($account_id);
+  }
+
 }

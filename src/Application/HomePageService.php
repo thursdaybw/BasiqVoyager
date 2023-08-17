@@ -50,8 +50,12 @@ class HomePageService {
     if ($form->isSubmitted() && $form->isValid()) {
 
       $accounts = $this->userService->fetchUserAccounts($this->userId);
+      $accounts = [reset($accounts)];
       $viewModel->setAccounts($accounts);
 
+      $account_id = $accounts[0]->getId();
+      $transactions = $this->userService->fetchAccountsTransactions($account_id);
+      $viewModel->setTransactions($transactions);
       $showForm = FALSE;
     }
 

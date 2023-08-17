@@ -3,6 +3,7 @@
 namespace App\Application\BankingDataApi;
 
 use OpenAPI\Client\Api\AccountsApi;
+use OpenAPI\Client\Api\TransactionsApi;
 
 /**
  * Wraps the BasiqPHPAPI with a simple interface for use with our front end.
@@ -11,30 +12,33 @@ use OpenAPI\Client\Api\AccountsApi;
  */
 class PocketSmithApiWrapper implements BankingDataApiInterface {
 
-  private $api;
-
-  public function __construct(AccountsApi $api) {
-    $this->api = $api;
-  }
+  public function __construct(
+    readonly AccountsApi $accountsApi,
+    readonly TransactionsApi $transactionsApi
+  ) {}
 
   public function fetchData($userId): \stdClass {
-    return $this->api->fetchUser($userId);
+    return $this->accountsApi->fetchUser($userId);
   }
 
   public function fetchUser($userId): \stdClass {
-    return $this->api->usersIdAccountsGet($userId);
+    return $this->accountsApi->usersIdAccountsGet($userId);
   }
 
   public function fetchUserAccounts($userId): array {
-    return $this->api->usersIdAccountsGet($userId);
+    return $this->accountsApi->usersIdAccountsGet($userId);
   }
 
   public function fetchUsersAccount($userId): ?array {
-    return $this->api->fetchUsersAccount($userId);
+    return $this->accountsApi->fetchUsersAccount($userId);
   }
 
   public function getUserConsents($userId): ?array {
-    return $this->api->getUserConsents($userId);
+    return $this->accountsApi->getUserConsents($userId);
+  }
+
+  public function fetchAccountsTransactions(string $account_id): array {
+    return $this->transactionsApi->accountsIdTransactionsGet($account_id);
   }
 
 }

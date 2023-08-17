@@ -13,6 +13,8 @@ interface BankingDataApiInterface {
 
   public function fetchUserAccounts(string $userId): array;
 
+  public function fetchAccountsTransactions(string $account_id): array;
+
   public function fetchUsersAccount(string $userId): ?array;
 
   public function getUserConsents(string $userId): ?array;

@@ -25,10 +25,43 @@
     {% for account in viewModel.accounts %}
         <table class="account" style="margin-top: 50px">
             <tr><th colspan="2" style="text-align: left;">{{ account.getTitle() }}</th></tr>
+            <tr><th colspan="2" style="text-align: left;">{{ account.getId() }}</th></tr>
             <tr><td>Balance:</td><td>{{ account.getCurrentBalance }}</td></tr>
         </table>
     {% endfor %}
     {%  endif %}
 
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Payee</th>
+            <th>Date</th>
+            <th>Category</th>
+            <th>Closing Balance</th>
+            <th>Amount</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th>Needs Review</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if viewModel.transactions %}
+        {% for transaction in viewModel.transactions %}
+            <tr>
+                <td>{{ transaction.id }}</td>
+                <td>{{ transaction.payee }}</td>
+                <td>{{ transaction.date|date('Y-m-d') }}</td>
+                <td>{{ transaction.category ? transaction.category.title : 'N/A' }}</td>
+                <td>{{ transaction.closing_balance|number_format(2, '.', ',') }}</td>
+                <td>{{ transaction.amount|number_format(2, '.', ',') }}</td>
+                <td>{{ transaction.type }}</td>
+                <td>{{ transaction.status }}</td>
+                <td>{{ transaction.needs_review ? 'Yes' : 'No' }}</td>
+            </tr>
+        {% endfor %}
+        {% endif %}
+        </tbody>
+    </table>
 
 {% endblock %}
